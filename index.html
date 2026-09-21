@@ -2406,7 +2406,10 @@ function setLang(lang) {
   try { localStorage.setItem(LS_LANG, currentLang); } catch (e) {}
   applyI18n();
   renderAll();
-  buildTickerTape(true);
+  /* JANGAN bina semula pita ticker semasa tukar bahasa: skrip TradingView yang
+     lama masih hidup dan akan ralat "querySelector of null" apabila bekasnya
+     diganti. Pita dibina sekali selepas data dimuatkan (loadData). */
+  buildTickerTape(false);
   if (drawerStock) renderDrawer();
 }
 function renderAll() {

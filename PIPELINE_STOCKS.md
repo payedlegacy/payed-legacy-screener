@@ -150,3 +150,41 @@ uv run --quiet --with "yfinance>=1.7,<2" --with "pypdf>=6,<7" python fetch_live_
 ```
 Kemudian semak `meta.breakoutCount`, `meta.topBreakouts`, dan medan `breakout` bagi setiap rekod.
 
+## Lapisan HARGA LANGSUNG di laman web (ditambah 21-09-2026)
+
+**Masalah yang diselesaikan:** `stocks.json` hanya dikemas 2x sehari (selepas pasaran tutup).
+Semasa sesi US berjalan (21:30–04:00 waktu Malaysia) halaman memaparkan penutup sesi
+sebelumnya, jadi harga kelihatan "tidak dikemas kini" walaupun sebenarnya tiada data baharu
+dalam fail. Kini laman web menarik harga langsung sendiri.
+
+- **Sumber:** suapan awam TradingView — `POST https://scanner.tradingview.com/{malaysia|america}/scan`
+  dengan `{symbols:{tickers:[...]},columns:[...]}`. Kolum yang digunakan: `close`, `change`,
+  `change_abs`, `volume`, `average_volume_10d_calc`, `relative_volume_10d_calc`, `RSI`,
+  `EMA7`, `EMA21`, `EMA20`, `EMA50`, `EMA200`, `price_52_week_high/low`, `High.All`,
+  `price_earnings_ttm`, `dividend_yield_recent`, `market_cap_basic`, `premarket_close`,
+  `premarket_change`.
+- **PENTING (CORS):** permintaan mesti dihantar **tanpa** header `Content-Type: application/json`.
+  Bila header itu ada, pelayar melakukan preflight `OPTIONS` dan suapan menolaknya →
+  `Failed to fetch`. Tanpa header, ia menjadi "simple request" dan berjaya (suapan
+  memantulkan `Access-Control-Allow-Origin`).
+- **Kekerapan:** setiap 60 saat semasa halaman dibuka + selepas setiap `loadData()`
+  (termasuk butang "Muat semula"); digantung bila tab tersembunyi.
+- **Cara gabung:** nilai langsung **ditulis atas** objek `STOCKS` (harga, perubahan, volum,
+  RSI, EMA, 52M, P/E, dividen, modal pasaran) supaya SEMUA tapisan, susunan, ringkasan,
+  kad mudah alih, CSV dan amaran berfungsi atas harga langsung. Nilai asal fail disimpan
+  dalam `s.session` dan dipaparkan sebagai "Penutup sesi" dalam panel analisis.
+- **Cip status:** `🟢 Harga langsung · N kaunter · dikemas Xs lalu` (hijau) atau
+  `📄 Mod sesi (suapan langsung tidak tersedia)` + cip sesi pasaran
+  (`🇲🇾/🇺🇸 Sesi BUKA/TUTUP • tutup/buka HH:MM`, waktu Malaysia, dari zon waktu NY).
+- **Jika suapan gagal:** data sesi kekal dipaparkan, cip memberi amaran — TIADA angka direka.
+- **Kilatan warna** hijau/merah pada harga yang berubah (hanya pada muat semula kedua dan seterusnya).
+- **Baris pra-pasaran** untuk kaunter US dipaparkan bila sesi biasa sudah tutup.
+
+### Semakan silang ticker (kesan kod Bursa yang salah)
+`fetch_live_data.py` kini menyemak setiap `tvSymbol` terhadap suapan (fungsi `tv_quotes()`).
+Jika harga sesi berbeza >15% daripada suapan, ia dicatat dalam `meta.liveFeedCrossCheck`
+dan `meta.notes` ("SEMAK TICKER ... — suapan kata: <nama syarikat>"). Ini yang mendedahkan
+kes sebenar: **YTLPOWR pernah dipetakan kepada `4677.KL` (YTL Corporation, RM2.36) sedangkan
+YTL Power International ialah `6742.KL` (RM5.89)** — nama syarikat dari suapan itulah bukti paling kuat.
+
+

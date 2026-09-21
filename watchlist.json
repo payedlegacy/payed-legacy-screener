@@ -18,7 +18,7 @@
     { "symbol": "PETCHEM",   "ticker": "5183.KL", "tvSymbol": "MYX:PCHEM", "bursaCode": "5183", "market": "KLSE", "sector": "Energy" },
     { "symbol": "MRDIY",     "ticker": "5296.KL", "tvSymbol": "MYX:MRDIY", "bursaCode": "5296", "market": "KLSE", "sector": "Consumer" },
     { "symbol": "MISC",      "ticker": "3816.KL", "tvSymbol": "MYX:MISC", "bursaCode": "3816", "market": "KLSE", "sector": "Energy" },
-    { "symbol": "YTLPOWR",   "ticker": "4677.KL", "tvSymbol": "MYX:YTLPOWR", "bursaCode": "4677", "market": "KLSE", "sector": "Utilities" },
+    { "symbol": "YTLPOWR",   "ticker": "6742.KL", "tvSymbol": "MYX:YTLPOWR", "bursaCode": "6742", "market": "KLSE", "sector": "Utilities" },
     { "symbol": "MAXIS",     "ticker": "6012.KL", "tvSymbol": "MYX:MAXIS", "bursaCode": "6012", "market": "KLSE", "sector": "Telco" },
     { "symbol": "IHH",       "ticker": "5225.KL", "tvSymbol": "MYX:IHH", "bursaCode": "5225", "market": "KLSE", "sector": "Healthcare" },
     { "symbol": "RHBBANK",   "ticker": "1066.KL", "tvSymbol": "MYX:RHBBANK", "bursaCode": "1066", "market": "KLSE", "sector": "Finance" },

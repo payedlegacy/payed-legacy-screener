@@ -271,6 +271,48 @@ def shariah_us(sector: str, total_debt, market_cap) -> tuple[bool, str]:
 
 
 # --------------------------------------------------------------------------
+# Semakan silang dengan suapan pasaran awam (TradingView scanner)
+# --------------------------------------------------------------------------
+def tv_quotes(pairs: list) -> dict:
+    """Semak silang harga sesi vs suapan langsung.
+
+    `pairs` = senarai (symbol, tvSymbol). Pulangkan {tvSymbol: {"close":.., "name":..}}.
+    Tujuan: mengesan TICKER YANG SALAH (cth kod Bursa 4677 = YTL Corp, bukan YTL Power)
+    dan dicatat dalam meta supaya boleh disemak — bukan untuk menukar harga.
+    """
+    out: dict = {}
+    groups: dict = {}
+    for _sym, tv in pairs:
+        if not tv:
+            continue
+        mkt = "malaysia" if str(tv).startswith("MYX:") else "america"
+        groups.setdefault(mkt, []).append(str(tv))
+    for mkt, tickers in groups.items():
+        for i in range(0, len(tickers), 25):
+            chunk = tickers[i:i + 25]
+            body = json.dumps({
+                "symbols": {"tickers": chunk, "query": {"types": []}},
+                "columns": ["close", "description"],
+            }).encode()
+            req = urllib.request.Request(
+                f"https://scanner.tradingview.com/{mkt}/scan", data=body,
+                headers={"Content-Type": "application/json", "User-Agent": UA,
+                         "Origin": "https://screener.payedlegacy.my"})
+            try:
+                with urllib.request.urlopen(req, timeout=40) as r:
+                    data = json.load(r)
+                for row in data.get("data", []) or []:
+                    d = row.get("d") or []
+                    if d and d[0] is not None:
+                        out[row.get("s")] = {"close": float(d[0]),
+                                             "name": (d[1] if len(d) > 1 else None)}
+            except Exception as exc:  # noqa: BLE001
+                print(f"  [warn] semakan silang suapan gagal ({mkt}): {exc}", file=sys.stderr)
+            time.sleep(0.4)
+    return out
+
+
+# --------------------------------------------------------------------------
 # Tarikan data saham
 # --------------------------------------------------------------------------
 def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
@@ -603,6 +645,36 @@ def main() -> int:
     order = {c["symbol"]: i for i, c in enumerate(watch)}
     out_stocks.sort(key=lambda s: order.get(s["symbol"], 999))
 
+    # --- semakan silang ticker: harga sesi vs suapan pasaran awam ---
+    symbol_check = []
+    try:
+        feed = tv_quotes([(s["symbol"], s.get("tvSymbol")) for s in out_stocks])
+    except Exception as exc:  # noqa: BLE001
+        print(f"  [warn] semakan silang dilangkau: {exc}", file=sys.stderr)
+        feed = {}
+    for s in out_stocks:
+        q = feed.get(str(s.get("tvSymbol") or ""))
+        price = s.get("price")
+        if not q or not price:
+            continue
+        dev = abs(q["close"] - price) / price * 100.0
+        if dev > 15.0:
+            symbol_check.append({
+                "symbol": s["symbol"],
+                "tvSymbol": s.get("tvSymbol"),
+                "sessionClose": price,
+                "feedClose": q["close"],
+                "deviationPct": round(dev, 1),
+                "feedName": q.get("name"),
+            })
+            notes.append(
+                f"SEMAK TICKER {s['symbol']}: harga sesi {price} vs suapan {q['close']} "
+                f"({dev:.0f}% beza) — suapan kata: {q.get('name')}"
+            )
+    if symbol_check:
+        print(f"  [warn] {len(symbol_check)} kaunter perlu semakan ticker: "
+              f"{', '.join(x['symbol'] for x in symbol_check)}")
+
     now = datetime.now(MYT)
     klse = [s for s in out_stocks if s["market"] == "KLSE"]
     us = [s for s in out_stocks if s["market"] == "US"]
@@ -621,6 +693,8 @@ def main() -> int:
             "shariahListDate": sc_date,
             "shariahListCount": sc_count,
             "priceSource": "Yahoo Finance (yfinance)",
+            "liveFeedSource": "TradingView scanner (semakan silang ticker)",
+            "liveFeedCrossCheck": symbol_check,
             "scanner": "Global Mega-Breakout & Volume Surge Screener",
             "scannerId": "global_breakout_momentum_scanner",
             "breakoutCount": sum(
