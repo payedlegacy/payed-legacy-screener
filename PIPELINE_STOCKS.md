@@ -44,13 +44,48 @@ Yahoo Finance (harga, RSI, MACD, MA, PE, dividen)   SC Malaysia (PDF senarai Sya
   semula adalah automatik (contoh: `MYEG` kini dipaparkan sebagai **Zetrix AI Berhad**).
   Perubahan nama direkod dalam `meta.notes`.
 - **Harga penutup & perubahan %** (berserta OHLC, 52-minggu tinggi/rendah, volum purata).
-- **Teknikal** — RSI(14) Wilder, MA20/MA50/MA200, MACD(12,26,9) + signal/histogram,
-  corak candlestick (Doji, Hammer, Shooting Star, Engulfing, Marubozu, dll).
+- **Teknikal** — RSI(14) Wilder, MA20/MA50/MA200, EMA7/EMA21/EMA20/EMA50/EMA200,
+  MACD(12,26,9) + signal/histogram, corak candlestick (Doji, Hammer, Shooting Star,
+  Engulfing, Marubozu, dll).
+  Bendera siap-pakai untuk preset screener: `ema7_21`, `ema20_50`, `emaSupport`,
+  `high52w`, `ath` (paras tertinggi **sejarah penuh** — sejarah harga ditarik
+  `period="max"`), `pctHigh52`, `volumeRatio`.
 - **Fundamental** — PE (trailing), kadar dividen (TTM/dividen sebenar ÷ harga), sektor.
 - **Status Syariah** — untuk kaunter Bursa Malaysia: senarai rasmi SC
   ("List of Shariah-compliant Securities", dikemas kini setiap hujung Jumaat terakhir
   Mei & November). Kod kaunter yang tiada dalam senarai = tidak patuh Syariah.
   Untuk saham US: heuristik AAOIFI (anggaran) — ditanda dalam `shariahSource`.
+
+## Kontrak data dengan `index.html` (PENTING)
+
+`index.html` **tidak menyimpan angka lalai**. Ia membaca `/stocks.json` setiap kali
+dibuka (dan menyemak semula setiap 5 minit) lalu memetakan medan melalui `adaptStock()`:
+
+| Medan `stocks.json` | Dipetakan kepada | Nota |
+|---|---|---|
+| `market` = `KLSE` / `US` | `malaysia` / `america` | Penapis halaman guna `malaysia`/`america` |
+| `divYield` | `div` | Kadar dividen % |
+| `symbol` + `market` | `tvSymbol` | `MYX:<SYMBOL>` untuk Bursa, simbol biasa untuk US |
+| `ema7_21`, `ema20_50`, `emaSupport`, `high52w`, `ath`, `volumeRatio` | bendera preset | Tiada nilai → halaman kira dari MACD/MA |
+| `patterns` | chip corak candlestick | Lajur "Status EMA / Reversal" |
+| `meta.generatedAtMYT`, `meta.mySessionDate`, `meta.usSessionDate` | panel "Data setakat" | + amaran amber jika data > 24 jam |
+| `meta.priceSource`, `meta.shariahListDate`, `meta.symbolCount` | nota sumber | Ditulis jujur (Yahoo Finance + TradingView) |
+
+Jika `stocks.json` gagal dimuatkan, halaman memaparkan **amaran merah dan jadual kosong** —
+ia TIDAK memaparkan harga lama. Kekalkan sifat ini semasa menyunting `index.html`.
+
+Ticker pasaran dan carta dibina secara dinamik daripada senarai kaunter `stocks.json`
+menggunakan widget rasmi TradingView (`embed-widget-ticker-tape.js`,
+`embed-widget-advanced-chart.js`) — bukan lagi `tv.js` lama atau simbol hardcoded.
+
+## Auto-push dari PC (cron Hermes)
+
+Skrip `%LOCALAPPDATA%\hermes\scripts\git-auto-push.sh` (cron harian 07:00) commit + push
+perubahan tempatan untuk kedua-dua repo (`payed-legacy-web`, `payed-legacy-screener`)
+guna `GITHUB_TOKEN` dalam `.env`. Ia **membuang** perubahan tempatan pada `stocks.json`
+sebelum commit supaya data lama tidak menimpa data baharu yang dijana GitHub Actions.
+Jika token tamat (HTTP 401 pada `https://api.github.com/user`), jana PAT baharu
+(skop `repo`) dan ganti baris `GITHUB_TOKEN=` dalam `.env`.
 
 ## Ujian manual (PC)
 
