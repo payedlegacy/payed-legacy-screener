@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generatedAt": "2026-09-21T13:23:51+08:00",
-    "generatedAtMYT": "21 Sep 2026, 1:23 PM (MYT)",
-    "generatedAtUTC": "2026-09-21T05:23:51+00:00",
+    "generatedAt": "2026-09-21T13:28:19+08:00",
+    "generatedAtMYT": "21 Sep 2026, 1:28 PM (MYT)",
+    "generatedAtUTC": "2026-09-21T05:28:19+00:00",
     "symbolCount": 24,
     "klseCount": 16,
     "usCount": 8,
@@ -53,7 +53,7 @@
       "marketCap": 29367480320,
       "signal": "NEUTRAL",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:50+08:00",
+      "updatedAt": "2026-09-21T13:28:18+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -98,7 +98,7 @@
       "marketCap": 237406576,
       "signal": "NEUTRAL",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:50+08:00",
+      "updatedAt": "2026-09-21T13:28:18+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -140,7 +140,7 @@
       "marketCap": 125794017280,
       "signal": "💰 RAJA DIVIDEN",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:50+08:00",
+      "updatedAt": "2026-09-21T13:28:18+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -182,7 +182,7 @@
       "marketCap": 1619038080,
       "signal": "🟢 BUY ON DIP",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:50+08:00",
+      "updatedAt": "2026-09-21T13:28:18+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -224,7 +224,7 @@
       "marketCap": 76128600064,
       "signal": "🟢 BUY ON DIP",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:50+08:00",
+      "updatedAt": "2026-09-21T13:28:18+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -268,7 +268,7 @@
       "marketCap": 83239723008,
       "signal": "💰 RAJA DIVIDEN",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:50+08:00",
+      "updatedAt": "2026-09-21T13:28:18+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -312,7 +312,7 @@
       "marketCap": 93171326976,
       "signal": "🟢 BUY ON DIP",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:50+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -354,7 +354,7 @@
       "marketCap": 29881061376,
       "signal": "🟢 BUY ON DIP",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:50+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -398,7 +398,7 @@
       "marketCap": 10182694912,
       "signal": "NEUTRAL",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:50+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -442,7 +442,7 @@
       "marketCap": 16834526208,
       "signal": "💰 RAJA DIVIDEN",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:50+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -486,7 +486,7 @@
       "marketCap": 6173942272,
       "signal": "NEUTRAL",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:50+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -530,7 +530,7 @@
       "marketCap": 30501920768,
       "signal": "🟢 BUY ON DIP",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:50+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -574,7 +574,7 @@
       "marketCap": 43569004544,
       "signal": "NEUTRAL",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:50+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -616,7 +616,7 @@
       "marketCap": 37279997952,
       "signal": "NEUTRAL",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:51+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -658,7 +658,7 @@
       "marketCap": 12320718848,
       "signal": "🟢 BUY ON DIP",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:50+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -700,7 +700,7 @@
       "marketCap": 35531415552,
       "signal": "💰 RAJA DIVIDEN",
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T13:23:51+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -742,7 +742,7 @@
       "marketCap": 5367153557504,
       "signal": "NEUTRAL",
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T13:23:51+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -786,7 +786,7 @@
       "marketCap": 4905541566464,
       "signal": "✨ GOLDEN CROSS",
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T13:23:51+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -828,7 +828,7 @@
       "marketCap": 1438701584384,
       "signal": "NEUTRAL",
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T13:23:51+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -870,7 +870,7 @@
       "marketCap": 3666585845760,
       "signal": "NEUTRAL",
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T13:23:51+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -912,7 +912,7 @@
       "marketCap": 2736595664896,
       "signal": "NEUTRAL",
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T13:23:51+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -954,7 +954,7 @@
       "marketCap": 4274851676160,
       "signal": "NEUTRAL",
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T13:23:51+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -996,7 +996,7 @@
       "marketCap": 1696002211840,
       "signal": "NEUTRAL",
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T13:23:51+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -1038,7 +1038,7 @@
       "marketCap": 913892179968,
       "signal": "🚀 BREAKOUT",
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T13:23:51+08:00",
+      "updatedAt": "2026-09-21T13:28:19+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
