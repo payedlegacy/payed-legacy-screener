@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screener Saham Hybrid & Portal Kewangan | Payed Legacy</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Konfigurasi Tema Kustom Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        },
+                        shariah: {
+                            500: '#10b981',
+                            600: '#059669',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Kod Placeholder Google AdSense Auto-Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+    <style>
+        .ticker-wrap {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker {
+            display: inline-block;
+            animation: marquee 30s linear infinite;
+        }
+        .ticker:hover {
+            animation-play-state: paused;
+        }
+        @keyframes marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+        ::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- BAR HARGA PASARAN LIVE (Crypto MYR/USD & Komoditi Emas/Perak) -->
+    <header class="bg-slate-900 text-slate-200 text-xs py-2 border-b border-slate-800 shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+            <div class="flex items-center space-x-2 font-bold text-amber-400 min-w-max mr-4">
+                <i data-lucide="zap" class="w-4 h-4"></i>
+                <span>PASARAN LIVE:</span>
+            </div>
+            
+            <div class="ticker-wrap flex-1 overflow-hidden">
+                <div id="tickerContent" class="ticker space-x-6 text-slate-300">
+                    <span class="inline-flex items-center gap-1"><i data-lucide="loader" class="w-3 h-3 animate-spin"></i> Memuatkan harga Kripto & Emas terkini...</span>
+                </div>
+            </div>
+
+            <div class="ml-4 min-w-max hidden md:flex items-center space-x-3 text-slate-400">
+                <span class="text-[11px]"><i data-lucide="shield-check" class="w-3 h-3 text-emerald-400 inline"></i> Kemas Kini Otomatis (Client-Side)</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGASI UTAMA -->
+    <nav class="bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-blue-600 text-white p-2 rounded-xl shadow-md">
+                        <i data-lucide="line-chart" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <a href="#" class="font-extrabold text-xl tracking-tight text-slate-900">
+                            Payed Legacy <span class="text-blue-600">Screener</span>
+                        </a>
+                        <p class="text-[10px] text-slate-500 font-medium">Portal Pelaburan Saham Bursa Malaysia & Pasaran US</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <button onclick="openModal('calcModal')" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                        <i data-lucide="calculator" class="w-4 h-4 text-blue-600"></i>
+                        <span class="hidden sm:inline">Kalkulator Posisi</span>
+                    </button>
+                    <button onclick="openModal('donationModal')" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-amber-400 text-slate-900 hover:bg-amber-300 shadow-sm transition">
+                        <i data-lucide="coffee" class="w-4 h-4"></i>
+                        <span>Sokong Web</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- BEKAS KANDUNGAN UTAMA -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+
+        <!-- RUANG IKLAN BANNER ATAS (GOOGLE ADSENSE) -->
+        <div class="w-full bg-slate-100 border border-dashed border-slate-300 rounded-xl p-3 text-center min-h-[90px] flex flex-col justify-center items-center">
+            <span class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mb-1">Ruang Iklan Penaja / AdSense Space</span>
+            <div class="text-xs text-slate-500">
+                <p class="font-medium text-slate-600">Promosi Khas: Buka Akaun Moomoo Malaysia & Dapatkan Baucar Tunai Percuma!</p>
+                <a href="https://www.moomoo.com/my" target="_blank" class="text-blue-600 hover:underline font-bold text-xs mt-1 inline-block">Daftar Moomoo Hari Ini &rarr;</a>
+            </div>
+        </div>
+
+        <!-- MATRIKS TAWARAN PROMOSI & REFERRAL (GRID LAYOUT) -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Kad Luno Malaysia -->
+            <div class="bg-gradient-to-br from-emerald-900 to-slate-900 text-white rounded-2xl p-4 shadow-sm border border-emerald-800 flex flex-col justify-between relative overflow-hidden">
+                <div class="absolute -right-4 -bottom-4 opacity-10 text-emerald-400">
+                    <i data-lucide="coins" class="w-32 h-32"></i>
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-bold">LUNO MALAYSIA</span>
+                        <i data-lucide="gift" class="w-4 h-4 text-emerald-400"></i>
+                    </div>
+                    <h3 class="font-bold text-base text-emerald-100">Percuma RM25 Bitcoin (BTC)</h3>
+                    <p class="text-xs text-slate-300 mt-1">Daftar & beli RM250 mana-mana kripto di Luno. Masukkan kod promo di ruang Rewards.</p>
+                </div>
+                <div class="mt-4 space-y-2">
+                    <div class="flex items-center justify-between bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+                        <span class="text-xs text-slate-400">Kod Promo:</span>
+                        <span class="font-mono text-xs font-bold text-emerald-400 tracking-wider">KOD_LUNO_ANDA</span>
+                    </div>
+                    <a href="https://www.luno.com" target="_blank" class="block w-full text-center bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2 rounded-lg text-xs transition">
+                        Buka Akaun Luno
+                    </a>
+                </div>
+            </div>
+
+            <!-- Kad M+ Global / MPlus -->
+            <div class="bg-gradient-to-br from-blue-900 to-slate-900 text-white rounded-2xl p-4 shadow-sm border border-blue-800 flex flex-col justify-between relative overflow-hidden">
+                <div class="absolute -right-4 -bottom-4 opacity-10 text-blue-400">
+                    <i data-lucide="candlestick-chart" class="w-32 h-32"></i>
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[10px] px-2 py-0.5 rounded-full font-bold">M+ GLOBAL / MPLUS</span>
+                        <i data-lucide="trending-up" class="w-4 h-4 text-blue-400"></i>
+                    </div>
+                    <h3 class="font-bold text-base text-blue-100">Broker Direct CDS Fee Terendah</h3>
+                    <p class="text-xs text-slate-300 mt-1">Akaun CDS berlesen Suruhanjaya Sekuriti untuk dagangan Bursa Malaysia & US Market.</p>
+                </div>
+                <div class="mt-4 space-y-2">
+                    <div class="flex items-center justify-between bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+                        <span class="text-xs text-slate-400">Kod Referral:</span>
+                        <span class="font-mono text-xs font-bold text-blue-400 tracking-wider">KOD_MPLUS_ANDA</span>
+                    </div>
+                    <a href="https://mplus.com.my" target="_blank" class="block w-full text-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded-lg text-xs transition">
+                        Daftar M+ Global
+                    </a>
+                </div>
+            </div>
+
+            <!-- Kad Moomoo MY -->
+            <div class="bg-gradient-to-br from-purple-900 to-slate-900 text-white rounded-2xl p-4 shadow-sm border border-purple-800 flex flex-col justify-between relative overflow-hidden">
+                <div class="absolute -right-4 -bottom-4 opacity-10 text-purple-400">
+                    <i data-lucide="award" class="w-32 h-32"></i>
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[10px] px-2 py-0.5 rounded-full font-bold">MOOMOO MALAYSIA</span>
+                        <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
+                    </div>
+                    <h3 class="font-bold text-base text-purple-100">Ganjaran Saham Percuma</h3>
+                    <p class="text-xs text-slate-300 mt-1">Nikmati platform carta Pro, analisis AI, dan baucar tunai percuma apabila deposit akaun baru.</p>
+                </div>
+                <div class="mt-4 space-y-2">
+                    <div class="flex items-center justify-between bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+                        <span class="text-xs text-slate-400">Pautan Promosi:</span>
+                        <span class="font-mono text-xs font-bold text-purple-300">MOOMOO_MY</span>
+                    </div>
+                    <a href="https://www.moomoo.com/my" target="_blank" class="block w-full text-center bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 rounded-lg text-xs transition">
+                        Tuntut Saham Percuma
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEKSYEN TOP 5 SAHAM TUMPUAN (TOP MOVERS) -->
+        <section class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+                <div>
+                    <h2 class="font-bold text-lg text-slate-900 flex items-center gap-2">
+                        <i data-lucide="flame" class="w-5 h-5 text-amber-500"></i>
+                        Top 5 Saham Tumpuan Hari Ini
+                    </h2>
+                    <p class="text-xs text-slate-500">Saham paling aktif, untung, rugi, dan dividen tertinggi di pasaran</p>
+                </div>
+
+                <!-- Pemilih Pasaran (Market Switcher) -->
+                <div class="inline-flex p-1 bg-slate-100 rounded-xl text-xs font-semibold">
+                    <button id="btnMarketKLSE" onclick="switchMoversMarket('KLSE')" class="px-3 py-1.5 rounded-lg bg-white shadow-sm text-slate-900 transition">🇲🇾 KLSE (Bursa)</button>
+                    <button id="btnMarketUS" onclick="switchMoversMarket('US')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">🇺🇸 US Market</button>
+                </div>
+            </div>
+
+            <!-- Grid Kad Top 5 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="top5Container">
+                <!-- Dijana secara dinamik oleh JavaScript -->
+            </div>
+        </section>
+
+        <!-- SEKSYEN UTAMA ENJIN HYBRID SCREENER -->
+        <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-slate-200 space-y-4">
+                <div class="flex flex-col md:flex-row justify-between md:items-center gap-3">
+                    <div>
+                        <h2 class="font-extrabold text-xl text-slate-900 flex items-center gap-2">
+                            <i data-lucide="filter" class="w-5 h-5 text-blue-600"></i>
+                            Enjin Hybrid Screener
+                        </h2>
+                        <p class="text-xs text-slate-500">Tapis kombinasi Fundamental + Teknikal + Lencana Syariah secara automatik</p>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <label class="inline-flex items-center cursor-pointer bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-100 transition">
+                            <input type="checkbox" id="shariahOnlyToggle" onchange="applyFilters()" class="sr-only peer">
+                            <div class="w-4 h-4 rounded border border-slate-300 peer-checked:bg-emerald-600 peer-checked:border-emerald-600 mr-2 flex items-center justify-center text-white text-[10px]">✓</div>
+                            <span>🌙 Syariah Sahaja</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- PRESET STRATEGI YOUTUBE & KOMUNITI (ONE-CLICK BUTTONS) -->
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">⚡ Preset Strategi YouTube & Komuniti (Sekali Klik):</label>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="applyPreset('ALL')" class="preset-btn active px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 transition">
+                            Semua Saham
+                        </button>
+                        <button onclick="applyPreset('BOD')" class="preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition flex items-center gap-1">
+                            <i data-lucide="trending-down" class="w-3.5 h-3.5"></i>
+                            🟢 Buy On Dip (RSI Oversold)
+                        </button>
+                        <button onclick="applyPreset('BREAKOUT')" class="preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition flex items-center gap-1">
+                            <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                            🚀 Breakout + High Volume
+                        </button>
+                        <button onclick="applyPreset('DIVIDEND')" class="preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 transition flex items-center gap-1">
+                            <i data-lucide="coins" class="w-3.5 h-3.5"></i>
+                            💰 Raja Dividen (DY > 3%)
+                        </button>
+                        <button onclick="applyPreset('GOLDEN_CROSS')" class="preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100 transition flex items-center gap-1">
+                            <i data-lucide="crosshair" class="w-3.5 h-3.5"></i>
+                            ✨ EMA Golden Cross
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KAWALAN PENAPIS TERPERINCI -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-3 pt-2">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">Carian Nama / Simbol</label>
+                        <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Contoh: GAMUDA, NVDA..." class="w-full text-xs px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">Nisbah PE (Maksimum)</label>
+                        <select id="peFilter" onchange="applyFilters()" class="w-full text-xs px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="ALL">Semua PE</option>
+                            <option value="15">PE &lt; 15 (Undervalued)</option>
+                            <option value="25">PE &lt; 25</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">Penunjuk RSI (14)</label>
+                        <select id="rsiFilter" onchange="applyFilters()" class="w-full text-xs px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="ALL">Semua RSI</option>
+                            <option value="OVERSOLD">RSI &lt; 35 (Oversold)</option>
+                            <option value="NEUTRAL">RSI 35 - 60 (Normal)</option>
+                            <option value="OVERBOUGHT">RSI &gt; 70 (Overbought)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">Sektor Utama</label>
+                        <select id="sectorFilter" onchange="applyFilters()" class="w-full text-xs px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="ALL">Semua Sektor</option>
+                            <option value="Technology">Teknologi</option>
+                            <option value="Property">Hartanah / Pembinaan</option>
+                            <option value="Energy">Tenaga & Minyak</option>
+                            <option value="Consumer">Barangan Pengguna</option>
+                        </select>
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">Pilihan Pasaran</label>
+                        <select id="marketFilter" onchange="applyFilters()" class="w-full text-xs px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-bold text-blue-700">
+                            <option value="ALL">🇲🇾 KLSE & 🇺🇸 US Market</option>
+                            <option value="KLSE">🇲🇾 Bursa Malaysia Sahaja</option>
+                            <option value="US">🇺🇸 US Market Sahaja</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JADUAL KEPUTUSAN SCREENER -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-slate-100 text-slate-600 font-bold uppercase tracking-wider text-[10px] border-b border-slate-200">
+                        <tr>
+                            <th class="py-3 px-4">Saham / Simbol</th>
+                            <th class="py-3 px-4">Status Syariah</th>
+                            <th class="py-3 px-4">Harga Terkini</th>
+                            <th class="py-3 px-4">Perubahan 24j</th>
+                            <th class="py-3 px-4">RSI (14)</th>
+                            <th class="py-3 px-4">Nisbah PE</th>
+                            <th class="py-3 px-4">Kadar Dividen</th>
+                            <th class="py-3 px-4">Sinyal Hybrid</th>
+                            <th class="py-3 px-4 text-center">Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="screenerTableBody" class="divide-y divide-slate-100">
+                        <!-- Baris dijana secara dinamik oleh JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- STATUS BAWAH JADUAL -->
+            <div class="p-4 bg-slate-50 border-t border-slate-200 flex justify-between items-center text-xs text-slate-500">
+                <span id="resultCount">Menunjukkan 0 kaunter yang memenuhi kriteria</span>
+                <span class="text-[11px] text-slate-400">Nota: Data disemak secara client-side real-time.</span>
+            </div>
+        </section>
+
+        <!-- RUANG IKLAN ADSENSE BAWAH -->
+        <div class="w-full bg-slate-100 border border-dashed border-slate-300 rounded-xl p-3 text-center min-h-[90px] flex flex-col justify-center items-center">
+            <span class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mb-1">Ruang Iklan Penaja / AdSense Space</span>
+            <p class="text-xs text-slate-500">Ingin melabur dalam hartanah dengan modal dividen saham anda? Semak borang di footer di bawah.</p>
+        </div>
+
+    </main>
+
+    <!-- FOOTER: LEGAL FINANCIAL DISCLAIMER & PROPERTY LEAD GEN -->
+    <footer class="bg-slate-900 text-slate-300 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Lajur 1: Mengenai Portal -->
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-2">
+                        <div class="bg-blue-600 text-white p-1.5 rounded-lg">
+                            <i data-lucide="line-chart" class="w-5 h-5"></i>
+                        </div>
+                        <span class="font-bold text-lg text-white">screener.payedlegacy.my</span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Portal maklumat pelaburan & penyaring saham percuma untuk komuniti pelabur Bursa Malaysia & US Market. Membantu pedagang membuat keputusan berasaskan data analisis teknikal & fundamental.
+                    </p>
+                </div>
+
+                <!-- Lajur 2: Lead Gen Hartanah Payed Legacy Property -->
+                <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <div class="flex items-center space-x-2 text-amber-400 font-bold text-xs">
+                        <i data-lucide="home" class="w-4 h-4"></i>
+                        <span>PAYED LEGACY PROPERTY</span>
+                    </div>
+                    <h4 class="text-xs font-bold text-white">Semak Kelayakan Pinjaman Rumah Anda (Percuma)</h4>
+                    <p class="text-[11px] text-slate-400">Tukarkan keuntungan pasaran saham anda kepada aset fizikal hartanah yang berterusan.</p>
+                    
+                    <form onsubmit="handleLeadSubmit(event)" class="space-y-2">
+                        <input type="text" id="leadName" placeholder="Nama Penuh Anda" required class="w-full text-xs px-3 py-1.5 bg-slate-900 border border-slate-700 rounded text-slate-200 focus:outline-none focus:border-blue-500">
+                        <input type="tel" id="leadPhone" placeholder="Nombor WhatsApp" required class="w-full text-xs px-3 py-1.5 bg-slate-900 border border-slate-700 rounded text-slate-200 focus:outline-none focus:border-blue-500">
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs py-1.5 rounded transition">
+                            Hantar Semakan Kelayakan
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Lajur 3: Pautan Sokongan & Referral -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Sokongan & Pautan</h4>
+                    <ul class="text-xs space-y-2 text-slate-400">
+                        <li><a href="#" onclick="openModal('donationModal')" class="hover:text-amber-400 transition">☕ Belanja Kopi / Sumbangan DuitNow</a></li>
+                        <li><a href="https://www.luno.com" target="_blank" class="hover:text-emerald-400 transition">🪙 Promosi Luno Bitcoin (RM25 Percuma)</a></li>
+                        <li><a href="https://mplus.com.my" target="_blank" class="hover:text-blue-400 transition">📈 Pendaftaran Akaun CDS M+ Global</a></li>
+                        <li><a href="#" onclick="alert('Dasar Privasi: Kami tidak menyimpan atau menjual data peribadi anda. Penggunaan cookies adalah untuk analisis Google AdSense sahaja.'); return false;" class="hover:text-slate-200 transition">Dasar Privasi & Terma Syarat</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- PENAFIAN UNDANG-UNDANG UNDANG PELABURAN (WAJIB AKTA SC MALAYSIA) -->
+            <div class="border-t border-slate-800 pt-6 text-[11px] text-slate-400 space-y-2 leading-relaxed">
+                <p class="font-bold text-slate-300 flex items-center gap-1">
+                    <i data-lucide="shield-alert" class="w-4 h-4 text-amber-500 inline"></i>
+                    PENAFIAN PENULISAN & PELABURAN (FINANCIAL DISCLAIMER):
+                </p>
+                <p>
+                    Segala maklumat, data harga, analisis, nisbah fundamental, penunjuk teknikal, lencana Syariah, dan keputusan penyaring di laman web <strong>screener.payedlegacy.my</strong> adalah untuk tujuan <strong>pendidikan, rujukan, dan maklumat am sahaja</strong>. Ia bukannya dan tidak boleh ditafsirkan sebagai satu nasihat pelaburan, cadangan kewangan, atau saranan belian/jualan (*Buy/Sell Call*) bagi mana-mana instrumen pasaran saham, kripto, atau komoditi.
+                </p>
+                <p>
+                    Laman web ini tidak berdaftar sebagai Penasihat Pelaburan (*Investment Advisor*) di bawah Suruhanjaya Sekuriti Malaysia (SC). Pelaburan dalam pasaran kewangan melibatkan risiko kehilangan modal. Sila jalankan penyelidikan sendiri (*Do Your Own Research - DYOR*) dan dapatkan nasihat daripada penasihat kewangan bertauliah sebelum membuat keputusan pelaburan.
+                </p>
+            </div>
+
+            <div class="border-t border-slate-800 pt-4 flex flex-col sm:flex-row justify-between items-center text-[11px] text-slate-500">
+                <p>&copy; 2026 payedlegacy.my. Hak Cipta Terpelihara.</p>
+                <p>Dikuasakan secara percuma oleh GitHub, Vercel & Hostinger.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL 1: KALKULATOR SAIZ POSISI & RISIKO -->
+    <div id="calcModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl relative space-y-4">
+            <button onclick="closeModal('calcModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            
+            <div class="flex items-center space-x-2 text-blue-600 font-bold text-lg">
+                <i data-lucide="calculator" class="w-6 h-6"></i>
+                <h3>Kalkulator Saiz Posisi</h3>
+            </div>
+            
+            <p class="text-xs text-slate-500">Kira saiz lot / unit beli mengikut kawalan risiko modal anda.</p>
+
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-semibold mb-1">Jumlah Modal Dagangan (RM / USD)</label>
+                    <input type="number" id="calcCapital" value="10000" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg">
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1">Risiko Maksimum Per Trade (%)</label>
+                    <input type="number" id="calcRiskPct" value="2" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block font-semibold mb-1">Harga Beli (Entry)</label>
+                        <input type="number" step="0.001" id="calcEntry" value="1.00" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">Harga Cut Loss (Stop)</label>
+                        <input type="number" step="0.001" id="calcStop" value="0.95" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg">
+                    </div>
+                </div>
+                <button onclick="calculatePosition()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded-lg transition">
+                    Kira Unit Beli
+                </button>
+
+                <div id="calcResult" class="hidden p-3 bg-blue-50 border border-blue-200 rounded-lg space-y-1 text-blue-900 font-medium">
+                    <!-- Hasil kiraan dinamik -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: SUMBANGAN & DUITNOW QR -->
+    <div id="donationModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl relative text-center space-y-4">
+            <button onclick="closeModal('donationModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            
+            <div class="inline-flex bg-amber-100 p-3 rounded-full text-amber-600 mb-1">
+                <i data-lucide="coffee" class="w-8 h-8"></i>
+            </div>
+
+            <h3 class="font-bold text-lg text-slate-900">Belanja Kopi & Sokong Web</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Sumbangan sukarela anda membantu kami menampung kos domain & pembangunan alatan percuma ini untuk komuniti pelabur.
+            </p>
+
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 inline-block">
+                <img src="https://via.placeholder.com/200x200.png?text=QR+DuitNow+Anda" alt="DuitNow QR" class="w-48 h-48 mx-auto rounded-lg">
+                <p class="text-[11px] font-bold text-slate-600 mt-2">DuitNow QR / TNG eWallet</p>
+            </div>
+
+            <a href="https://www.buymeacoffee.com" target="_blank" class="block w-full bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold py-2 rounded-xl text-xs transition">
+                ☕ Buy Me A Coffee (Online Card)
+            </a>
+        </div>
+    </div>
+
+    <!-- LOGIK JAVASCRIPT (CLIENT-SIDE REAL-TIME ENGINE) -->
+    <script>
+        lucide.createIcons();
+
+        // 1. DATASET SAHAM HYBRID (KLSE & US MARKET)
+        const mockStocks = [
+            { symbol: "GAMUDA", name: "Gamuda Berhad", market: "KLSE", price: 7.85, change: 2.35, rsi: 28, pe: 14.2, divYield: 3.5, shariah: true, sector: "Property", volume: "12.4M", signal: "🟢 BUY ON DIP" },
+            { symbol: "ECA", name: "ECA Integrated", market: "KLSE", price: 0.425, change: 5.12, rsi: 62, pe: 18.5, divYield: 0.0, shariah: true, sector: "Technology", volume: "45.1M", signal: "🚀 BREAKOUT" },
+            { symbol: "MAYBANK", name: "Malayan Banking", market: "KLSE", price: 10.12, change: 0.40, rsi: 48, pe: 11.8, divYield: 6.2, shariah: false, sector: "Finance", volume: "8.2M", signal: "💰 RAJA DIVIDEN" },
+            { symbol: "NVDA", name: "NVIDIA Corp", market: "US", price: 124.50, change: 3.80, rsi: 58, pe: 42.1, divYield: 0.1, shariah: true, sector: "Technology", volume: "88.5M", signal: "🚀 BREAKOUT" },
+            { symbol: "TSLA", name: "Tesla Inc", market: "US", price: 238.20, change: -1.85, rsi: 32, pe: 58.0, divYield: 0.0, shariah: true, sector: "Consumer", volume: "52.3M", signal: "🟢 BUY ON DIP" },
+            { symbol: "AAPL", name: "Apple Inc", market: "US", price: 222.10, change: 0.95, rsi: 52, pe: 31.4, divYield: 0.5, shariah: true, sector: "Technology", volume: "34.0M", signal: "✨ GOLDEN CROSS" },
+            { symbol: "MYEG", name: "MYEG Services", market: "KLSE", price: 0.915, change: 1.10, rsi: 54, pe: 13.5, divYield: 2.8, shariah: true, sector: "Technology", volume: "22.8M", signal: "NEUTRAL" },
+            { symbol: "TENAGA", name: "Tenaga Nasional", market: "KLSE", price: 13.80, change: -0.25, rsi: 41, pe: 15.1, divYield: 3.8, shariah: true, sector: "Utilities", volume: "5.6M", signal: "✨ GOLDEN CROSS" },
+        ];
+
+        let activeMoversMarket = "KLSE";
+        let activePreset = "ALL";
+
+        // 2. FETCH DATA LIVE TICKER (CoinGecko API untuk Kripto MYR & Emas/Perak)
+        async function fetchLiveTickerData() {
+            const tickerEl = document.getElementById('tickerContent');
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,ripple&vs_currencies=myr,usd&include_24hr_change=true');
+                const data = await response.json();
+
+                const btcMYR = data.bitcoin.myr.toLocaleString('ms-MY', { style: 'currency', currency: 'MYR' });
+                const btcChange = data.bitcoin.usd_24h_change.toFixed(2);
+                const ethMYR = data.ethereum.myr.toLocaleString('ms-MY', { style: 'currency', currency: 'MYR' });
+                const ethChange = data.ethereum.usd_24h_change.toFixed(2);
+
+                const html = `
+                    <span class="inline-flex items-center gap-1">🪙 BTC/MYR: <strong>${btcMYR}</strong> <span class="${btcChange >= 0 ? 'text-emerald-400' : 'text-red-400'}">(${btcChange >= 0 ? '+' : ''}${btcChange}%)</span></span>
+                    <span class="inline-flex items-center gap-1">🔷 ETH/MYR: <strong>${ethMYR}</strong> <span class="${ethChange >= 0 ? 'text-emerald-400' : 'text-red-400'}">(${ethChange >= 0 ? '+' : ''}${ethChange}%)</span></span>
+                    <span class="inline-flex items-center gap-1">🥇 EMAS (XAU/USD): <strong>$2,648.50</strong> <span class="text-emerald-400">(+0.45%)</span></span>
+                    <span class="inline-flex items-center gap-1">🥈 PERAK (XAG/USD): <strong>$31.20</strong> <span class="text-emerald-400">(+0.82%)</span></span>
+                    <span class="inline-flex items-center gap-1 text-emerald-400 font-bold">🎁 KOD LUNO: KOD_LUNO_ANDA (Percuma RM25 BTC)</span>
+                    <span class="inline-flex items-center gap-1">🪙 BTC/MYR: <strong>${btcMYR}</strong></span>
+                    <span class="inline-flex items-center gap-1">🔷 ETH/MYR: <strong>${ethMYR}</strong></span>
+                `;
+                tickerEl.innerHTML = html;
+            } catch (err) {
+                tickerEl.innerHTML = `
+                    <span class="inline-flex items-center gap-1">🪙 BTC/MYR: <strong>RM 284,500.00</strong> <span class="text-emerald-400">(+2.15%)</span></span>
+                    <span class="inline-flex items-center gap-1">🔷 ETH/MYR: <strong>RM 11,450.00</strong> <span class="text-emerald-400">(+1.05%)</span></span>
+                    <span class="inline-flex items-center gap-1">🥇 EMAS (XAU/USD): <strong>$2,650.00</strong></span>
+                `;
+            }
+        }
+
+        // 3. ENJIN TOP 5 SAHAM TUMPUAN
+        function renderTop5Movers() {
+            const container = document.getElementById('top5Container');
+            const filtered = mockStocks.filter(s => s.market === activeMoversMarket).slice(0, 4);
+
+            container.innerHTML = filtered.map(s => `
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2 hover:border-blue-400 transition">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="font-bold text-sm text-slate-900 block">${s.symbol}</span>
+                            <span class="text-[10px] text-slate-500 block truncate max-w-[120px]">${s.name}</span>
+                        </div>
+                        ${s.shariah ? '<span class="bg-emerald-100 text-emerald-800 text-[9px] font-bold px-1.5 py-0.5 rounded">🌙 Syariah</span>' : ''}
+                    </div>
+                    <div class="flex justify-between items-baseline pt-1">
+                        <span class="font-bold text-xs text-slate-800">${s.market === 'KLSE' ? 'RM ' : '$ '}${s.price.toFixed(2)}</span>
+                        <span class="text-xs font-bold ${s.change >= 0 ? 'text-emerald-600' : 'text-red-600'}">
+                            ${s.change >= 0 ? '+' : ''}${s.change}%
+                        </span>
+                    </div>
+                    <div class="text-[10px] text-slate-400 flex justify-between border-t border-slate-200 pt-1">
+                        <span>Volum: ${s.volume}</span>
+                        <span>PE: ${s.pe}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function switchMoversMarket(m) {
+            activeMoversMarket = m;
+            document.getElementById('btnMarketKLSE').className = m === 'KLSE' ? 'px-3 py-1.5 rounded-lg bg-white shadow-sm text-slate-900 transition' : 'px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition';
+            document.getElementById('btnMarketUS').className = m === 'US' ? 'px-3 py-1.5 rounded-lg bg-white shadow-sm text-slate-900 transition' : 'px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition';
+            renderTop5Movers();
+        }
+
+        // 4. ENJIN TAPISAN SCREENER
+        function applyFilters() {
+            const search = document.getElementById('searchInput').value.toUpperCase();
+            const shariahOnly = document.getElementById('shariahOnlyToggle').checked;
+            const peVal = document.getElementById('peFilter').value;
+            const rsiVal = document.getElementById('rsiFilter').value;
+            const sectorVal = document.getElementById('sectorFilter').value;
+            const marketVal = document.getElementById('marketFilter').value;
+
+            const filtered = mockStocks.filter(s => {
+                if (search && !s.symbol.includes(search) && !s.name.toUpperCase().includes(search)) return false;
+                if (shariahOnly && !s.shariah) return false;
+                if (marketVal !== 'ALL' && s.market !== marketVal) return false;
+                if (sectorVal !== 'ALL' && s.sector !== sectorVal) return false;
+                if (peVal !== 'ALL' && s.pe > parseFloat(peVal)) return false;
+                
+                if (rsiVal === 'OVERSOLD' && s.rsi >= 35) return false;
+                if (rsiVal === 'NEUTRAL' && (s.rsi < 35 || s.rsi > 60)) return false;
+                if (rsiVal === 'OVERBOUGHT' && s.rsi <= 70) return false;
+
+                if (activePreset === 'BOD' && s.rsi >= 35) return false;
+                if (activePreset === 'BREAKOUT' && !s.signal.includes('BREAKOUT')) return false;
+                if (activePreset === 'DIVIDEND' && s.divYield < 3.0) return false;
+                if (activePreset === 'GOLDEN_CROSS' && !s.signal.includes('GOLDEN CROSS')) return false;
+
+                return true;
+            });
+
+            renderTable(filtered);
+        }
+
+        function applyPreset(preset) {
+            activePreset = preset;
+            document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('ring-2', 'ring-blue-600'));
+            applyFilters();
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('screenerTableBody');
+            document.getElementById('resultCount').innerText = `Menunjukkan ${data.length} kaunter yang memenuhi kriteria`;
+
+            if (data.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="text-center py-8 text-slate-400">
+                            Tiada kaunter dijumpai dengan kriteria tapisan ini. Cuba longgarkan syarat penapis.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = data.map(s => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="py-3 px-4 font-bold text-slate-900">
+                        ${s.symbol}
+                        <span class="block text-[10px] font-normal text-slate-400">${s.name} (${s.market})</span>
+                    </td>
+                    <td class="py-3 px-4">
+                        ${s.shariah 
+                            ? '<span class="inline-flex items-center gap-1 bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">🌙 Syariah</span>' 
+                            : '<span class="text-slate-400 text-[10px]">Bukan Syariah</span>'}
+                    </td>
+                    <td class="py-3 px-4 font-bold">${s.market === 'KLSE' ? 'RM ' : '$ '}${s.price.toFixed(2)}</td>
+                    <td class="py-3 px-4 font-bold ${s.change >= 0 ? 'text-emerald-600' : 'text-red-600'}">
+                        ${s.change >= 0 ? '+' : ''}${s.change}%
+                    </td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-0.5 rounded font-mono text-[11px] ${s.rsi < 35 ? 'bg-emerald-100 text-emerald-800 font-bold' : 'bg-slate-100 text-slate-700'}">
+                            ${s.rsi}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4">${s.pe}</td>
+                    <td class="py-3 px-4 font-semibold text-purple-700">${s.divYield > 0 ? s.divYield + '%' : '-'}</td>
+                    <td class="py-3 px-4">
+                        <span class="text-[10px] font-extrabold px-2 py-1 rounded-md bg-blue-50 text-blue-700 border border-blue-200">
+                            ${s.signal}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4 text-center">
+                        <a href="https://www.tradingview.com/symbols/${s.market === 'KLSE' ? 'MYX-' + s.symbol : s.symbol}" target="_blank" class="inline-flex items-center gap-1 text-[11px] bg-slate-900 text-white hover:bg-slate-800 px-2.5 py-1 rounded-lg font-semibold transition">
+                            Carta <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </td>
+                </tr>
+            `).join('');
+            
+            lucide.createIcons();
+        }
+
+        // 5. KAWALAN MODAL
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // 6. LOGIK KALKULATOR SAIZ POSISI
+        function calculatePosition() {
+            const capital = parseFloat(document.getElementById('calcCapital').value);
+            const riskPct = parseFloat(document.getElementById('calcRiskPct').value);
+            const entry = parseFloat(document.getElementById('calcEntry').value);
+            const stop = parseFloat(document.getElementById('calcStop').value);
+
+            if (entry <= stop) {
+                alert("Harga Beli (Entry) mesti lebih tinggi daripada Harga Cut Loss!");
+                return;
+            }
+
+            const maxRiskAmount = capital * (riskPct / 100);
+            const riskPerShare = entry - stop;
+            const totalUnits = Math.floor(maxRiskAmount / riskPerShare);
+            const totalLotsKLSE = Math.floor(totalUnits / 100);
+
+            const resEl = document.getElementById('calcResult');
+            resEl.classList.remove('hidden');
+            resEl.innerHTML = `
+                <p>Risiko Maksimum Disasarkan: <strong>RM ${maxRiskAmount.toFixed(2)}</strong></p>
+                <p>Maksimum Unit Beli (US): <strong>${totalUnits.toLocaleString()} Unit</strong></p>
+                <p>Maksimum Lot Beli (KLSE): <strong>${totalLotsKLSE} Lot</strong> (${totalLotsKLSE * 100} unit)</p>
+            `;
+        }
+
+        // 7. BORANG LEAD GEN HARTANAH
+        function handleLeadSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('leadName').value;
+            alert(`Terima kasih ${name}! Maklumat anda telah berjaya diterima. Perunding hartanah Payed Legacy Property akan menghubungi anda melalui WhatsApp.`);
+            document.getElementById('leadName').value = '';
+            document.getElementById('leadPhone').value = '';
+        }
+
+        // PELAKSANAAN AWAL
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchLiveTickerData();
+            renderTop5Movers();
+            applyFilters();
+            setInterval(fetchLiveTickerData, 30000);
+        });
+    </script>
+</body>
+</html>
