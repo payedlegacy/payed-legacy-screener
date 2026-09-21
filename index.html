@@ -108,6 +108,10 @@
                 </div>
 
                 <div class="flex items-center space-x-3">
+                    <div class="inline-flex p-0.5 bg-slate-100 rounded-lg text-[11px] font-bold" role="group" aria-label="Pilih bahasa / Choose language">
+                        <button id="langBtnMS" type="button" onclick="setLang('ms')" class="px-2.5 py-1.5 rounded-md transition bg-white shadow-sm text-slate-900">BM</button>
+                        <button id="langBtnEN" type="button" onclick="setLang('en')" class="px-2.5 py-1.5 rounded-md transition text-slate-600 hover:text-slate-900">EN</button>
+                    </div>
                     <button onclick="openModal('calcModal')" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
                         <i data-lucide="calculator" class="w-4 h-4 text-blue-600"></i>
                         <span class="hidden sm:inline">Kalkulator Posisi</span>
@@ -145,7 +149,7 @@
             <div class="text-center max-w-2xl mx-auto">
                 <h2 class="font-extrabold text-xl text-slate-900 flex items-center justify-center gap-2">
                     <i data-lucide="hand-heart" class="w-5 h-5 text-rose-500"></i>
-                    Rujukan &amp; Buat Sumbangan (Support Us)
+                    Sokong Kami / Support Us
                 </h2>
                 <p class="text-xs text-slate-500 mt-1">Daftar melalui kod rujukan rasmi di bawah untuk ganjaran pendaftaran, atau sokong pembangunan portal percuma ini melalui DuitNow QR.</p>
             </div>
@@ -255,6 +259,39 @@
                             Imbas / Buka QR DuitNow
                         </button>
                     </div>
+                </div>
+            </div>
+            <!-- Blok sokongan: gambar DuitNow QR + kod rujukan (dwi-bahasa) -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div class="text-center">
+                    <img src="assets/duitnow-qr.png" alt="DuitNow QR BSN — Mohamad Farid Bin Mat" class="w-56 sm:w-64 max-w-full h-auto mx-auto rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
+                    <a href="assets/duitnow-qr.png" target="_blank" rel="noopener" class="mt-2 inline-block text-[11px] font-semibold text-blue-600 hover:underline">Buka imej penuh</a>
+                </div>
+                <div class="space-y-3">
+                    <div class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-700 border border-amber-200 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                        <i data-lucide="qr-code" class="w-3 h-3"></i>
+                        <span>SUMBANGAN</span>
+                    </div>
+                    <h3 class="font-bold text-base text-slate-900 leading-snug">Imbas QR DuitNow untuk menyokong pembangunan portal ini</h3>
+                    <p class="text-xs text-slate-500">Sumbangan sukarela &mdash; sebarang jumlah membantu menampung kos domain, data pasaran &amp; pembangunan alat percuma ini.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+                        <button type="button" onclick="copyCode('429D5F', this)" class="flex items-center justify-between gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg px-3 py-2 text-left transition">
+                            <span class="text-[10px] font-bold text-slate-500 uppercase">Luno</span>
+                            <span class="font-mono text-xs font-bold text-emerald-600">429D5F</span>
+                        </button>
+                        <button type="button" onclick="copyCode('A42L2G', this)" class="flex items-center justify-between gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg px-3 py-2 text-left transition">
+                            <span class="text-[10px] font-bold text-slate-500 uppercase">MPlus</span>
+                            <span class="font-mono text-xs font-bold text-blue-600">A42L2G</span>
+                        </button>
+                        <button type="button" onclick="copyCode('0Jzl2X', this)" class="flex items-center justify-between gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg px-3 py-2 text-left transition">
+                            <span class="text-[10px] font-bold text-slate-500 uppercase">Moomoo</span>
+                            <span class="font-mono text-xs font-bold text-purple-600">0Jzl2X</span>
+                        </button>
+                    </div>
+                    <button type="button" onclick="openModal('donationModal')" class="w-full inline-flex items-center justify-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold py-2 rounded-lg text-xs transition">
+                        <i data-lucide="qr-code" class="w-4 h-4"></i>
+                        Imbas / Buka QR DuitNow
+                    </button>
                 </div>
             </div>
         </section>
@@ -553,11 +590,11 @@
             </p>
 
             <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 inline-block w-full">
-                <!-- PENYELENGGARA: simpan imej QR DuitNow sebagai images/duitnow-qr.png (persegi, ~600x600 px). -->
+                <!-- PENYELENGGARA: imej QR DuitNow berada di assets/duitnow-qr.png (ganti fail ini untuk tukar QR). -->
                 <!-- Pilihan: isi nilai DUITNOW_ID dalam blok skrip utama di hujung fail untuk memaparkan butang salin DuitNow ID. -->
-                <img id="duitnowQrImg" src="images/duitnow-qr.png" alt="DuitNow QR — Payed Legacy" class="w-48 h-48 mx-auto rounded-lg object-contain bg-white border border-slate-200">
+                <img id="duitnowQrImg" src="assets/duitnow-qr.png" alt="DuitNow QR BSN — Mohamad Farid Bin Mat" class="w-56 sm:w-64 max-w-full h-auto mx-auto rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
                 <p class="text-[11px] font-bold text-slate-600 mt-2">DuitNow QR / TNG eWallet</p>
-                <div id="duitnowQrNotice" class="hidden mx-auto mt-2 max-w-[13rem] text-[10px] text-slate-500 leading-relaxed">Slot QR DuitNow belum dimuatkan. Sila cuba sebentar lagi atau gunakan pautan rujukan di atas.</div>
+                <div id="duitnowQrNotice" class="hidden mx-auto mt-2 max-w-[13rem] text-[10px] text-slate-500 leading-relaxed">Slot QR DuitNow sedang dimuatkan. Sila cuba sebentar lagi atau gunakan kod rujukan di atas.</div>
                 <div id="duitnowIdRow" class="hidden mt-2">
                     <button type="button" onclick="copyCode(DUITNOW_ID, this)" class="inline-flex items-center gap-1 text-[11px] font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 px-3 py-1.5 rounded-lg transition">
                         <i data-lucide="copy" class="w-3 h-3"></i>
@@ -575,6 +612,174 @@
     <!-- LOGIK JAVASCRIPT (CLIENT-SIDE REAL-TIME ENGINE) -->
     <script>
         lucide.createIcons();
+
+        // ============================ DWI-BAHASA (BM / EN) ============================
+        // Kamus BM -> EN: kunci = teks Melayu PERSIS (seperti dlm DOM), nilai = terjemahan Inggeris.
+        const I18N_EN = {
+            "Screener Saham Hybrid & Portal Kewangan | Payed Legacy": "Hybrid Stock Screener & Financial Portal | Payed Legacy",
+            "PASARAN LIVE:": "LIVE MARKET:",
+            "Memuatkan harga Kripto & Emas terkini...": "Loading the latest Crypto & Gold prices...",
+            "Kemas Kini Otomatis (Client-Side)": "Automatic Updates (Client-Side)",
+            "Portal Pelaburan Saham Bursa Malaysia & Pasaran US": "Bursa Malaysia & US Market Stock Investment Portal",
+            "Kalkulator Posisi": "Position Calculator",
+            "Sokong Web": "Support Us",
+            "Daftar melalui kod rujukan rasmi di bawah untuk ganjaran pendaftaran, atau sokong pembangunan portal percuma ini melalui DuitNow QR.": "Sign up with the official referral codes below for sign-up rewards, or support this free portal via DuitNow QR.",
+            "Percuma RM25 Bitcoin (BTC)": "Free RM25 in Bitcoin (BTC)",
+            "Daftar & beli RM250 mana-mana kripto di Luno. Masukkan kod promo di ruang Rewards.": "Sign up & buy RM250 of any crypto on Luno. Enter the promo code in the Rewards section.",
+            "Kod Rujukan:": "Referral Code:",
+            "Buka Akaun Luno": "Open a Luno Account",
+            "Broker Direct CDS Fee Terendah": "Lowest-Fee Direct CDS Broker",
+            "Akaun CDS berlesen Suruhanjaya Sekuriti untuk dagangan Bursa Malaysia & US Market.": "An SC-licensed CDS account for Bursa Malaysia & US Market trading.",
+            "Daftar M+ Global": "Register with M+ Global",
+            "Ganjaran Saham Percuma": "Free Stock Rewards",
+            "Nikmati platform carta Pro, analisis AI, dan baucar tunai percuma apabila deposit akaun baru.": "Enjoy the Pro charting platform, AI analysis and free cash vouchers when you fund a new account.",
+            "Tuntut Saham Percuma": "Claim Free Stocks",
+            "SUMBANGAN": "DONATION",
+            "Sumbangan sukarela untuk kos domain & pembangunan alat percuma ini. Imbas QR atau tekan butang di bawah.": "A voluntary contribution towards domain costs & the development of this free tool. Scan the QR or press the button below.",
+            "Slot QR DuitNow:": "DuitNow QR slot:",
+            "MENUNGGU QR": "AWAITING QR",
+            "AKTIF": "ACTIVE",
+            "Imbas / Buka QR DuitNow": "Scan / Open DuitNow QR",
+            "Imbas QR DuitNow untuk menyokong pembangunan portal ini": "Scan DuitNow QR to support this portal development",
+            "Sumbangan sukarela — sebarang jumlah membantu menampung kos domain, data pasaran & pembangunan alat percuma ini.": "A voluntary contribution — any amount helps cover domain costs, market data & development of these free tools.",
+            "Buka imej penuh": "Open full image",
+            "Top 5 Saham Tumpuan Hari Ini": "Top 5 Stocks in Focus Today",
+            "Saham paling aktif, untung, rugi, dan dividen tertinggi di pasaran": "The most active stocks, top gainers, losers and highest dividend payers in the market",
+            "Enjin Hybrid Screener": "Hybrid Screener Engine",
+            "Tapis kombinasi Fundamental + Teknikal + Lencana Syariah secara automatik": "Automatically filter a combination of Fundamental + Technical + Shariah screening",
+            "🌙 Syariah Sahaja": "🌙 Shariah Only",
+            "⚡ Preset Strategi YouTube & Komuniti (Sekali Klik):": "⚡ YouTube & Community Strategy Presets (One Click):",
+            "Semua Saham": "All Stocks",
+            "💰 Raja Dividen (DY > 3%)": "💰 Dividend King (DY > 3%)",
+            "Carian Nama / Simbol": "Search Name / Symbol",
+            "Nisbah PE (Maksimum)": "PE Ratio (Maximum)",
+            "Semua PE": "All PE",
+            "Penunjuk RSI (14)": "RSI Indicator (14)",
+            "Semua RSI": "All RSI",
+            "Sektor Utama": "Main Sector",
+            "Semua Sektor": "All Sectors",
+            "Teknologi": "Technology",
+            "Hartanah / Pembinaan": "Property / Construction",
+            "Tenaga & Minyak": "Energy & Oil",
+            "Barangan Pengguna": "Consumer Goods",
+            "Pilihan Pasaran": "Market Selection",
+            "🇲🇾 Bursa Malaysia Sahaja": "🇲🇾 Bursa Malaysia Only",
+            "🇺🇸 US Market Sahaja": "🇺🇸 US Market Only",
+            "Saham / Simbol": "Stock / Symbol",
+            "Status Syariah": "Shariah Status",
+            "Harga Terkini": "Current Price",
+            "Perubahan 24j": "24h Change",
+            "Nisbah PE": "PE Ratio",
+            "Kadar Dividen": "Dividend Yield",
+            "Sinyal Hybrid": "Hybrid Signal",
+            "Tindakan": "Action",
+            "Menunjukkan 0 kaunter yang memenuhi kriteria": "Showing 0 stocks that match the criteria",
+            "Nota: Data disemak secara client-side real-time.": "Note: Data is evaluated client-side in real time.",
+            "Portal maklumat pelaburan & penyaring saham percuma untuk komuniti pelabur Bursa Malaysia & US Market. Membantu pedagang membuat keputusan berasaskan data analisis teknikal & fundamental.": "A free investment information & stock screening portal for the Bursa Malaysia & US Market investing community. Helping traders make decisions based on technical & fundamental analysis data.",
+            "Semak Kelayakan Pinjaman Rumah Anda (Percuma)": "Check Your Home Loan Eligibility (Free)",
+            "Tukarkan keuntungan pasaran saham anda kepada aset fizikal hartanah yang berterusan.": "Convert your stock market gains into sustainable physical property assets.",
+            "Hantar Semakan Kelayakan": "Submit Eligibility Check",
+            "Sokongan & Pautan": "Support & Links",
+            "☕ Belanja Kopi / Sumbangan DuitNow QR": "☕ Buy Me a Coffee / DuitNow QR Donation",
+            "🪙 Luno Bitcoin (Kod: 429D5F — RM25 Percuma)": "🪙 Luno Bitcoin (Code: 429D5F — RM25 Free)",
+            "📈 Akaun CDS M+ Global (Kod: A42L2G)": "📈 M+ Global CDS Account (Code: A42L2G)",
+            "📊 Moomoo Malaysia (Kod: 0Jzl2X)": "📊 Moomoo Malaysia (Code: 0Jzl2X)",
+            "🔗 Semua kod rujukan & pautan sokongan": "🔗 All referral codes & support links",
+            "Dasar Privasi & Terma Syarat": "Privacy Policy & Terms",
+            "PENAFIAN PENULISAN & PELABURAN (FINANCIAL DISCLAIMER):": "WRITING & INVESTMENT DISCLAIMER (FINANCIAL DISCLAIMER):",
+            "Segala maklumat, data harga, analisis, nisbah fundamental, penunjuk teknikal, lencana Syariah, dan keputusan penyaring di laman web": "All information, price data, analysis, fundamental ratios, technical indicators, Shariah badges and screener results on this website",
+            "adalah untuk tujuan": "are for",
+            "pendidikan, rujukan, dan maklumat am sahaja": "educational, reference and general information purposes only",
+            ". Ia bukannya dan tidak boleh ditafsirkan sebagai satu nasihat pelaburan, cadangan kewangan, atau saranan belian/jualan (*Buy/Sell Call*) bagi mana-mana instrumen pasaran saham, kripto, atau komoditi.": ". It is not, and must not be interpreted as, investment advice, a financial recommendation or a buy/sell call for any stock market, crypto or commodity instrument.",
+            "Laman web ini tidak berdaftar sebagai Penasihat Pelaburan (*Investment Advisor*) di bawah Suruhanjaya Sekuriti Malaysia (SC). Pelaburan dalam pasaran kewangan melibatkan risiko kehilangan modal. Sila jalankan penyelidikan sendiri (*Do Your Own Research - DYOR*) dan dapatkan nasihat daripada penasihat kewangan bertauliah sebelum membuat keputusan pelaburan.": "This website is not registered as an Investment Advisor under the Securities Commission Malaysia (SC). Investing in financial markets involves the risk of capital loss. Please do your own research (DYOR) and consult a licensed financial adviser before making investment decisions.",
+            "© 2026 payedlegacy.my. Hak Cipta Terpelihara.": "© 2026 payedlegacy.my. All Rights Reserved.",
+            "Dikuasakan secara percuma oleh GitHub, Vercel & Hostinger.": "Powered for free by GitHub, Vercel & Hostinger.",
+            "Kalkulator Saiz Posisi": "Position Size Calculator",
+            "Kira saiz lot / unit beli mengikut kawalan risiko modal anda.": "Calculate your lot / unit purchase size based on your capital risk control.",
+            "Jumlah Modal Dagangan (RM / USD)": "Total Trading Capital (RM / USD)",
+            "Risiko Maksimum Per Trade (%)": "Maximum Risk Per Trade (%)",
+            "Harga Beli (Entry)": "Entry Price",
+            "Harga Cut Loss (Stop)": "Cut Loss Price (Stop)",
+            "Kira Unit Beli": "Calculate Buy Units",
+            "Belanja Kopi & Sokong Web": "Buy Me a Coffee & Support Us",
+            "Sumbangan sukarela anda membantu kami menampung kos domain & pembangunan alatan percuma ini untuk komuniti pelabur.": "Your voluntary contribution helps us cover the domain cost & development of these free tools for the investor community.",
+            "Slot QR DuitNow sedang dimuatkan. Sila cuba sebentar lagi atau gunakan kod rujukan di atas.": "The DuitNow QR slot is loading. Please try again shortly or use the referral codes above.",
+            "Salin DuitNow ID:": "Copy DuitNow ID:",
+            "🌙 Syariah": "🌙 Shariah",
+            "Bukan Syariah": "Not Shariah",
+            "Carta": "Chart",
+            "💰 RAJA DIVIDEN": "💰 DIVIDEND KING",
+            "Volum:": "Volume:",
+            "Tiada kaunter dijumpai dengan kriteria tapisan ini. Cuba longgarkan syarat penapis.": "No stocks found matching these filters. Try relaxing the filter criteria.",
+            "🎁 KOD LUNO: 429D5F (Percuma RM25 BTC)": "🎁 LUNO CODE: 429D5F (Free RM25 BTC)"
+};
+        const I18N_EN_PH = {
+            "Contoh: GAMUDA, NVDA...": "e.g. GAMUDA, NVDA...",
+            "Nama Penuh Anda": "Your Full Name",
+            "Nombor WhatsApp": "WhatsApp Number"
+};
+        const I18N_EN_TITLE = {
+            "Salin kod rujukan Luno": "Copy Luno referral code",
+            "Salin kod rujukan M+ Global": "Copy M+ Global referral code",
+            "Salin kod rujukan Moomoo": "Copy Moomoo referral code"
+};
+        let currentLang = 'ms';
+        let lastFiltered = [];
+
+        // Terjemah teks bergantung bahasa semasa (utk teks yang digabung dgn data)
+        function T(ms, en) { return currentLang === 'en' ? en : ms; }
+
+        function langTextNodes() {
+            const SKIP = { SCRIPT: 1, STYLE: 1, TEXTAREA: 1 };
+            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+                acceptNode: function (n) {
+                    const p = n.parentElement;
+                    if (!p || SKIP[p.tagName]) return NodeFilter.FILTER_REJECT;
+                    if (p.closest && p.closest('[data-i18n-skip]')) return NodeFilter.FILTER_REJECT;
+                    return NodeFilter.FILTER_ACCEPT;
+                }
+            });
+            const nodes = [];
+            while (walker.nextNode()) nodes.push(walker.currentNode);
+            return nodes;
+        }
+
+        function applyLang(lang) {
+            currentLang = (lang === 'en') ? 'en' : 'ms';
+            const dict = (currentLang === 'en') ? I18N_EN : null;
+            langTextNodes().forEach(function (n) {
+                if (n.__ms === undefined) n.__ms = n.nodeValue;
+                const key = n.__ms.trim();
+                n.nodeValue = (dict && dict[key]) ? n.__ms.replace(key, dict[key]) : n.__ms;
+            });
+            document.querySelectorAll('input[placeholder]').forEach(function (el) {
+                if (el.__msPh === undefined) el.__msPh = el.getAttribute('placeholder') || '';
+                el.setAttribute('placeholder', currentLang === 'en' ? (I18N_EN_PH[el.__msPh] || el.__msPh) : el.__msPh);
+            });
+            document.querySelectorAll('[title], [alt]').forEach(function (el) {
+                ['title', 'alt'].forEach(function (a) {
+                    if (el.getAttribute(a) === null) return;
+                    const store = '__ms_' + a;
+                    if (el[store] === undefined) el[store] = el.getAttribute(a);
+                    const base = el[store];
+                    el.setAttribute(a, currentLang === 'en' ? (I18N_EN_TITLE[base] || base) : base);
+                });
+            });
+            document.documentElement.lang = currentLang;
+            document.title = T('Screener Saham Hybrid & Portal Kewangan | Payed Legacy',
+                                'Hybrid Stock Screener & Financial Portal | Payed Legacy');
+            const on = 'px-2.5 py-1.5 rounded-md transition bg-white shadow-sm text-slate-900';
+            const off = 'px-2.5 py-1.5 rounded-md transition text-slate-600 hover:text-slate-900';
+            const bm = document.getElementById('langBtnMS'), en = document.getElementById('langBtnEN');
+            if (bm && en) { bm.className = (currentLang === 'ms') ? on : off; en.className = (currentLang === 'en') ? on : off; }
+            try { localStorage.setItem('screener_lang', currentLang); } catch (e) {}
+        }
+
+        function setLang(lang) {
+            applyLang(lang);
+            renderTop5Movers();
+            renderTable(lastFiltered);
+        }
 
         // 1. DATASET SAHAM HYBRID (KLSE & US MARKET)
         const mockStocks = [
@@ -613,12 +818,14 @@
                     <span class="inline-flex items-center gap-1">🔷 ETH/MYR: <strong>${ethMYR}</strong></span>
                 `;
                 tickerEl.innerHTML = html;
+                applyLang(currentLang);
             } catch (err) {
                 tickerEl.innerHTML = `
                     <span class="inline-flex items-center gap-1">🪙 BTC/MYR: <strong>RM 284,500.00</strong> <span class="text-emerald-400">(+2.15%)</span></span>
                     <span class="inline-flex items-center gap-1">🔷 ETH/MYR: <strong>RM 11,450.00</strong> <span class="text-emerald-400">(+1.05%)</span></span>
                     <span class="inline-flex items-center gap-1">🥇 EMAS (XAU/USD): <strong>$2,650.00</strong></span>
                 `;
+                applyLang(currentLang);
             }
         }
 
@@ -643,11 +850,12 @@
                         </span>
                     </div>
                     <div class="text-[10px] text-slate-400 flex justify-between border-t border-slate-200 pt-1">
-                        <span>Volum: ${s.volume}</span>
-                        <span>PE: ${s.pe}</span>
+                        <span><span>Volum:</span> ${s.volume}</span>
+                        <span><span>PE:</span> ${s.pe}</span>
                     </div>
                 </div>
             `).join('');
+            applyLang(currentLang);
         }
 
         function switchMoversMarket(m) {
@@ -685,6 +893,7 @@
                 return true;
             });
 
+            lastFiltered = filtered;
             renderTable(filtered);
         }
 
@@ -696,7 +905,8 @@
 
         function renderTable(data) {
             const tbody = document.getElementById('screenerTableBody');
-            document.getElementById('resultCount').innerText = `Menunjukkan ${data.length} kaunter yang memenuhi kriteria`;
+            document.getElementById('resultCount').innerText = T(`Menunjukkan ${data.length} kaunter yang memenuhi kriteria`,
+                `Showing ${data.length} stocks matching the criteria`);
 
             if (data.length === 0) {
                 tbody.innerHTML = `
@@ -745,6 +955,7 @@
             `).join('');
             
             lucide.createIcons();
+            applyLang(currentLang);
         }
 
         // 4b. KOD RUJUKAN, SALINAN & SLOT DUITNOW QR
@@ -828,7 +1039,8 @@
             const stop = parseFloat(document.getElementById('calcStop').value);
 
             if (entry <= stop) {
-                alert("Harga Beli (Entry) mesti lebih tinggi daripada Harga Cut Loss!");
+                alert(T("Harga Beli (Entry) mesti lebih tinggi daripada Harga Cut Loss!",
+                        "The Entry Price must be higher than the Cut Loss Price!"));
                 return;
             }
 
@@ -839,28 +1051,38 @@
 
             const resEl = document.getElementById('calcResult');
             resEl.classList.remove('hidden');
-            resEl.innerHTML = `
-                <p>Risiko Maksimum Disasarkan: <strong>RM ${maxRiskAmount.toFixed(2)}</strong></p>
-                <p>Maksimum Unit Beli (US): <strong>${totalUnits.toLocaleString()} Unit</strong></p>
-                <p>Maksimum Lot Beli (KLSE): <strong>${totalLotsKLSE} Lot</strong> (${totalLotsKLSE * 100} unit)</p>
-            `;
+            resEl.innerHTML = currentLang === 'en'
+                ? `
+                    <p>Maximum Risk Target: <strong>RM ${maxRiskAmount.toFixed(2)}</strong></p>
+                    <p>Maximum Buy Units (US): <strong>${totalUnits.toLocaleString()} units</strong></p>
+                    <p>Maximum Buy Lots (KLSE): <strong>${totalLotsKLSE} lots</strong> (${totalLotsKLSE * 100} units)</p>
+                `
+                : `
+                    <p>Risiko Maksimum Disasarkan: <strong>RM ${maxRiskAmount.toFixed(2)}</strong></p>
+                    <p>Maksimum Unit Beli (US): <strong>${totalUnits.toLocaleString()} Unit</strong></p>
+                    <p>Maksimum Lot Beli (KLSE): <strong>${totalLotsKLSE} Lot</strong> (${totalLotsKLSE * 100} unit)</p>
+                `;
         }
 
         // 7. BORANG LEAD GEN HARTANAH
         function handleLeadSubmit(e) {
             e.preventDefault();
             const name = document.getElementById('leadName').value;
-            alert(`Terima kasih ${name}! Maklumat anda telah berjaya diterima. Perunding hartanah Payed Legacy Property akan menghubungi anda melalui WhatsApp.`);
+            alert(T(`Terima kasih ${name}! Maklumat anda telah berjaya diterima. Perunding hartanah Payed Legacy Property akan menghubungi anda melalui WhatsApp.`,
+                    `Thank you ${name}! Your details have been received. A Payed Legacy Property consultant will contact you via WhatsApp.`));
             document.getElementById('leadName').value = '';
             document.getElementById('leadPhone').value = '';
         }
 
         // PELAKSANAAN AWAL
         window.addEventListener('DOMContentLoaded', () => {
+            let savedLang = 'ms';
+            try { savedLang = localStorage.getItem('screener_lang') || 'ms'; } catch (e) {}
             fetchLiveTickerData();
             renderTop5Movers();
             applyFilters();
             initDuitNow();
+            applyLang(savedLang);
             setInterval(fetchLiveTickerData, 30000);
         });
     </script>
