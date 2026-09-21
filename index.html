@@ -163,6 +163,10 @@ body{
 .pl-btn--gold{background:linear-gradient(135deg,#f59e0b,#fbbf24);border-color:transparent;color:#1a1205}
 .pl-btn--gold:hover{background:linear-gradient(135deg,#d97706,#fcd34d)}
 .pl-btn--ghost{background:transparent}
+.pl-btn--dim{opacity:.55}
+.pl-btn--dim:hover{opacity:.85}
+.pl-crit{margin-top:8px;font-size:11px;line-height:1.6;color:#9fb0c9}
+.pl-crit b{color:#e2e8f0;font-weight:700}
 .pl-btn--sm{font-size:10px;padding:4px 9px;border-radius:8px}
 
 /* market segmented control (Bursa / US) */
@@ -278,14 +282,14 @@ details>summary::-webkit-details-marker{display:none}
         </span>
         <span class="min-w-0">
           <span class="block font-extrabold text-[15px] leading-tight text-white truncate">Payed Legacy <span class="text-brand-400">Screener</span></span>
-          <span class="block text-[10px] text-slate-400 leading-tight truncate" data-i18n="brand_tagline">Screener saham Malaysia &amp; US • Patuh Syariah</span>
+          <span class="block text-[10px] text-slate-400 leading-tight truncate" data-i18n="brand_tagline">Screener saham Bursa Malaysia dan pasaran US</span>
         </span>
       </a>
 
       <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold text-slate-300">
-        <a href="#ringkasan" class="px-3 py-1.5 rounded-lg hover:bg-white/5 hover:text-white transition" data-i18n="nav_summary">Ringkasan Pasaran</a>
+        <a href="#ringkasan" class="px-3 py-1.5 rounded-lg hover:bg-white/5 hover:text-white transition" data-i18n="nav_summary">Ringkasan pasaran</a>
         <a href="#screener" class="px-3 py-1.5 rounded-lg hover:bg-white/5 hover:text-white transition" data-i18n="nav_screener">Screener</a>
-        <a href="#metodologi" class="px-3 py-1.5 rounded-lg hover:bg-white/5 hover:text-white transition" data-i18n="nav_method">Data &amp; Metodologi</a>
+        <a href="#metodologi" class="px-3 py-1.5 rounded-lg hover:bg-white/5 hover:text-white transition" data-i18n="nav_method">Cara data diperoleh</a>
         <a href="#sokongan" class="px-3 py-1.5 rounded-lg hover:bg-white/5 hover:text-white transition" data-i18n="nav_support">Sokongan</a>
       </nav>
 
@@ -323,7 +327,7 @@ details>summary::-webkit-details-marker{display:none}
       </span>
       <div id="plTickerBox" class="flex-1 min-w-0">
         <div id="tvTickerTape" class="tv-embed">
-          <div class="text-slate-500 text-[11px] px-2 py-3" data-i18n="ticker_loading">Memuatkan ticker pasaran…</div>
+          <div class="text-slate-500 text-[11px] px-2 py-3" data-i18n="ticker_loading">Sedang memuatkan harga pasaran...</div>
         </div>
       </div>
     </div>
@@ -337,25 +341,23 @@ details>summary::-webkit-details-marker{display:none}
     <div class="grid lg:grid-cols-[1.35fr_1fr] gap-6 items-start">
       <div>
         <span class="inline-flex items-center gap-2 text-[11px] font-bold px-3 py-1 rounded-full pl-tag--info pl-tag">
-          <i data-lucide="zap" class="w-3 h-3"></i><span data-i18n="hero_badge">Data automatik 2× sehari • Senarai Syariah Suruhanjaya Sekuriti</span>
+          <i data-lucide="zap" class="w-3 h-3"></i><span data-i18n="hero_badge">Dikemas kini automatik dua kali sehari pada hari bekerja</span>
         </span>
         <h1 class="mt-4 text-[30px] sm:text-[42px] font-black leading-[1.08] tracking-tight text-white">
-          <span data-i18n="hero_title_1">Screener Saham</span>
-          <span class="bg-gradient-to-r from-brand-400 via-cyan-300 to-teal-300 bg-clip-text text-transparent" data-i18n="hero_title_2">Teknikal + Fundamental + Syariah</span>
-          <span data-i18n="hero_title_3">dalam satu skrin.</span>
+          <span data-i18n="hero_title_1">Cari saham</span>
+          <span class="bg-gradient-to-r from-brand-400 via-cyan-300 to-teal-300 bg-clip-text text-transparent" data-i18n="hero_title_2">yang benar-benar sesuai</span>
+          <span data-i18n="hero_title_3">dengan cara anda melabur.</span>
         </h1>
-        <p class="mt-4 text-[13px] sm:text-sm text-slate-300 max-w-2xl leading-relaxed" data-i18n="hero_sub">
-          Tapis 24 kaunter pilihan Bursa Malaysia dan pasaran US dengan 9 preset strategi 1-klik — momentum EMA, golden cross, buy on dip, breakout 52 minggu, ATH, fundamental dan Syariah. Semua angka diambil terus daripada fail data automatik; tiada angka lama dipaparkan.
-        </p>
+        <p class="mt-4 text-[13px] sm:text-sm text-slate-300 max-w-2xl leading-relaxed" data-i18n="hero_sub">Pilih tapisan siap pakai untuk momentum, dividen, valuasi, corak candlestick atau status Syariah. Semuanya satu klik, dan angka pasaran dikemas kini automatik tanpa anda perlu buat apa-apa.</p>
         <div class="mt-6 flex flex-wrap gap-2.5">
           <a href="#screener" class="pl-btn pl-btn--pri" style="padding:9px 16px;font-size:12px">
-            <i data-lucide="sliders-horizontal" class="w-4 h-4"></i><span data-i18n="hero_cta">Mula Menapis</span>
+            <i data-lucide="sliders-horizontal" class="w-4 h-4"></i><span data-i18n="hero_cta">Mula tapis</span>
           </a>
           <a href="#ringkasan" class="pl-btn" style="padding:9px 16px;font-size:12px">
-            <i data-lucide="bar-chart-3" class="w-4 h-4 text-cyan-300"></i><span data-i18n="hero_cta2">Ringkasan Pasaran</span>
+            <i data-lucide="bar-chart-3" class="w-4 h-4 text-cyan-300"></i><span data-i18n="hero_cta2">Tengok ringkasan pasaran</span>
           </a>
           <button onclick="openAlertsMgr()" class="pl-btn" style="padding:9px 16px;font-size:12px">
-            <i data-lucide="bell-ring" class="w-4 h-4 text-rose-300"></i><span data-i18n="hero_cta3">Amaran Harga</span>
+            <i data-lucide="bell-ring" class="w-4 h-4 text-rose-300"></i><span data-i18n="hero_cta3">Pasang amaran harga</span>
           </button>
         </div>
       </div>
@@ -363,17 +365,17 @@ details>summary::-webkit-details-marker{display:none}
       <!-- hero stat grid -->
       <div class="grid grid-cols-2 gap-3" id="heroStats">
         <div class="pl-card p-4">
-          <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" data-i18n="stat_total">Kaunter Dipantau</p>
+          <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" data-i18n="stat_total">Kaunter dipantau</p>
           <p class="mt-1 text-2xl font-black text-white pl-mono" id="statTotal"><span class="pl-skel inline-block w-10 h-6 align-middle"></span></p>
-          <p class="text-[10px] text-slate-500" data-i18n="stat_total_sub">Bursa Malaysia + US</p>
+          <p class="text-[10px] text-slate-500" data-i18n="stat_total_sub">Bursa Malaysia dan US</p>
         </div>
         <div class="pl-card p-4">
-          <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" data-i18n="stat_gainers">Naik Hari Ini</p>
+          <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" data-i18n="stat_gainers">Naik hari ini</p>
           <p class="mt-1 text-2xl font-black text-emerald-300 pl-mono" id="statGainers"><span class="pl-skel inline-block w-10 h-6 align-middle"></span></p>
           <p class="text-[10px] text-slate-500" id="statGainersSub">—</p>
         </div>
         <div class="pl-card p-4">
-          <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" data-i18n="stat_losers">Turun Hari Ini</p>
+          <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400" data-i18n="stat_losers">Turun hari ini</p>
           <p class="mt-1 text-2xl font-black text-rose-300 pl-mono" id="statLosers"><span class="pl-skel inline-block w-10 h-6 align-middle"></span></p>
           <p class="text-[10px] text-slate-500" id="statLosersSub">—</p>
         </div>
@@ -403,17 +405,17 @@ details>summary::-webkit-details-marker{display:none}
               <span id="livePing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-70"></span>
               <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-gold-500"></span>
             </span>
-            <span data-i18n="status_as_of">Data setakat:</span>
-            <span id="dataTimestampText" class="text-gold-300 pl-mono" aria-live="polite">memuatkan…</span>
+            <span data-i18n="status_as_of">Dikemas kini:</span>
+            <span id="dataTimestampText" class="text-gold-300 pl-mono" aria-live="polite">sedang memuatkan...</span>
           </div>
-          <p id="dataSourceNote" class="text-[10px] text-slate-400 leading-relaxed">memuatkan…</p>
+          <p id="dataSourceNote" class="text-[10px] text-slate-400 leading-relaxed">Sedang memuatkan data pasaran...</p>
         </div>
         <div class="flex items-center gap-2 shrink-0">
           <button id="btnRefresh" onclick="loadData(true)" class="pl-btn">
-            <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-gold-400"></i><span data-i18n="btn_refresh">Muat Semula Data</span>
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-gold-400"></i><span data-i18n="btn_refresh">Muat semula</span>
           </button>
           <button id="btnRetry" onclick="loadData(true)" class="pl-btn pl-btn--pri hidden">
-            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i><span data-i18n="btn_retry">Cuba Lagi</span>
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i><span data-i18n="btn_retry">Cuba lagi</span>
           </button>
         </div>
       </div>
@@ -429,9 +431,9 @@ details>summary::-webkit-details-marker{display:none}
       <div class="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 class="text-lg sm:text-xl font-extrabold text-white flex items-center gap-2">
-            <i data-lucide="activity" class="w-5 h-5 text-cyan-300"></i><span data-i18n="sum_title">Ringkasan Pasaran</span>
+            <i data-lucide="activity" class="w-5 h-5 text-cyan-300"></i><span data-i18n="sum_title">Ringkasan pasaran</span>
           </h2>
-          <p class="text-[11px] text-slate-400 mt-0.5" data-i18n="sum_sub">Statistik pantas sesi terkini — dikira terus daripada data stocks.json.</p>
+          <p class="text-[11px] text-slate-400 mt-0.5" data-i18n="sum_sub">Bacaan pantas untuk sesi terkini, dikira daripada data yang sama digunakan oleh screener.</p>
         </div>
         <div class="flex items-center p-0.5 rounded-xl border border-white/10 bg-white/5 text-[11px] font-bold" id="marketTabsSummary">
           <button data-mkt="malaysia" onclick="switchMarket('malaysia')" class="mkt-btn px-3 py-1.5 rounded-lg transition" data-i18n="market_my_short">🇲🇾 Bursa</button>
@@ -445,7 +447,7 @@ details>summary::-webkit-details-marker{display:none}
         <div class="pl-card p-4">
           <div class="flex items-center justify-between mb-3">
             <h3 class="text-[13px] font-bold text-emerald-300 flex items-center gap-1.5">
-              <i data-lucide="trending-up" class="w-4 h-4"></i><span data-i18n="movers_up">Pergerakan Teratas — Naik</span>
+              <i data-lucide="trending-up" class="w-4 h-4"></i><span data-i18n="movers_up">Naik paling banyak</span>
             </h3>
             <span class="pl-tag pl-tag--mute" data-i18n="movers_top5">5 teratas</span>
           </div>
@@ -454,7 +456,7 @@ details>summary::-webkit-details-marker{display:none}
         <div class="pl-card p-4">
           <div class="flex items-center justify-between mb-3">
             <h3 class="text-[13px] font-bold text-rose-300 flex items-center gap-1.5">
-              <i data-lucide="trending-down" class="w-4 h-4"></i><span data-i18n="movers_down">Pergerakan Teratas — Turun</span>
+              <i data-lucide="trending-down" class="w-4 h-4"></i><span data-i18n="movers_down">Turun paling banyak</span>
             </h3>
             <span class="pl-tag pl-tag--mute" data-i18n="movers_top5b">5 teratas</span>
           </div>
@@ -468,14 +470,14 @@ details>summary::-webkit-details-marker{display:none}
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-4 pl-divider" style="border-top:0">
         <div>
           <h2 class="text-lg sm:text-xl font-extrabold text-white flex items-center gap-2">
-            <i data-lucide="sliders-horizontal" class="w-5 h-5 text-brand-400"></i><span data-i18n="screener_title">Screener Hibrid</span>
-            <span class="pl-tag pl-tag--info" data-i18n="screener_badge">9 preset</span>
+            <i data-lucide="sliders-horizontal" class="w-5 h-5 text-brand-400"></i><span data-i18n="screener_title">Screener saham</span>
+            <span class="pl-tag pl-tag--info" data-i18n="screener_badge">10 tapisan siap pakai</span>
           </h2>
-          <p class="text-[11px] text-slate-400 mt-0.5" data-i18n="screener_sub">Kombinasi teknikal + fundamental + corak candlestick + status Syariah. Klik tajuk lajur untuk menyusun.</p>
+          <p class="text-[11px] text-slate-400 mt-0.5" data-i18n="screener_sub">Gabungan tapisan teknikal, fundamental, corak candlestick dan status Syariah. Tekan tajuk lajur untuk susun.</p>
         </div>
         <div class="flex items-center p-0.5 rounded-xl border border-white/10 bg-white/5 text-[11px] font-bold self-start lg:self-auto" id="marketTabs">
           <button data-mkt="malaysia" onclick="switchMarket('malaysia')" class="mkt-btn px-3 py-1.5 rounded-lg transition">🇲🇾 <span data-i18n="market_my">Bursa Malaysia (KLSE)</span></button>
-          <button data-mkt="america" onclick="switchMarket('america')" class="mkt-btn px-3 py-1.5 rounded-lg transition">🇺🇸 <span data-i18n="market_us">US Market (NYSE / NASDAQ)</span></button>
+          <button data-mkt="america" onclick="switchMarket('america')" class="mkt-btn px-3 py-1.5 rounded-lg transition">🇺🇸 <span data-i18n="market_us">Pasaran US (NYSE / NASDAQ)</span></button>
         </div>
       </div>
 
@@ -483,13 +485,14 @@ details>summary::-webkit-details-marker{display:none}
       <div class="rounded-2xl border border-white/10 bg-ink-950/50 p-3.5 space-y-2.5">
         <div class="flex items-center justify-between gap-2">
           <p class="text-[10px] font-extrabold uppercase tracking-widest text-slate-300 flex items-center gap-1.5">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-gold-400"></i><span data-i18n="preset_label">Preset strategi (1-klik)</span>
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-gold-400"></i><span data-i18n="preset_label">Tapisan siap pakai</span>
           </p>
           <button onclick="resetFilters()" class="pl-btn pl-btn--sm">
-            <i data-lucide="eraser" class="w-3 h-3"></i><span data-i18n="btn_reset">Set Semula</span>
+            <i data-lucide="eraser" class="w-3 h-3"></i><span data-i18n="btn_reset">Buang semua tapisan</span>
           </button>
         </div>
         <div id="presetBar" class="flex flex-wrap gap-2 text-[11px] font-semibold"></div>
+        <p id="presetCriteria" class="pl-crit"></p>
       </div>
 
       <!-- filters -->
@@ -514,11 +517,11 @@ details>summary::-webkit-details-marker{display:none}
           </label>
           <label class="inline-flex items-center gap-2 cursor-pointer text-[11px] font-bold text-gold-300">
             <input type="checkbox" id="watchOnlyToggle" onchange="applyFilters()" class="w-4 h-4 rounded accent-amber-400 bg-ink-950 border-white/20">
-            <span data-i18n="chk_watch">Pantauan saya</span>
+            <span data-i18n="chk_watch">Senarai pantau</span>
           </label>
           <label class="inline-flex items-center gap-2 cursor-pointer text-[11px] font-bold text-violet-300">
             <input type="checkbox" id="volSpikeToggle" onchange="applyFilters()" class="w-4 h-4 rounded accent-violet-400 bg-ink-950 border-white/20">
-            <span data-i18n="chk_volspike">Volum spike</span>
+            <span data-i18n="chk_volspike">Volum melonjak</span>
           </label>
         </div>
       </div>
@@ -533,7 +536,7 @@ details>summary::-webkit-details-marker{display:none}
             <i data-lucide="download" class="w-3 h-3"></i><span data-i18n="btn_csv">Muat turun CSV</span>
           </button>
           <button onclick="openAlertsMgr()" class="pl-btn pl-btn--sm">
-            <i data-lucide="bell" class="w-3 h-3 text-rose-300"></i><span data-i18n="btn_my_alerts2">Amaran &amp; pantauan</span>
+            <i data-lucide="bell" class="w-3 h-3 text-rose-300"></i><span data-i18n="btn_my_alerts2">Amaran dan senarai pantau</span>
           </button>
         </div>
       </div>
@@ -544,14 +547,14 @@ details>summary::-webkit-details-marker{display:none}
           <table class="pl-table">
             <thead>
               <tr>
-                <th class="pl-sortable" data-sort="symbol"><span data-i18n="tbl_symbol">Simbol &amp; Syarikat</span> <span class="pl-arrow"></span></th>
+                <th class="pl-sortable" data-sort="symbol"><span data-i18n="tbl_symbol">Simbol dan syarikat</span> <span class="pl-arrow"></span></th>
                 <th class="pl-sortable text-right" data-sort="price"><span data-i18n="tbl_price">Harga</span> <span class="pl-arrow"></span></th>
                 <th class="pl-sortable" data-sort="change"><span data-i18n="tbl_change">Perubahan</span> <span class="pl-arrow"></span></th>
                 <th class="pl-sortable" data-sort="rsi"><span data-i18n="tbl_rsi">RSI (14)</span> <span class="pl-arrow"></span></th>
-                <th><span data-i18n="tbl_trend">Trend / EMA / Corak</span></th>
-                <th class="pl-sortable" data-sort="position"><span data-i18n="tbl_range">Kedudukan 52M</span> <span class="pl-arrow"></span></th>
+                <th><span data-i18n="tbl_trend">Trend, EMA dan corak</span></th>
+                <th class="pl-sortable" data-sort="position"><span data-i18n="tbl_range">Kedudukan 52 minggu</span> <span class="pl-arrow"></span></th>
                 <th class="pl-sortable" data-sort="pe"><span data-i18n="tbl_fund">P/E &amp; Dividen</span> <span class="pl-arrow"></span></th>
-                <th><span data-i18n="tbl_signal">Signal Hibrid</span></th>
+                <th><span data-i18n="tbl_signal">Signal</span></th>
                 <th class="text-right"><span data-i18n="tbl_action">Tindakan</span></th>
               </tr>
             </thead>
@@ -565,15 +568,15 @@ details>summary::-webkit-details-marker{display:none}
 
       <details class="rounded-xl border border-white/10 bg-ink-950/40 p-3">
         <summary class="text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
-          <i data-lucide="info" class="w-3.5 h-3.5 text-brand-400"></i><span data-i18n="legend_title">Panduan bacaan lajur &amp; penunjuk</span>
+          <i data-lucide="info" class="w-3.5 h-3.5 text-brand-400"></i><span data-i18n="legend_title">Cara membaca lajur dan penunjuk</span>
           <i data-lucide="chevron-down" class="w-3.5 h-3.5 ml-auto text-slate-500"></i>
         </summary>
         <div class="mt-2.5 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-[11px] text-slate-400">
-          <p><span class="pl-tag pl-tag--gold">EMA 7/21</span> <span data-i18n="legend_ema">Purata bergerak eksponen 7 hari melebihi 21 hari — momentum jangka pendek menaik.</span></p>
-          <p><span class="pl-tag pl-tag--gold">Golden Cross</span> <span data-i18n="legend_gc">EMA 20 melebihi EMA 50 — isyarat trend sederhana menaik.</span></p>
-          <p><span class="pl-tag pl-tag--info">Support 50/200</span> <span data-i18n="legend_sup">Harga di atas EMA 50 dan EMA 50 di atas EMA 200 — struktur menaik sihat.</span></p>
-          <p><span class="pl-tag pl-tag--ok">RSI &lt; 35</span> <span data-i18n="legend_rsi">Zon terlebih jual (oversold) — calon "buy on dip"; RSI &gt; 65 zon terlebih beli.</span></p>
-          <p><span class="pl-tag pl-tag--violet">ATH / 52M High</span> <span data-i18n="legend_ath">Harga hampir/melebihi paras tertinggi sejarah atau 52 minggu — calon breakout.</span></p>
+          <p><span class="pl-tag pl-tag--gold">EMA 7/21</span> <span data-i18n="legend_ema">Purata harga 7 hari sudah melepasi 21 hari, tanda momentum jangka pendek menaik.</span></p>
+          <p><span class="pl-tag pl-tag--gold">Golden Cross</span> <span data-i18n="legend_gc">EMA 20 melepasi EMA 50, tanda trend sederhana mula naik.</span></p>
+          <p><span class="pl-tag pl-tag--info">Support 50/200</span> <span data-i18n="legend_sup">Harga di atas EMA 50 dan EMA 50 di atas EMA 200. Susunan ini biasanya lebih stabil.</span></p>
+          <p><span class="pl-tag pl-tag--ok">RSI &lt; 35</span> <span data-i18n="legend_rsi">RSI bawah 35 bermakna harga sudah terlebih jual, manakala RSI atas 65 terlebih beli.</span></p>
+          <p><span class="pl-tag pl-tag--violet">ATH / 52M High</span> <span data-i18n="legend_ath">Harga hampir atau sudah melepasi paras tertinggi sejarah atau 52 minggu.</span></p>
           <p><span class="pl-tag pl-tag--teal">🌙 Syariah</span> <span data-i18n="legend_syariah">Tersenarai dalam senarai sekuriti patuh Syariah Suruhanjaya Sekuriti Malaysia.</span></p>
         </div>
       </details>
@@ -588,20 +591,20 @@ details>summary::-webkit-details-marker{display:none}
     <!-- ============ METHODOLOGY ============ -->
     <section id="metodologi" class="pl-card p-5 space-y-3">
       <h2 class="text-base font-extrabold text-white flex items-center gap-2">
-        <i data-lucide="shield-check" class="w-4.5 h-4.5 text-emerald-300"></i><span data-i18n="method_title">Data &amp; Metodologi</span>
+        <i data-lucide="shield-check" class="w-4.5 h-4.5 text-emerald-300"></i><span data-i18n="method_title">Cara data ini diperoleh</span>
       </h2>
       <div class="grid md:grid-cols-3 gap-4 text-[11px] text-slate-300 leading-relaxed">
         <div class="rounded-xl border border-white/10 bg-ink-950/40 p-3.5">
-          <p class="font-bold text-white mb-1 flex items-center gap-1.5"><i data-lucide="database" class="w-3.5 h-3.5 text-brand-400"></i><span data-i18n="method_1_t">Sumber angka</span></p>
-          <p id="methodSource" data-i18n="method_1_b">Harga penutup, RSI, EMA/MA, MACD, corak candlestick, P/E dan kadar dividen ditarik daripada sumber data awam dan ditulis ke fail stocks.json oleh GitHub Actions.</p>
+          <p class="font-bold text-white mb-1 flex items-center gap-1.5"><i data-lucide="database" class="w-3.5 h-3.5 text-brand-400"></i><span data-i18n="method_1_t">Sumber data</span></p>
+          <p id="methodSource" data-i18n="method_1_b">Harga penutup, RSI, purata bergerak, MACD dan corak candlestick diambil daripada data pasaran awam. P/E dan kadar dividen datang daripada data penyata kewangan syarikat.</p>
         </div>
         <div class="rounded-xl border border-white/10 bg-ink-950/40 p-3.5">
-          <p class="font-bold text-white mb-1 flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5 text-cyan-300"></i><span data-i18n="method_2_t">Jadual kemas kini</span></p>
-          <p data-i18n="method_2_b">Dua kali sehari pada hari bekerja: 17:45 MYT (selepas Bursa Malaysia tutup) dan 06:00 MYT (selepas pasaran US tutup). Halaman ini menyemak semula fail tersebut setiap 5 minit — tiada angka lama disimpan di dalam halaman.</p>
+          <p class="font-bold text-white mb-1 flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5 text-cyan-300"></i><span data-i18n="method_2_t">Bila dikemas kini</span></p>
+          <p data-i18n="method_2_b">Pada hari bekerja, data dikemas kini dua kali: sekitar 5:45 petang selepas Bursa Malaysia tutup, dan 6:00 pagi selepas pasaran US tutup. Halaman ini turut menyemak semula setiap lima minit.</p>
         </div>
         <div class="rounded-xl border border-white/10 bg-ink-950/40 p-3.5">
           <p class="font-bold text-white mb-1 flex items-center gap-1.5"><i data-lucide="moon" class="w-3.5 h-3.5 text-teal-300"></i><span data-i18n="method_3_t">Status Syariah</span></p>
-          <p id="methodShariah" data-i18n="method_3_b">Kaunter Bursa Malaysia ditanda mengikut senarai rasmi sekuriti patuh Syariah Suruhanjaya Sekuriti Malaysia. Kaunter US ditanda dengan penanda heuristik sebagai anggaran sahaja.</p>
+          <p id="methodShariah" data-i18n="method_3_b">Kaunter Bursa Malaysia ditanda mengikut senarai sekuriti patuh Syariah Suruhanjaya Sekuriti Malaysia. Untuk kaunter US, tanda itu hanya anggaran, jadi sila semak sendiri sebelum membuat keputusan.</p>
         </div>
       </div>
     </section>
@@ -610,9 +613,9 @@ details>summary::-webkit-details-marker{display:none}
     <section id="sokongan" class="space-y-4">
       <div>
         <h2 class="text-lg sm:text-xl font-extrabold text-white flex items-center gap-2">
-          <i data-lucide="heart-handshake" class="w-5 h-5 text-gold-400"></i><span data-i18n="support_title">Sokongan &amp; Rakan Rujukan</span>
+          <i data-lucide="heart-handshake" class="w-5 h-5 text-gold-400"></i><span data-i18n="support_title">Sokongan dan rakan rujukan</span>
         </h2>
-        <p class="text-[11px] text-slate-400 mt-0.5" data-i18n="support_sub">Alat ini percuma dan tiada bayaran. Jika ia membantu, daftar melalui pautan rujukan di bawah atau imbas QR DuitNow — ini menampung kos data &amp; hosting.</p>
+        <p class="text-[11px] text-slate-400 mt-0.5" data-i18n="support_sub">Semua alat di sini percuma dan tiada bayaran. Kalau ia membantu anda, bolehlah daftar melalui pautan rujukan di bawah atau imbas QR DuitNow. Itu sahaja cara kami menampung kos data dan hosting.</p>
       </div>
 
       <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -622,7 +625,7 @@ details>summary::-webkit-details-marker{display:none}
               <span class="pl-tag pl-tag--ok">LUNO MALAYSIA</span><i data-lucide="bitcoin" class="w-4 h-4 text-emerald-300"></i>
             </div>
             <h3 class="font-bold text-[13px] text-white" data-i18n="luno_title">Percuma RM25 Bitcoin (BTC)</h3>
-            <p class="text-[11px] text-slate-400 mt-1" data-i18n="luno_desc">Daftar &amp; beli RM250 mana-mana kripto di Luno. Masukkan kod rujukan di ruang Rewards.</p>
+            <p class="text-[11px] text-slate-400 mt-1" data-i18n="luno_desc">Daftar di Luno dan beli RM250 mana-mana kripto, kemudian masukkan kod rujukan di ruang Rewards.</p>
           </div>
           <div class="mt-3 space-y-2">
             <div class="flex items-center justify-between rounded-lg border border-white/10 bg-ink-950/60 px-3 py-1.5">
@@ -639,7 +642,7 @@ details>summary::-webkit-details-marker{display:none}
               <span class="pl-tag pl-tag--info">M+ GLOBAL / MPLUS</span><i data-lucide="landmark" class="w-4 h-4 text-brand-400"></i>
             </div>
             <h3 class="font-bold text-[13px] text-white" data-i18n="mplus_title">Broker CDS Brokerage Terendah</h3>
-            <p class="text-[11px] text-slate-400 mt-1" data-i18n="mplus_desc">Akaun CDS berlesen Suruhanjaya Sekuriti untuk dagangan Bursa Malaysia &amp; pasaran US.</p>
+            <p class="text-[11px] text-slate-400 mt-1" data-i18n="mplus_desc">Akaun CDS berlesen Suruhanjaya Sekuriti untuk dagangan Bursa Malaysia dan pasaran US.</p>
           </div>
           <div class="mt-3 space-y-2">
             <div class="flex items-center justify-between rounded-lg border border-white/10 bg-ink-950/60 px-3 py-1.5">
@@ -673,7 +676,7 @@ details>summary::-webkit-details-marker{display:none}
               <span class="pl-tag pl-tag--gold" data-i18n="qr_tag">DUITNOW QR</span><i data-lucide="qr-code" class="w-4 h-4 text-gold-400"></i>
             </div>
             <h3 class="font-bold text-[13px] text-white" data-i18n="qr_card_title">Sumbangan Sukarela</h3>
-            <p class="text-[11px] text-slate-400 mt-1" data-i18n="qr_card_sub">Imbas QR DuitNow menggunakan mana-mana aplikasi bank Malaysia atau TNG eWallet.</p>
+            <p class="text-[11px] text-slate-400 mt-1" data-i18n="qr_card_sub">Imbas QR DuitNow ini dengan mana-mana aplikasi bank Malaysia atau TNG eWallet.</p>
           </div>
           <div class="mt-3">
             <button onclick="openSupport()" class="pl-btn pl-btn--gold w-full">
@@ -695,9 +698,7 @@ details>summary::-webkit-details-marker{display:none}
           <span class="grid place-items-center w-7 h-7 rounded-lg bg-gradient-to-br from-brand-500 to-cyan-400 text-ink-950"><i data-lucide="line-chart" class="w-4 h-4"></i></span>
           <span class="font-bold text-sm text-white">screener.payedlegacy.my</span>
         </div>
-        <p class="text-[11px] text-slate-400 leading-relaxed" data-i18n="about_text">
-          Portal penyaring saham percuma untuk komuniti pelabur Bursa Malaysia &amp; pasaran US — membantu memantau data analisis teknikal dan fundamental.
-        </p>
+        <p class="text-[11px] text-slate-400 leading-relaxed" data-i18n="about_text">Screener percuma untuk pelabur Bursa Malaysia dan pasaran US. Harga dan penunjuk datang daripada data pasaran awam, manakala carta dipaparkan oleh TradingView.</p>
         <p class="text-[10px] text-slate-500 pl-mono" id="footerMeta">—</p>
       </div>
 
@@ -705,8 +706,8 @@ details>summary::-webkit-details-marker{display:none}
         <div class="flex items-center gap-2 text-gold-400 font-bold text-[11px]">
           <i data-lucide="home" class="w-3.5 h-3.5"></i><span>PAYED LEGACY PROPERTY</span>
         </div>
-        <h4 class="text-[12px] font-bold text-white" data-i18n="lead_title">Semak Kelayakan Pinjaman Rumah Anda (Percuma)</h4>
-        <p class="text-[10px] text-slate-400" data-i18n="lead_sub">Tukarkan keuntungan pasaran saham kepada aset fizikal hartanah yang berterusan.</p>
+        <h4 class="text-[12px] font-bold text-white" data-i18n="lead_title">Nak semak kelayakan pinjaman rumah?</h4>
+        <p class="text-[10px] text-slate-400" data-i18n="lead_sub">Kalau keuntungan saham anda sudah boleh jadi deposit rumah, hantar butiran anda dan kami semak tanpa caj.</p>
         <form onsubmit="handleLeadSubmit(event)" class="space-y-2">
           <input type="text" id="leadName" required class="pl-input" placeholder="Nama penuh anda" data-i18n-ph="lead_name_ph" autocomplete="name">
           <input type="tel" id="leadPhone" required class="pl-input pl-mono" placeholder="Nombor WhatsApp (cth: 0123456789)" data-i18n-ph="lead_phone_ph" autocomplete="tel">
@@ -716,14 +717,14 @@ details>summary::-webkit-details-marker{display:none}
       </div>
 
       <div class="space-y-2.5">
-        <h4 class="text-[11px] font-bold text-white uppercase tracking-wider" data-i18n="links_title">Sokongan &amp; Pautan</h4>
+        <h4 class="text-[11px] font-bold text-white uppercase tracking-wider" data-i18n="links_title">Pautan berguna</h4>
         <ul class="text-[11px] space-y-2 text-slate-400">
           <li><a href="#" onclick="openSupport();return false" class="hover:text-gold-300 transition" data-i18n="link_qr">☕ Imbas QR DuitNow / Sumbangan</a></li>
           <li><a href="https://www.luno.com" target="_blank" rel="noopener sponsored" class="hover:text-emerald-300 transition">🪙 Luno Bitcoin (429D5F)</a></li>
           <li><a href="https://mplus.com.my" target="_blank" rel="noopener sponsored" class="hover:text-brand-400 transition">📈 CDS M+ Global (A42L2G)</a></li>
           <li><a href="https://www.moomoo.com/my" target="_blank" rel="noopener sponsored" class="hover:text-violet-300 transition">🎁 Moomoo MY (0Jzl2X)</a></li>
           <li><a href="https://payedlegacy.my" target="_blank" rel="noopener" class="hover:text-white transition" data-i18n="link_main">🏠 payedlegacy.my — hartanah</a></li>
-          <li><a href="#metodologi" class="hover:text-white transition" data-i18n="link_method">📊 Data &amp; metodologi</a></li>
+          <li><a href="#metodologi" class="hover:text-white transition" data-i18n="link_method">📊 Cara data diperoleh</a></li>
         </ul>
       </div>
     </div>
@@ -732,12 +733,10 @@ details>summary::-webkit-details-marker{display:none}
 
     <div class="space-y-2 text-[10px] leading-relaxed text-slate-500">
       <p class="font-bold text-slate-300 flex items-center gap-1.5">
-        <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-gold-500"></i><span data-i18n="disclaimer_title">PENAFIAN PELABURAN (FINANCIAL DISCLAIMER)</span>
+        <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-gold-500"></i><span data-i18n="disclaimer_title">Penafian</span>
       </p>
-      <p data-i18n="disclaimer_body">
-        Segala maklumat dan keputusan penyaring di screener.payedlegacy.my adalah untuk rujukan dan maklumat am sahaja. Harga dan penunjuk teknikal dikemas kini secara automatik daripada sumber data awam dua kali sehari pada hari bekerja; ticker pasaran dan carta dipaparkan secara langsung oleh widget rasmi TradingView. Ia bukan nasihat pelaburan. Pengguna bertanggungjawab sepenuhnya ke atas sebarang keputusan pelaburan.
-      </p>
-      <p>&copy; 2026 payedlegacy.my — Hak cipta terpelihara. <span data-i18n="footer_built">Dibina dengan data terbuka &amp; TradingView.</span></p>
+      <p data-i18n="disclaimer_body">Semua maklumat di laman ini untuk rujukan dan pembelajaran, bukan nasihat pelaburan. Harga dan penunjuk boleh berubah, dan carta dipaparkan oleh TradingView. Sebarang keputusan beli atau jual adalah tanggungjawab anda sendiri, jadi sila buat kajian sendiri sebelum melabur.</p>
+      <p>&copy; 2026 payedlegacy.my. Hak cipta terpelihara. <span data-i18n="footer_built">Angka pasaran dikemas kini automatik, carta oleh TradingView.</span></p>
     </div>
   </div>
 </footer>
@@ -763,16 +762,16 @@ details>summary::-webkit-details-marker{display:none}
     <div class="flex items-start justify-between gap-3">
       <div>
         <h3 id="calcTitle" class="text-base font-extrabold text-white flex items-center gap-2"><i data-lucide="calculator" class="w-4 h-4 text-brand-400"></i><span data-i18n="calc_title">Kalkulator Saiz Posisi</span></h3>
-        <p class="text-[11px] text-slate-400 mt-0.5" data-i18n="calc_sub">Kira saiz belian mengikut had risiko modal anda.</p>
+        <p class="text-[11px] text-slate-400 mt-0.5" data-i18n="calc_sub">Isi modal dan paras risiko anda, kami kira berapa unit yang sesuai dibeli.</p>
       </div>
       <button onclick="closeModal('calcModal')" class="pl-btn pl-btn--sm" aria-label="Close"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
     </div>
     <div class="grid grid-cols-2 gap-3 text-xs">
-      <div><label class="pl-label" for="calcCapital" data-i18n="calc_capital">Jumlah modal</label><input type="number" id="calcCapital" value="10000" class="pl-input pl-mono" min="0" step="100"></div>
-      <div><label class="pl-label" for="calcRiskPct" data-i18n="calc_risk">Risiko maksimum per trade (%)</label><input type="number" id="calcRiskPct" value="2" class="pl-input pl-mono" min="0.1" step="0.1"></div>
+      <div><label class="pl-label" for="calcCapital" data-i18n="calc_capital">Modal anda</label><input type="number" id="calcCapital" value="10000" class="pl-input pl-mono" min="0" step="100"></div>
+      <div><label class="pl-label" for="calcRiskPct" data-i18n="calc_risk">Risiko maksimum setiap trade (%)</label><input type="number" id="calcRiskPct" value="2" class="pl-input pl-mono" min="0.1" step="0.1"></div>
       <div><label class="pl-label" for="calcEntry" data-i18n="calc_entry">Harga beli (entry)</label><input type="number" id="calcEntry" value="0.205" class="pl-input pl-mono" min="0" step="0.001"></div>
       <div><label class="pl-label" for="calcStop" data-i18n="calc_stop">Harga henti rugi (cut loss)</label><input type="number" id="calcStop" value="0.185" class="pl-input pl-mono" min="0" step="0.001"></div>
-      <div><label class="pl-label" for="calcTarget" data-i18n="calc_target">Sasaran untung (pilihan)</label><input type="number" id="calcTarget" value="" placeholder="cth: 0.25" class="pl-input pl-mono" min="0" step="0.001"></div>
+      <div><label class="pl-label" for="calcTarget" data-i18n="calc_target">Sasaran untung (kalau ada)</label><input type="number" id="calcTarget" value="" placeholder="cth: 0.25" class="pl-input pl-mono" min="0" step="0.001"></div>
       <div><label class="pl-label" for="calcMarket" data-i18n="calc_market">Pasaran</label>
         <select id="calcMarket" class="pl-select"><option value="my">Bursa Malaysia (100 unit/lot)</option><option value="us">US Market (1 unit)</option></select>
       </div>
@@ -788,7 +787,7 @@ details>summary::-webkit-details-marker{display:none}
     <div class="flex items-start justify-between gap-3">
       <div>
         <h3 id="alertTitle" class="text-base font-extrabold text-white flex items-center gap-2"><i data-lucide="bell-ring" class="w-4 h-4 text-rose-300"></i><span data-i18n="alert_title">Tetapan Amaran</span></h3>
-        <p class="text-[11px] text-slate-400 mt-0.5" data-i18n="alert_sub">Amaran disimpan dalam pelayar anda dan disemak setiap kali data dikemas kini.</p>
+        <p class="text-[11px] text-slate-400 mt-0.5" data-i18n="alert_sub">Amaran disimpan dalam pelayar ini dan disemak setiap kali data dikemas kini. Anda tidak perlu membuka akaun.</p>
       </div>
       <button onclick="closeModal('alertModal')" class="pl-btn pl-btn--sm" aria-label="Close"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
     </div>
@@ -817,7 +816,7 @@ details>summary::-webkit-details-marker{display:none}
     <div class="flex items-start justify-between gap-3">
       <div>
         <h3 id="alertsMgrTitle" class="text-base font-extrabold text-white flex items-center gap-2"><i data-lucide="bell" class="w-4 h-4 text-rose-300"></i><span data-i18n="manager_title">Amaran &amp; Senarai Pantau</span></h3>
-        <p class="text-[11px] text-slate-400 mt-0.5" data-i18n="manager_sub">Amaran harga, amaran RSI dan senarai pantau anda — semuanya disimpan setempat dalam pelayar ini.</p>
+        <p class="text-[11px] text-slate-400 mt-0.5" data-i18n="manager_sub">Senarai amaran dan kaunter pantauan anda disimpan dalam pelayar ini sahaja, tidak dihantar ke mana-mana.</p>
       </div>
       <button onclick="closeModal('alertsMgrModal')" class="pl-btn pl-btn--sm" aria-label="Close"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
     </div>
@@ -846,10 +845,10 @@ details>summary::-webkit-details-marker{display:none}
     <div class="flex justify-end"><button onclick="closeModal('supportModal')" class="pl-btn pl-btn--sm" aria-label="Close"><i data-lucide="x" class="w-3.5 h-3.5"></i></button></div>
     <div class="inline-flex rounded-full border border-gold-400/40 bg-gold-400/10 p-3 text-gold-300"><i data-lucide="qr-code" class="w-7 h-7"></i></div>
     <h3 id="supportTitle" class="text-base font-extrabold text-white" data-i18n="qr_title">QR DuitNow</h3>
-    <p class="text-[11px] text-slate-400 leading-relaxed" data-i18n="qr_sub">Imbas QR ini dengan mana-mana aplikasi bank Malaysia atau TNG eWallet untuk menyokong penyenggaraan alat percuma ini. Sumbangan adalah sukarela.</p>
+    <p class="text-[11px] text-slate-400 leading-relaxed" data-i18n="qr_sub">Imbas QR DuitNow ini menggunakan mana-mana aplikasi perbankan Malaysia atau TNG eWallet untuk menyokong penyenggaraan alat percuma ini. Sumbangan adalah sukarela.</p>
     <div class="inline-block rounded-xl border border-white/10 bg-ink-950/60 p-3">
       <img id="duitnowQrImg" src="assets/duitnow-qr.png" alt="QR DuitNow — Mohamad Farid Bin Mat (Malaysia National QR)" class="w-52 h-52 mx-auto rounded-lg bg-white object-contain" loading="lazy">
-      <p class="mt-2 text-[11px] font-bold text-slate-300" data-i18n="qr_payee">Mohamad Farid Bin Mat — Malaysia National QR (BSN)</p>
+      <p class="mt-2 text-[11px] font-bold text-slate-300" data-i18n="qr_payee">Mohamad Farid Bin Mat · Malaysia National QR (BSN)</p>
       <p id="duitnowQrNotice" class="hidden mt-1 text-[10px] font-semibold text-rose-300" data-i18n="qr_err">Imej QR tidak dapat dimuatkan. Sila muat semula halaman.</p>
       <a href="assets/duitnow-qr.png" target="_blank" rel="noopener" class="mt-1 inline-block text-[10px] font-semibold text-brand-400 hover:underline" data-i18n="qr_open">Buka imej penuh</a>
     </div>
@@ -892,228 +891,582 @@ let isFetching = false;
 let lastFocus = null;
 let drawerStock = null;
 
-const PRESET_KEYS = ['all', 'ema7_21', 'ema20_50', 'oversold', 'ema_support', 'high52w', 'ath', 'fundamental', 'hybrid'];
+const PRESET_KEYS = ['all', 'momentum', 'golden', 'dip', 'sihat', 'puncak', 'dividen', 'nilai', 'volum', 'hybrid'];
 const COLS = 9;
 
 /* ------------------------------ i18n ------------------------------ */
 const I18N = {
-  ms: {
-    skip_link: 'Lompat ke screener',
-    brand_tagline: 'Screener saham Malaysia & US • Patuh Syariah',
-    nav_summary: 'Ringkasan Pasaran', nav_screener: 'Screener', nav_method: 'Data & Metodologi', nav_support: 'Sokongan',
-    btn_my_alerts: 'Amaran', btn_my_alerts2: 'Amaran & pantauan', btn_calc: 'Kalkulator', btn_support: 'Sokong',
-    live_market: 'PASARAN LIVE', ticker_loading: 'Memuatkan ticker pasaran…',
-    hero_badge: 'Data automatik 2× sehari • Senarai Syariah Suruhanjaya Sekuriti',
-    hero_title_1: 'Screener Saham', hero_title_2: 'Teknikal + Fundamental + Syariah', hero_title_3: 'dalam satu skrin.',
-    hero_sub: 'Tapis kaunter pilihan Bursa Malaysia dan pasaran US dengan 9 preset strategi 1-klik — momentum EMA, golden cross, buy on dip, breakout 52 minggu, ATH, fundamental dan Syariah. Semua angka diambil terus daripada fail data automatik; tiada angka lama dipaparkan.',
-    hero_cta: 'Mula Menapis', hero_cta2: 'Ringkasan Pasaran', hero_cta3: 'Amaran Harga',
-    stat_total: 'Kaunter Dipantau', stat_total_sub: 'Bursa Malaysia + US', stat_gainers: 'Naik Hari Ini', stat_losers: 'Turun Hari Ini', stat_shariah: 'Patuh Syariah',
-    ads_label: 'Iklan', ads_label2: 'Iklan / Sponsor',
-    status_as_of: 'Data setakat:', btn_refresh: 'Muat Semula Data', btn_retry: 'Cuba Lagi',
-    sum_title: 'Ringkasan Pasaran', sum_sub: 'Statistik pantas sesi terkini — dikira terus daripada data stocks.json.',
-    market_my: 'Bursa Malaysia (KLSE)', market_us: 'US Market (NYSE / NASDAQ)', market_my_short: '🇲🇾 Bursa', market_us_short: '🇺🇸 US',
-    movers_up: 'Pergerakan Teratas — Naik', movers_down: 'Pergerakan Teratas — Turun', movers_top5: '5 teratas', movers_top5b: '5 teratas', movers_empty: 'Tiada data pergerakan.',
-    sum_chip_total: 'Kaunter', sum_chip_avg: 'Purata perubahan', sum_chip_oversold: 'RSI oversold (<35)', sum_chip_overbought: 'RSI overbought (>65)', sum_chip_vol: 'Volum spike', sum_chip_flat: 'Tidak berubah',
-    screener_title: 'Screener Hibrid', screener_badge: '9 preset',
-    screener_sub: 'Kombinasi teknikal + fundamental + corak candlestick + status Syariah. Klik tajuk lajur untuk menyusun.',
-    preset_label: 'Preset strategi (1-klik)', btn_reset: 'Set Semula',
-    preset_all: '📋 Semua saham', preset_ema7_21: '⚡ EMA 7×21 (momentum)', preset_ema20_50: '⚡ EMA 20×50 (golden cross)',
-    preset_oversold: '🟢 Buy on dip (RSI < 35)', preset_ema_support: '🛡️ Support 50/200 EMA', preset_high52w: '🚀 Pecah puncak 52M',
-    preset_ath: '🏆 All-time high (ATH)', preset_fundamental: '🏛️ Fundamental (PE < 15 & div > 3.5%)', preset_hybrid: '🔮 Hybrid super screener',
-    lbl_search: 'Carian', ph_search: 'Cari kod atau nama saham…', lbl_sector: 'Sektor', opt_all_sectors: 'Semua sektor',
-    chk_syariah: 'Syariah sahaja', chk_watch: 'Pantauan saya', chk_volspike: 'Volum spike',
-    btn_csv: 'Muat turun CSV',
-    tbl_symbol: 'Simbol & Syarikat', tbl_price: 'Harga', tbl_change: 'Perubahan', tbl_rsi: 'RSI (14)', tbl_trend: 'Trend / EMA / Corak',
-    tbl_range: 'Kedudukan 52M', tbl_fund: 'P/E & Dividen', tbl_signal: 'Signal Hibrid', tbl_action: 'Tindakan',
-    legend_title: 'Panduan bacaan lajur & penunjuk',
-    legend_ema: 'Purata bergerak eksponen 7 hari melebihi 21 hari — momentum jangka pendek menaik.',
-    legend_gc: 'EMA 20 melebihi EMA 50 — isyarat trend sederhana menaik.',
-    legend_sup: 'Harga di atas EMA 50 dan EMA 50 di atas EMA 200 — struktur menaik sihat.',
-    legend_rsi: 'Zon terlebih jual (oversold) — calon buy on dip; RSI > 65 zon terlebih beli.',
-    legend_ath: 'Harga hampir atau melebihi paras tertinggi sejarah / 52 minggu — calon breakout.',
-    legend_syariah: 'Tersenarai dalam senarai sekuriti patuh Syariah Suruhanjaya Sekuriti Malaysia.',
-    empty_match_t: 'Tiada saham memenuhi kriteria tapisan ini.', empty_match_s: 'Cuba tukar preset, kosongkan carian, atau klik "Set Semula".',
-    empty_data_t: 'Data pasaran belum dimuatkan.', empty_data_s: 'Klik "Muat Semula Data" atau semak sambungan internet anda.',
-    badge_syariah: '🌙 Syariah', badge_nonsyariah: 'Bukan Syariah', badge_ath: '🏆 ATH', badge_52w: '🚀 52M high',
-    badge_ema7: 'EMA 7/21', badge_gc: 'Golden Cross', badge_sup: 'Support 50/200', badge_volspike: '⚡ Volum spike',
-    lbl_vol: 'Volum', lbl_from_peak: 'dari puncak 52M', lbl_pe: 'P/E', lbl_div: 'Dividen',
-    act_detail: 'Analisis', act_chart: 'Carta', act_watch: 'Pantau', act_unwatch: 'Buang pantau', act_alert: 'Amaran',
-    showing: 'Menunjukkan {n} daripada {t} kaunter {mkt} • sesi {d}',
-    mkt_my_label: 'Bursa Malaysia', mkt_us_label: 'US Market',
-    method_title: 'Data & Metodologi', method_1_t: 'Sumber angka', method_2_t: 'Jadual kemas kini', method_3_t: 'Status Syariah',
-    method_1_b: 'Harga penutup, RSI, EMA/MA, MACD, corak candlestick, P/E dan kadar dividen ditarik daripada sumber data awam dan ditulis ke fail stocks.json oleh GitHub Actions.',
-    method_2_b: 'Dua kali sehari pada hari bekerja: 17:45 MYT (selepas Bursa Malaysia tutup) dan 06:00 MYT (selepas pasaran US tutup). Halaman ini menyemak semula fail tersebut setiap 5 minit — tiada angka lama disimpan di dalam halaman.',
-    method_3_b: 'Kaunter Bursa Malaysia ditanda mengikut senarai rasmi sekuriti patuh Syariah Suruhanjaya Sekuriti Malaysia. Kaunter US ditanda dengan penanda heuristik sebagai anggaran sahaja.',
-    support_title: 'Sokongan & Rakan Rujukan',
-    support_sub: 'Alat ini percuma dan tiada bayaran. Jika ia membantu, daftar melalui pautan rujukan di bawah atau imbas QR DuitNow — ini menampung kos data & hosting.',
-    luno_title: 'Percuma RM25 Bitcoin (BTC)', luno_desc: 'Daftar & beli RM250 mana-mana kripto di Luno. Masukkan kod rujukan di ruang Rewards.', luno_cta: 'Buka Akaun Luno',
-    mplus_title: 'Broker CDS Brokerage Terendah', mplus_desc: 'Akaun CDS berlesen Suruhanjaya Sekuriti untuk dagangan Bursa Malaysia & pasaran US.', mplus_cta: 'Daftar M+ Global',
-    moomoo_title: 'Ganjaran Saham Percuma', moomoo_desc: 'Platform carta Pro, analisis AI dan baucar tunai percuma untuk akaun baharu.', moomoo_cta: 'Tuntut Saham Percuma',
-    ref_code: 'Kod rujukan', ref_code2: 'Kod rujukan', ref_code3: 'Kod rujukan',
-    qr_tag: 'DUITNOW QR', qr_card_title: 'Sumbangan Sukarela', qr_card_sub: 'Imbas QR DuitNow menggunakan mana-mana aplikasi bank Malaysia atau TNG eWallet.', btn_show_qr: 'Tunjuk QR DuitNow',
-    qr_title: 'QR DuitNow',
-    qr_sub: 'Imbas QR DuitNow ini menggunakan mana-mana aplikasi perbankan Malaysia atau TNG eWallet untuk menyokong penyenggaraan alat percuma ini. Sumbangan adalah sukarela.',
-    qr_payee: 'Mohamad Farid Bin Mat — Malaysia National QR (BSN)',
-    qr_err: 'Imej QR tidak dapat dimuatkan. Sila muat semula halaman.',
-    qr_open: 'Buka imej penuh',
-    alerts_mgr_title: 'Amaran saya',
-    dr_price: 'Harga',
-    about_text: 'Portal penyaring saham percuma untuk komuniti pelabur Bursa Malaysia & pasaran US — membantu memantau data analisis teknikal dan fundamental.',
-    lead_title: 'Semak Kelayakan Pinjaman Rumah Anda (Percuma)', lead_sub: 'Tukarkan keuntungan pasaran saham kepada aset fizikal hartanah yang berterusan.',
-    lead_name_ph: 'Nama penuh anda', lead_phone_ph: 'Nombor WhatsApp (cth: 0123456789)', lead_btn: 'Hantar melalui WhatsApp',
-    lead_note: 'Butiran anda hanya digunakan untuk semakan kelayakan hartanah.', links_title: 'Sokongan & Pautan',
-    link_qr: '☕ Imbas QR DuitNow / Sumbangan', link_main: '🏠 payedlegacy.my — hartanah', link_method: '📊 Data & metodologi',
-    disclaimer_title: 'PENAFIAN PELABURAN (FINANCIAL DISCLAIMER)',
-    disclaimer_body: 'Segala maklumat dan keputusan penyaring di screener.payedlegacy.my adalah untuk rujukan dan maklumat am sahaja. Harga dan penunjuk teknikal dikemas kini secara automatik daripada sumber data awam dua kali sehari pada hari bekerja; ticker pasaran dan carta dipaparkan secara langsung oleh widget rasmi TradingView. Ia bukan nasihat pelaburan. Pengguna bertanggungjawab sepenuhnya ke atas sebarang keputusan pelaburan.',
-    footer_built: 'Dibina dengan data terbuka & TradingView.',
-    drawer_kicker: 'Analisis kaunter', drawer_price: 'Harga & sesi', drawer_tech: 'Teknikal', drawer_fund: 'Fundamental', drawer_patterns: 'Corak candlestick',
-    drawer_ma: 'Purata bergerak (MA/EMA)', drawer_shariah: 'Status Syariah', drawer_chart: 'Carta langsung TradingView',
-    drawer_copy: 'Salin ringkasan', drawer_add_alert: 'Cipta amaran', drawer_open_tv: 'Buka di TradingView',
-    dr_open: 'Buka', dr_high: 'Tinggi', dr_low: 'Rendah', dr_prev: 'Tutup sebelum', dr_vol: 'Volum', dr_avgvol: 'Volum purata',
-    dr_mcap: 'Modal pasaran', dr_rsi: 'RSI (14)', dr_trend: 'Trend', dr_macd: 'MACD', dr_hist: 'Histogram MACD',
-    dr_pe: 'P/E', dr_div: 'Kadar dividen', dr_divttm: 'Dividen (TTM)', dr_h52: 'Tinggi 52M', dr_l52: 'Rendah 52M', dr_ath: 'Tinggi sejarah',
-    dr_peak: 'Jarak dari puncak 52M', dr_volratio: 'Nisbah volum', dr_signal: 'Signal hibrid', dr_sector: 'Sektor', dr_sample: 'Tarikh sesi',
-    dr_ma20: 'MA 20', dr_ma50: 'MA 50', dr_ma200: 'MA 200', dr_ema7: 'EMA 7', dr_ema21: 'EMA 21', dr_ema50: 'EMA 50', dr_ema200: 'EMA 200',
-    dr_no_pattern: 'Tiada corak ketara pada sesi terakhir.',
-    calc_title: 'Kalkulator Saiz Posisi', calc_sub: 'Kira saiz belian mengikut had risiko modal anda.',
-    calc_capital: 'Jumlah modal', calc_risk: 'Risiko maksimum per trade (%)', calc_entry: 'Harga beli (entry)', calc_stop: 'Harga henti rugi (cut loss)',
-    calc_target: 'Sasaran untung (pilihan)', calc_market: 'Pasaran', calc_btn: 'Kira',
-    calc_max_risk: 'Risiko maksimum', calc_units: 'Unit maksimum', calc_lots: 'Lot (Bursa Malaysia)', calc_used: 'Nilai posisi', calc_rr: 'Nisbah risiko:ganjaran',
-    calc_pot: 'Potensi untung pada sasaran', calc_warn_target: 'Sasaran mesti melebihi harga beli untuk nisbah R:R.',
-    calc_invalid: 'Sila isi semua medan dengan nombor yang sah.', calc_entry_gt: 'Harga beli mesti lebih tinggi daripada harga henti rugi.',
-    alert_title: 'Tetapan Amaran', alert_sub: 'Amaran disimpan dalam pelayar anda dan disemak setiap kali data dikemas kini.',
-    alert_symbol: 'Kaunter', alert_cond: 'Syarat', alert_above: 'Harga naik melebihi', alert_below: 'Harga turun bawah',
-    alert_rsi_above: 'RSI melebihi', alert_rsi_below: 'RSI bawah', alert_value: 'Nilai', alert_note: 'Nota (pilihan)',
-    alert_note_ph: 'cth: breakout selepas laporan suku tahunan', alert_save: 'Simpan Amaran',
-    alert_invalid: 'Sila pilih kaunter dan masukkan nilai yang sah.', alert_saved: 'Amaran disimpan untuk {sym}.',
-    manager_title: 'Amaran & Senarai Pantau', manager_sub: 'Amaran harga, amaran RSI dan senarai pantau anda — semuanya disimpan setempat dalam pelayar ini.',
-    manager_alerts: 'Amaran harga / RSI', manager_add: 'Tambah', manager_watch: 'Senarai pantau',
-    manager_empty_alerts: 'Belum ada amaran. Klik "Tambah" untuk mencipta satu.',
-    manager_empty_watch: 'Belum ada kaunter dipantau. Klik ★ pada baris kaunter.',
-    alert_armed: 'Menunggu', alert_fired: 'Dicetuskan', alert_delete: 'Padam', alert_clear: 'Kosongkan semua',
-    alert_hit: '🔔 Amaran dicetuskan: {sym} — {desc}',
-    toast_copied: 'Ringkasan disalin ke papan keratan.',
-    toast_watch_add: '{sym} ditambah ke senarai pantau.', toast_watch_del: '{sym} dibuang dari senarai pantau.',
-    toast_csv: 'CSV dimuat turun ({n} baris).', toast_no_rows: 'Tiada baris untuk dimuat turun.',
-    toast_lead: 'Membuka WhatsApp untuk {name}.', toast_lead_err: 'Sila isi nama dan nombor WhatsApp yang sah.',
-    err_live: '⚠ Data pasaran langsung tidak dapat dimuatkan. Sila semak sambungan internet anda dan klik "Cuba Lagi". Tiada angka lama dipaparkan.',
-    stale_warn: '⚠ Data ini berusia lebih {h} jam — mungkin belum dikemas kini. Klik "Muat Semula Data" atau tunggu jadual automatik seterusnya.',
-    src_note: 'Sumber harga & penunjuk: {src} • Senarai Syariah SC {date} ({count} kod) • dijana automatik 2× sehari pada hari bekerja (halaman ini semak semula setiap 5 minit) • Carta & ticker: TradingView (langsung)',
-    src_note_nodata: 'Sumber: stocks.json gagal dimuatkan.',
-    checking: 'Menyemak data terkini…', loading: 'Memuatkan…', load_fail: 'Gagal memuatkan data langsung.',
-    refreshed_at: 'Data dikemas kini pada {t}', no_data: 'tiada data dimuatkan',
-    banner_title: 'Amaran telah dicetuskan:',
-    lbl_none: '—'
-  },
-  en: {
-    skip_link: 'Skip to screener',
-    brand_tagline: 'Malaysia & US stock screener • Shariah-compliant',
-    nav_summary: 'Market Summary', nav_screener: 'Screener', nav_method: 'Data & Methodology', nav_support: 'Support',
-    btn_my_alerts: 'Alerts', btn_my_alerts2: 'Alerts & watchlist', btn_calc: 'Calculator', btn_support: 'Support',
-    live_market: 'LIVE MARKET', ticker_loading: 'Loading market ticker…',
-    hero_badge: 'Auto-updated twice daily • Securities Commission Shariah list',
-    hero_title_1: 'Stock Screener', hero_title_2: 'Technical + Fundamental + Shariah', hero_title_3: 'in one screen.',
-    hero_sub: 'Screen selected Bursa Malaysia and US counters with 9 one-click strategy presets — EMA momentum, golden cross, buy on dip, 52-week breakout, ATH, fundamentals and Shariah. Every figure comes straight from the automated data file; no stale numbers are shown.',
-    hero_cta: 'Start Screening', hero_cta2: 'Market Summary', hero_cta3: 'Price Alerts',
-    stat_total: 'Counters Tracked', stat_total_sub: 'Bursa Malaysia + US', stat_gainers: 'Gainers Today', stat_losers: 'Losers Today', stat_shariah: 'Shariah-compliant',
-    ads_label: 'Advertisement', ads_label2: 'Advertisement / Sponsored',
-    status_as_of: 'Data as of:', btn_refresh: 'Reload Data', btn_retry: 'Try Again',
-    sum_title: 'Market Summary', sum_sub: 'Quick stats for the latest session — computed straight from stocks.json.',
-    market_my: 'Bursa Malaysia (KLSE)', market_us: 'US Market (NYSE / NASDAQ)', market_my_short: '🇲🇾 Bursa', market_us_short: '🇺🇸 US',
-    movers_up: 'Top Movers — Gainers', movers_down: 'Top Movers — Losers', movers_top5: 'top 5', movers_top5b: 'top 5', movers_empty: 'No mover data.',
-    sum_chip_total: 'Counters', sum_chip_avg: 'Average change', sum_chip_oversold: 'Oversold RSI (<35)', sum_chip_overbought: 'Overbought RSI (>65)', sum_chip_vol: 'Volume spikes', sum_chip_flat: 'Unchanged',
-    screener_title: 'Hybrid Screener', screener_badge: '9 presets',
-    screener_sub: 'Technical + fundamental + candlestick patterns + Shariah status combined. Click a column header to sort.',
-    preset_label: 'Strategy presets (1-click)', btn_reset: 'Reset',
-    preset_all: '📋 All stocks', preset_ema7_21: '⚡ EMA 7×21 (momentum)', preset_ema20_50: '⚡ EMA 20×50 (golden cross)',
-    preset_oversold: '🟢 Buy on dip (RSI < 35)', preset_ema_support: '🛡️ 50/200 EMA support', preset_high52w: '🚀 52W high breakout',
-    preset_ath: '🏆 All-time high (ATH)', preset_fundamental: '🏛️ Fundamental (PE < 15 & div > 3.5%)', preset_hybrid: '🔮 Hybrid super screener',
-    lbl_search: 'Search', ph_search: 'Search ticker or company name…', lbl_sector: 'Sector', opt_all_sectors: 'All sectors',
-    chk_syariah: 'Shariah only', chk_watch: 'My watchlist', chk_volspike: 'Volume spike',
-    btn_csv: 'Download CSV',
-    tbl_symbol: 'Ticker & Company', tbl_price: 'Price', tbl_change: 'Change', tbl_rsi: 'RSI (14)', tbl_trend: 'Trend / EMA / Pattern',
-    tbl_range: '52W Position', tbl_fund: 'P/E & Dividend', tbl_signal: 'Hybrid Signal', tbl_action: 'Action',
-    legend_title: 'How to read the columns & indicators',
-    legend_ema: '7-day exponential moving average above the 21-day — short-term upward momentum.',
-    legend_gc: 'EMA 20 above EMA 50 — medium-term uptrend signal.',
-    legend_sup: 'Price above EMA 50 and EMA 50 above EMA 200 — healthy uptrend structure.',
-    legend_rsi: 'Oversold zone — buy-on-dip candidate; RSI > 65 is the overbought zone.',
-    legend_ath: 'Price near or above its all-time / 52-week high — breakout candidate.',
-    legend_syariah: 'Listed in the Securities Commission Malaysia Shariah-compliant securities list.',
-    empty_match_t: 'No stocks match this screening criteria.', empty_match_s: 'Try another preset, clear the search, or click "Reset".',
-    empty_data_t: 'Market data has not loaded yet.', empty_data_s: 'Click "Reload Data" or check your internet connection.',
-    badge_syariah: '🌙 Shariah', badge_nonsyariah: 'Non-Shariah', badge_ath: '🏆 ATH', badge_52w: '🚀 52W high',
-    badge_ema7: 'EMA 7/21', badge_gc: 'Golden Cross', badge_sup: '50/200 Support', badge_volspike: '⚡ Volume spike',
-    lbl_vol: 'Volume', lbl_from_peak: 'from 52W peak', lbl_pe: 'P/E', lbl_div: 'Dividend',
-    act_detail: 'Analysis', act_chart: 'Chart', act_watch: 'Watch', act_unwatch: 'Unwatch', act_alert: 'Alert',
-    showing: 'Showing {n} of {t} {mkt} counters • session {d}',
-    mkt_my_label: 'Bursa Malaysia', mkt_us_label: 'US Market',
-    method_title: 'Data & Methodology', method_1_t: 'Data source', method_2_t: 'Update schedule', method_3_t: 'Shariah status',
-    method_1_b: 'Closing prices, RSI, EMA/MA, MACD, candlestick patterns, P/E and dividend yield are pulled from public data sources and written to stocks.json by GitHub Actions.',
-    method_2_b: 'Twice daily on weekdays: 17:45 MYT (after Bursa Malaysia closes) and 06:00 MYT (after the US market closes). This page re-checks the file every 5 minutes — no stale numbers are stored in the page.',
-    method_3_b: 'Bursa Malaysia counters are flagged according to the Securities Commission Malaysia Shariah-compliant securities list. US counters use a heuristic flag as an approximation only.',
-    support_title: 'Support & Referral Partners',
-    support_sub: 'This tool is free with no fees. If it helps you, sign up through a referral link below or scan the DuitNow QR — it covers data and hosting costs.',
-    luno_title: 'Free RM25 Bitcoin (BTC)', luno_desc: 'Register & buy RM250 of any crypto on Luno. Enter the referral code under Rewards.', luno_cta: 'Open Luno Account',
-    mplus_title: 'Lowest Brokerage CDS Broker', mplus_desc: 'Securities Commission licensed CDS account for Bursa Malaysia & US market trading.', mplus_cta: 'Register M+ Global',
-    moomoo_title: 'Free Stock Rewards', moomoo_desc: 'Pro charting platform, AI analysis and free cash vouchers for new accounts.', moomoo_cta: 'Claim Free Stock',
-    ref_code: 'Referral code', ref_code2: 'Referral code', ref_code3: 'Referral code',
-    qr_tag: 'DUITNOW QR', qr_card_title: 'Voluntary Contribution', qr_card_sub: 'Scan the DuitNow QR with any Malaysian banking app or TNG eWallet.', btn_show_qr: 'Show DuitNow QR',
-    qr_title: 'DuitNow QR',
-    qr_sub: 'Scan this DuitNow QR with any Malaysian banking app or TNG eWallet to support the maintenance of this free tool. Donations are voluntary.',
-    qr_payee: 'Mohamad Farid Bin Mat — Malaysia National QR (BSN)',
-    qr_err: 'The QR image could not be loaded. Please refresh the page.',
-    qr_open: 'Open full image',
-    alerts_mgr_title: 'My alerts',
-    dr_price: 'Price',
-    about_text: 'A free stock screener portal for the Bursa Malaysia & US market investor community — helping you monitor technical and fundamental data.',
-    lead_title: 'Check Your Housing Loan Eligibility (Free)', lead_sub: 'Convert your stock market gains into durable physical real estate assets.',
-    lead_name_ph: 'Your full name', lead_phone_ph: 'WhatsApp number (e.g. 0123456789)', lead_btn: 'Send via WhatsApp',
-    lead_note: 'Your details are used only for the property eligibility check.', links_title: 'Support & Links',
-    link_qr: '☕ Scan DuitNow QR / Donate', link_main: '🏠 payedlegacy.my — property', link_method: '📊 Data & methodology',
-    disclaimer_title: 'FINANCIAL DISCLAIMER',
-    disclaimer_body: 'All information and screener results on screener.payedlegacy.my are for reference and general information only. Prices and technical indicators are updated automatically from public data sources twice daily on weekdays; the market ticker and charts are displayed live by official TradingView widgets. This is not investment advice. Users are solely responsible for their investment decisions.',
-    footer_built: 'Built with open data & TradingView.',
-    drawer_kicker: 'Counter analysis', drawer_price: 'Price & session', drawer_tech: 'Technical', drawer_fund: 'Fundamental', drawer_patterns: 'Candlestick patterns',
-    drawer_ma: 'Moving averages (MA/EMA)', drawer_shariah: 'Shariah status', drawer_chart: 'Live TradingView chart',
-    drawer_copy: 'Copy summary', drawer_add_alert: 'Create alert', drawer_open_tv: 'Open in TradingView',
-    dr_open: 'Open', dr_high: 'High', dr_low: 'Low', dr_prev: 'Prev close', dr_vol: 'Volume', dr_avgvol: 'Average volume',
-    dr_mcap: 'Market cap', dr_rsi: 'RSI (14)', dr_trend: 'Trend', dr_macd: 'MACD', dr_hist: 'MACD histogram',
-    dr_pe: 'P/E', dr_div: 'Dividend yield', dr_divttm: 'Dividend (TTM)', dr_h52: '52W high', dr_l52: '52W low', dr_ath: 'All-time high',
-    dr_peak: 'Distance from 52W peak', dr_volratio: 'Volume ratio', dr_signal: 'Hybrid signal', dr_sector: 'Sector', dr_sample: 'Session date',
-    dr_ma20: 'MA 20', dr_ma50: 'MA 50', dr_ma200: 'MA 200', dr_ema7: 'EMA 7', dr_ema21: 'EMA 21', dr_ema50: 'EMA 50', dr_ema200: 'EMA 200',
-    dr_no_pattern: 'No notable pattern in the last session.',
-    calc_title: 'Position Size Calculator', calc_sub: 'Work out your buy size based on your capital risk limit.',
-    calc_capital: 'Total capital', calc_risk: 'Max risk per trade (%)', calc_entry: 'Buy price (entry)', calc_stop: 'Cut loss price (stop)',
-    calc_target: 'Profit target (optional)', calc_market: 'Market', calc_btn: 'Calculate',
-    calc_max_risk: 'Maximum risk', calc_units: 'Maximum units', calc_lots: 'Lots (Bursa Malaysia)', calc_used: 'Position value', calc_rr: 'Risk:reward ratio',
-    calc_pot: 'Potential gain at target', calc_warn_target: 'Target must be above your entry price for a R:R ratio.',
-    calc_invalid: 'Please fill every field with a valid number.', calc_entry_gt: 'Entry price must be higher than the cut-loss price.',
-    alert_title: 'Alert Settings', alert_sub: 'Alerts are stored in your browser and checked every time data refreshes.',
-    alert_symbol: 'Counter', alert_cond: 'Condition', alert_above: 'Price rises above', alert_below: 'Price falls below',
-    alert_rsi_above: 'RSI above', alert_rsi_below: 'RSI below', alert_value: 'Value', alert_note: 'Note (optional)',
-    alert_note_ph: 'e.g. breakout after quarterly results', alert_save: 'Save Alert',
-    alert_invalid: 'Please pick a counter and enter a valid value.', alert_saved: 'Alert saved for {sym}.',
-    manager_title: 'Alerts & Watchlist', manager_sub: 'Price alerts, RSI alerts and your watchlist — all stored locally in this browser.',
-    manager_alerts: 'Price / RSI alerts', manager_add: 'Add', manager_watch: 'Watchlist',
-    manager_empty_alerts: 'No alerts yet. Click "Add" to create one.',
-    manager_empty_watch: 'No watched counters yet. Click ★ on a counter row.',
-    alert_armed: 'Armed', alert_fired: 'Triggered', alert_delete: 'Delete', alert_clear: 'Clear all',
-    alert_hit: '🔔 Alert triggered: {sym} — {desc}',
-    toast_copied: 'Summary copied to clipboard.',
-    toast_watch_add: '{sym} added to your watchlist.', toast_watch_del: '{sym} removed from your watchlist.',
-    toast_csv: 'CSV downloaded ({n} rows).', toast_no_rows: 'No rows to download.',
-    toast_lead: 'Opening WhatsApp for {name}.', toast_lead_err: 'Please enter a valid name and WhatsApp number.',
-    err_live: '⚠ Live market data could not be loaded. Please check your internet connection and click "Try Again". No stale numbers are displayed.',
-    stale_warn: '⚠ This data is over {h} hours old — it may not be up to date. Click "Reload Data" or wait for the next scheduled update.',
-    src_note: 'Price & indicator source: {src} • SC Shariah list {date} ({count} codes) • auto-generated twice daily on weekdays (this page re-checks every 5 minutes) • Charts & ticker: TradingView (live)',
-    src_note_nodata: 'Source: stocks.json failed to load.',
-    checking: 'Checking latest data…', loading: 'Loading…', load_fail: 'Failed to load live data.',
-    refreshed_at: 'Data refreshed at {t}', no_data: 'no data loaded',
-    banner_title: 'Alerts triggered:',
-    lbl_none: '—'
-  }
-};
+    "ms": {
+        "skip_link": "Lompat ke screener",
+        "brand_tagline": "Screener saham Bursa Malaysia dan pasaran US",
+        "nav_summary": "Ringkasan pasaran",
+        "nav_screener": "Screener",
+        "nav_method": "Cara data diperoleh",
+        "nav_support": "Sokongan",
+        "btn_my_alerts": "Amaran",
+        "btn_my_alerts2": "Amaran dan senarai pantau",
+        "btn_calc": "Kalkulator",
+        "btn_support": "Sokong",
+        "live_market": "PASARAN LIVE",
+        "ticker_loading": "Sedang memuatkan harga pasaran...",
+    "ticker_empty": "Harga pasaran langsung tidak tersedia buat masa ini.",
+        "hero_badge": "Dikemas kini automatik dua kali sehari pada hari bekerja",
+        "hero_title_1": "Cari saham",
+        "hero_title_2": "yang benar-benar sesuai",
+        "hero_title_3": "dengan cara anda melabur.",
+        "hero_sub": "Pilih tapisan siap pakai untuk momentum, dividen, valuasi, corak candlestick atau status Syariah. Semuanya satu klik, dan angka pasaran dikemas kini automatik tanpa anda perlu buat apa-apa.",
+        "hero_cta": "Mula tapis",
+        "hero_cta2": "Tengok ringkasan pasaran",
+        "hero_cta3": "Pasang amaran harga",
+        "stat_total": "Kaunter dipantau",
+        "stat_total_sub": "Bursa Malaysia dan US",
+        "stat_gainers": "Naik hari ini",
+        "stat_losers": "Turun hari ini",
+        "stat_shariah": "Patuh Syariah",
+        "ads_label": "Iklan",
+        "ads_label2": "Iklan",
+        "status_as_of": "Dikemas kini:",
+        "btn_refresh": "Muat semula",
+        "btn_retry": "Cuba lagi",
+        "sum_title": "Ringkasan pasaran",
+        "sum_sub": "Bacaan pantas untuk sesi terkini, dikira daripada data yang sama digunakan oleh screener.",
+        "market_my": "Bursa Malaysia (KLSE)",
+        "market_us": "Pasaran US (NYSE / NASDAQ)",
+        "market_my_short": "🇲🇾 Bursa",
+        "market_us_short": "🇺🇸 US",
+        "movers_up": "Naik paling banyak",
+        "movers_down": "Turun paling banyak",
+        "movers_top5": "5 teratas",
+        "movers_top5b": "5 teratas",
+        "movers_empty": "Belum ada data pergerakan.",
+        "sum_chip_total": "Kaunter",
+        "sum_chip_avg": "Purata perubahan",
+        "sum_chip_oversold": "RSI bawah 35",
+        "sum_chip_overbought": "RSI atas 65",
+        "sum_chip_vol": "Volum melonjak",
+        "sum_chip_flat": "Tiada perubahan",
+        "screener_title": "Screener saham",
+        "screener_badge": "10 tapisan siap pakai",
+        "screener_sub": "Gabungan tapisan teknikal, fundamental, corak candlestick dan status Syariah. Tekan tajuk lajur untuk susun.",
+        "preset_label": "Tapisan siap pakai",
+        "btn_reset": "Buang semua tapisan",
+        "preset_all": "📋 Semua saham",
+        "preset_ema7_21": "⚡ EMA 7×21 (momentum)",
+        "preset_ema20_50": "⚡ EMA 20×50 (golden cross)",
+        "preset_oversold": "🟢 Buy on dip (RSI < 35)",
+        "preset_ema_support": "🛡️ Support 50/200 EMA",
+        "preset_high52w": "🚀 Pecah puncak 52M",
+        "preset_ath": "🏆 All-time high (ATH)",
+        "preset_fundamental": "🏛️ Fundamental (PE < 15 & div > 3.5%)",
+        "preset_hybrid": "🌙 Syariah dan trend naik",
+        "lbl_search": "Carian",
+        "ph_search": "Taip kod atau nama saham...",
+        "lbl_sector": "Sektor",
+        "opt_all_sectors": "Semua sektor",
+        "chk_syariah": "Syariah sahaja",
+        "chk_watch": "Senarai pantau",
+        "chk_volspike": "Volum melonjak",
+        "btn_csv": "Muat turun CSV",
+        "tbl_symbol": "Simbol dan syarikat",
+        "tbl_price": "Harga",
+        "tbl_change": "Perubahan",
+        "tbl_rsi": "RSI (14)",
+        "tbl_trend": "Trend, EMA dan corak",
+        "tbl_range": "Kedudukan 52 minggu",
+        "tbl_fund": "P/E & Dividen",
+        "tbl_signal": "Signal",
+        "tbl_action": "Tindakan",
+        "legend_title": "Cara membaca lajur dan penunjuk",
+        "legend_ema": "Purata harga 7 hari sudah melepasi 21 hari, tanda momentum jangka pendek menaik.",
+        "legend_gc": "EMA 20 melepasi EMA 50, tanda trend sederhana mula naik.",
+        "legend_sup": "Harga di atas EMA 50 dan EMA 50 di atas EMA 200. Susunan ini biasanya lebih stabil.",
+        "legend_rsi": "RSI bawah 35 bermakna harga sudah terlebih jual, manakala RSI atas 65 terlebih beli.",
+        "legend_ath": "Harga hampir atau sudah melepasi paras tertinggi sejarah atau 52 minggu.",
+        "legend_syariah": "Tersenarai dalam senarai sekuriti patuh Syariah Suruhanjaya Sekuriti Malaysia.",
+        "empty_match_t": "Tiada kaunter menepati tapisan ini.",
+        "empty_match_s": "Cuba buang sebahagian tapisan, atau tekan butang di bawah untuk mula semula.",
+        "empty_data_t": "Data pasaran belum dimuatkan.",
+        "empty_data_s": "Tekan \"Muat semula\", atau periksa sambungan internet anda.",
+        "badge_syariah": "🌙 Syariah",
+        "badge_nonsyariah": "Bukan Syariah",
+        "badge_ath": "🏆 Paras tertinggi",
+        "badge_52w": "🚀 Dekat puncak 52M",
+        "badge_ema7": "EMA 7/21",
+        "badge_gc": "Golden cross",
+        "badge_sup": "Trend sihat",
+        "badge_volspike": "⚡ Volum melonjak",
+        "lbl_vol": "Volum",
+        "lbl_from_peak": "dari puncak 52 minggu",
+        "lbl_pe": "P/E",
+        "lbl_div": "Dividen",
+        "act_detail": "Analisis",
+        "act_chart": "Carta",
+        "act_watch": "Pantau",
+        "act_unwatch": "Buang pantau",
+        "act_alert": "Amaran",
+        "showing": "Menunjukkan {n} daripada {t} saham {mkt} · sesi {d}",
+        "mkt_my_label": "Bursa Malaysia",
+        "mkt_us_label": "US Market",
+        "method_title": "Cara data ini diperoleh",
+        "method_1_t": "Sumber data",
+        "method_2_t": "Bila dikemas kini",
+        "method_3_t": "Status Syariah",
+        "method_1_b": "Harga penutup, RSI, purata bergerak, MACD dan corak candlestick diambil daripada data pasaran awam. P/E dan kadar dividen datang daripada data penyata kewangan syarikat.",
+        "method_2_b": "Pada hari bekerja, data dikemas kini dua kali: sekitar 5:45 petang selepas Bursa Malaysia tutup, dan 6:00 pagi selepas pasaran US tutup. Halaman ini turut menyemak semula setiap lima minit.",
+        "method_3_b": "Kaunter Bursa Malaysia ditanda mengikut senarai sekuriti patuh Syariah Suruhanjaya Sekuriti Malaysia. Untuk kaunter US, tanda itu hanya anggaran, jadi sila semak sendiri sebelum membuat keputusan.",
+        "support_title": "Sokongan dan rakan rujukan",
+        "support_sub": "Semua alat di sini percuma dan tiada bayaran. Kalau ia membantu anda, bolehlah daftar melalui pautan rujukan di bawah atau imbas QR DuitNow. Itu sahaja cara kami menampung kos data dan hosting.",
+        "luno_title": "Percuma RM25 Bitcoin (BTC)",
+        "luno_desc": "Daftar di Luno dan beli RM250 mana-mana kripto, kemudian masukkan kod rujukan di ruang Rewards.",
+        "luno_cta": "Buka Akaun Luno",
+        "mplus_title": "Broker CDS Brokerage Terendah",
+        "mplus_desc": "Akaun CDS berlesen Suruhanjaya Sekuriti untuk dagangan Bursa Malaysia dan pasaran US.",
+        "mplus_cta": "Daftar M+ Global",
+        "moomoo_title": "Ganjaran Saham Percuma",
+        "moomoo_desc": "Platform carta Pro, analisis AI dan baucar tunai percuma untuk akaun baharu.",
+        "moomoo_cta": "Tuntut Saham Percuma",
+        "ref_code": "Kod rujukan",
+        "ref_code2": "Kod rujukan",
+        "ref_code3": "Kod rujukan",
+        "qr_tag": "DUITNOW QR",
+        "qr_card_title": "Sumbangan Sukarela",
+        "qr_card_sub": "Imbas QR DuitNow ini dengan mana-mana aplikasi bank Malaysia atau TNG eWallet.",
+        "btn_show_qr": "Tunjuk QR DuitNow",
+        "qr_title": "QR DuitNow",
+        "qr_sub": "Imbas QR DuitNow ini menggunakan mana-mana aplikasi perbankan Malaysia atau TNG eWallet untuk menyokong penyenggaraan alat percuma ini. Sumbangan adalah sukarela.",
+        "qr_payee": "Mohamad Farid Bin Mat · Malaysia National QR (BSN)",
+        "qr_err": "Imej QR tidak dapat dimuatkan. Sila muat semula halaman.",
+        "qr_open": "Buka imej penuh",
+        "alerts_mgr_title": "Amaran saya",
+        "dr_price": "Harga",
+        "about_text": "Screener percuma untuk pelabur Bursa Malaysia dan pasaran US. Harga dan penunjuk datang daripada data pasaran awam, manakala carta dipaparkan oleh TradingView.",
+        "lead_title": "Nak semak kelayakan pinjaman rumah?",
+        "lead_sub": "Kalau keuntungan saham anda sudah boleh jadi deposit rumah, hantar butiran anda dan kami semak tanpa caj.",
+        "lead_name_ph": "Nama penuh anda",
+        "lead_phone_ph": "Nombor WhatsApp (contoh: 0123456789)",
+        "lead_btn": "Hantar melalui WhatsApp",
+        "lead_note": "Butiran anda hanya digunakan untuk semakan kelayakan hartanah.",
+        "links_title": "Pautan berguna",
+        "link_qr": "☕ Imbas QR DuitNow / Sumbangan",
+        "link_main": "🏠 payedlegacy.my — hartanah",
+        "link_method": "📊 Cara data diperoleh",
+        "disclaimer_title": "Penafian",
+        "disclaimer_body": "Semua maklumat di laman ini untuk rujukan dan pembelajaran, bukan nasihat pelaburan. Harga dan penunjuk boleh berubah, dan carta dipaparkan oleh TradingView. Sebarang keputusan beli atau jual adalah tanggungjawab anda sendiri, jadi sila buat kajian sendiri sebelum melabur.",
+        "footer_built": "Angka pasaran dikemas kini automatik, carta oleh TradingView.",
+        "drawer_kicker": "Analisis kaunter",
+        "drawer_price": "Harga & sesi",
+        "drawer_tech": "Teknikal",
+        "drawer_fund": "Fundamental",
+        "drawer_patterns": "Corak candlestick",
+        "drawer_ma": "Purata bergerak (MA/EMA)",
+        "drawer_shariah": "Status Syariah",
+        "drawer_chart": "Carta langsung TradingView",
+        "drawer_copy": "Salin ringkasan kaunter",
+        "drawer_add_alert": "Cipta amaran",
+        "drawer_open_tv": "Buka di TradingView",
+        "dr_open": "Buka",
+        "dr_high": "Tinggi",
+        "dr_low": "Rendah",
+        "dr_prev": "Tutup sebelum",
+        "dr_vol": "Volum",
+        "dr_avgvol": "Volum purata",
+        "dr_mcap": "Modal pasaran",
+        "dr_rsi": "RSI (14)",
+        "dr_trend": "Trend",
+        "dr_macd": "MACD",
+        "dr_hist": "Histogram MACD",
+        "dr_pe": "P/E",
+        "dr_div": "Kadar dividen",
+        "dr_divttm": "Dividen (TTM)",
+        "dr_h52": "Tinggi 52M",
+        "dr_l52": "Rendah 52M",
+        "dr_ath": "Tinggi sejarah",
+        "dr_peak": "Jarak dari puncak 52M",
+        "dr_volratio": "Nisbah volum",
+        "dr_signal": "Signal hibrid",
+        "dr_sector": "Sektor",
+        "dr_sample": "Tarikh sesi",
+        "dr_ma20": "MA 20",
+        "dr_ma50": "MA 50",
+        "dr_ma200": "MA 200",
+        "dr_ema7": "EMA 7",
+        "dr_ema21": "EMA 21",
+        "dr_ema50": "EMA 50",
+        "dr_ema200": "EMA 200",
+        "dr_no_pattern": "Tiada corak ketara pada sesi terakhir.",
+        "calc_title": "Kalkulator Saiz Posisi",
+        "calc_sub": "Isi modal dan paras risiko anda, kami kira berapa unit yang sesuai dibeli.",
+        "calc_capital": "Modal anda",
+        "calc_risk": "Risiko maksimum setiap trade (%)",
+        "calc_entry": "Harga beli (entry)",
+        "calc_stop": "Harga henti rugi (cut loss)",
+        "calc_target": "Sasaran untung (kalau ada)",
+        "calc_market": "Pasaran",
+        "calc_btn": "Kira",
+        "calc_max_risk": "Risiko maksimum",
+        "calc_units": "Unit maksimum",
+        "calc_lots": "Lot (Bursa Malaysia, 100 unit selot)",
+        "calc_used": "Nilai posisi",
+        "calc_rr": "Nisbah risiko:ganjaran",
+        "calc_pot": "Untung jika sasaran dicapai",
+        "calc_warn_target": "Sasaran kena lebih tinggi daripada harga beli untuk kira nisbah ganjaran.",
+        "calc_invalid": "Sila isi semua ruang dengan nombor yang sah.",
+        "calc_entry_gt": "Harga beli kena lebih tinggi daripada harga henti rugi.",
+        "alert_title": "Tetapan Amaran",
+        "alert_sub": "Amaran disimpan dalam pelayar ini dan disemak setiap kali data dikemas kini. Anda tidak perlu membuka akaun.",
+        "alert_symbol": "Kaunter",
+        "alert_cond": "Syarat",
+        "alert_above": "Harga naik melebihi",
+        "alert_below": "Harga turun bawah",
+        "alert_rsi_above": "RSI melebihi",
+        "alert_rsi_below": "RSI bawah",
+        "alert_value": "Nilai",
+        "alert_note": "Nota (pilihan)",
+        "alert_note_ph": "contoh: menunggu keputusan suku tahunan",
+        "alert_save": "Simpan Amaran",
+        "alert_invalid": "Sila pilih kaunter dan masukkan nilai yang sah.",
+        "alert_saved": "Amaran untuk {sym} sudah disimpan.",
+        "manager_title": "Amaran & Senarai Pantau",
+        "manager_sub": "Senarai amaran dan kaunter pantauan anda disimpan dalam pelayar ini sahaja, tidak dihantar ke mana-mana.",
+        "manager_alerts": "Amaran harga / RSI",
+        "manager_add": "Tambah",
+        "manager_watch": "Senarai pantau",
+        "manager_empty_alerts": "Belum ada amaran. Tekan \"Tambah\" untuk mula.",
+        "manager_empty_watch": "Belum ada kaunter dipantau. Tekan bintang pada baris kaunter untuk simpan.",
+        "alert_armed": "Menunggu",
+        "alert_fired": "Dicetuskan",
+        "alert_delete": "Padam",
+        "alert_clear": "Kosongkan semua",
+        "alert_hit": "🔔 Amaran tercetus: {sym} ({desc})",
+        "toast_copied": "Ringkasan kaunter sudah disalin.",
+        "toast_watch_add": "{sym} sudah masuk senarai pantau.",
+        "toast_watch_del": "{sym} sudah dibuang dari senarai pantau.",
+        "toast_csv": "CSV dimuat turun ({n} baris).",
+        "toast_no_rows": "Tiada baris untuk dimuat turun.",
+        "toast_lead": "Membuka WhatsApp untuk {name}.",
+        "toast_lead_err": "Sila isi nama dan nombor WhatsApp yang sah.",
+        "err_live": "Data pasaran tidak dapat dimuatkan buat masa ini. Periksa sambungan internet anda, kemudian tekan \"Cuba lagi\". Angka lama tidak ditunjukkan supaya anda tidak tersalah baca.",
+        "stale_warn": "Data ini sudah berumur lebih {h} jam dan mungkin belum dikemas kini. Elok jangan bergantung pada angka ini. Tekan \"Muat semula\" atau tunggu kemas kini seterusnya.",
+        "src_note": "Harga dan penunjuk: {src}. Senarai Syariah: Suruhanjaya Sekuriti Malaysia ({date}, {count} kaunter). Dikemas kini dua kali sehari pada hari bekerja, dan halaman ini menyemak semula setiap 5 minit. Carta dan ticker oleh TradingView.",
+        "src_note_nodata": "Data pasaran tidak dapat dimuatkan.",
+        "checking": "Sedang menyemak data...",
+        "loading": "Sedang memuatkan...",
+        "load_fail": "Data pasaran tidak dapat dimuatkan.",
+        "refreshed_at": "Data terakhir dikemas kini {t}",
+        "no_data": "tiada data dimuatkan",
+        "banner_title": "Amaran tercetus:",
+        "lbl_none": "—",
+        "preset_momentum": "⚡ Momentum naik (EMA 7/21)",
+        "preset_golden": "⚡ Golden cross (EMA 20/50)",
+        "preset_dip": "🟢 Harga jatuh (RSI bawah 35)",
+        "preset_sihat": "🛡️ Trend sihat (atas EMA 50 dan 200)",
+        "preset_puncak": "🚀 Hampir puncak 52 minggu",
+        "preset_dividen": "💰 Dividen 4% ke atas",
+        "preset_nilai": "🏷️ Valuasi murah (P/E bawah 20)",
+        "preset_volum": "📊 Volum melonjak",
+        "criteria_label": "Kriteria:",
+        "crit_all": "Menunjukkan semua kaunter dalam pasaran ini.",
+        "crit_momentum": "EMA 7 sudah melepasi EMA 21, tanda momentum jangka pendek mula naik.",
+        "crit_golden": "EMA 20 melepasi EMA 50, isyarat trend sederhana yang biasa dipantau pelabur.",
+        "crit_dip": "RSI di bawah 35, harga sudah jatuh banyak dan mungkin mula menarik. Tetapi ia juga boleh terus jatuh.",
+        "crit_sihat": "Harga di atas EMA 50, dan EMA 50 di atas EMA 200. Susunan trend menaik yang lebih stabil.",
+        "crit_puncak": "Harga berada dalam 10% daripada paras tertinggi 52 minggu.",
+        "crit_dividen": "Kadar dividen 4% setahun atau lebih tinggi.",
+        "crit_nilai": "Nisbah P/E bawah 20, jadi harga saham lebih murah berbanding keuntungan syarikat.",
+        "crit_volum": "Volum dagangan sekurang-kurangnya 1.5 kali ganda purata, tanda minat pelabur sedang meningkat.",
+        "crit_hybrid": "Patuh Syariah, harga di atas EMA 50, dan RSI masih bawah 70 supaya tidak terlebih beli.",
+        "empty_active": "Tapisan aktif:",
+        "empty_other": "Tapisan ini ada {n} kaunter dalam {other}.",
+        "months": "Jan|Feb|Mac|Apr|Mei|Jun|Jul|Ogos|Sep|Okt|Nov|Dis",
+        "other_market": "pasaran US",
+        "preset_zero": "Tiada padanan pada data semasa"
+    },
+    "en": {
+        "skip_link": "Skip to screener",
+        "brand_tagline": "Stock screener for Malaysia and the US market",
+        "nav_summary": "Market summary",
+        "nav_screener": "Screener",
+        "nav_method": "How we get the data",
+        "nav_support": "Support",
+        "btn_my_alerts": "Alerts",
+        "btn_my_alerts2": "Alerts and watchlist",
+        "btn_calc": "Calculator",
+        "btn_support": "Support",
+        "live_market": "LIVE MARKET",
+        "ticker_loading": "Loading market prices...",
+    "ticker_empty": "Live market prices are unavailable right now.",
+        "hero_badge": "Automatically updated twice a day on weekdays",
+        "hero_title_1": "Find stocks",
+        "hero_title_2": "that actually fit",
+        "hero_title_3": "the way you invest.",
+        "hero_sub": "Pick a ready-made filter for momentum, dividends, valuation, candlestick patterns or Shariah status. One click is enough, and the numbers refresh on their own.",
+        "hero_cta": "Start screening",
+        "hero_cta2": "See market summary",
+        "hero_cta3": "Set a price alert",
+        "stat_total": "Counters tracked",
+        "stat_total_sub": "Malaysia and the US",
+        "stat_gainers": "Up today",
+        "stat_losers": "Down today",
+        "stat_shariah": "Shariah-compliant",
+        "ads_label": "Advertisement",
+        "ads_label2": "Advertisement",
+        "status_as_of": "Last update:",
+        "btn_refresh": "Reload",
+        "btn_retry": "Try again",
+        "sum_title": "Market summary",
+        "sum_sub": "A quick read on the latest session, calculated from the same data the screener uses.",
+        "market_my": "Bursa Malaysia (KLSE)",
+        "market_us": "US market (NYSE / NASDAQ)",
+        "market_my_short": "🇲🇾 Bursa",
+        "market_us_short": "🇺🇸 US",
+        "movers_up": "Biggest gainers",
+        "movers_down": "Biggest losers",
+        "movers_top5": "top 5",
+        "movers_top5b": "top 5",
+        "movers_empty": "No movement data yet.",
+        "sum_chip_total": "Counters",
+        "sum_chip_avg": "Average change",
+        "sum_chip_oversold": "RSI under 35",
+        "sum_chip_overbought": "RSI over 65",
+        "sum_chip_vol": "Volume surge",
+        "sum_chip_flat": "Unchanged",
+        "screener_title": "Stock screener",
+        "screener_badge": "10 ready filters",
+        "screener_sub": "Technical, fundamental, candlestick pattern and Shariah filters in one place. Click a column title to sort.",
+        "preset_label": "Ready-made filters",
+        "btn_reset": "Clear all filters",
+        "preset_all": "📋 All stocks",
+        "preset_ema7_21": "⚡ EMA 7×21 (momentum)",
+        "preset_ema20_50": "⚡ EMA 20×50 (golden cross)",
+        "preset_oversold": "🟢 Buy on dip (RSI < 35)",
+        "preset_ema_support": "🛡️ 50/200 EMA support",
+        "preset_high52w": "🚀 52W high breakout",
+        "preset_ath": "🏆 All-time high (ATH)",
+        "preset_fundamental": "🏛️ Fundamental (PE < 15 & div > 3.5%)",
+        "preset_hybrid": "🌙 Shariah and uptrend",
+        "lbl_search": "Search",
+        "ph_search": "Type a ticker or company name...",
+        "lbl_sector": "Sector",
+        "opt_all_sectors": "All sectors",
+        "chk_syariah": "Shariah only",
+        "chk_watch": "My watchlist",
+        "chk_volspike": "Volume surge",
+        "btn_csv": "Download CSV",
+        "tbl_symbol": "Ticker and company",
+        "tbl_price": "Price",
+        "tbl_change": "Change",
+        "tbl_rsi": "RSI (14)",
+        "tbl_trend": "Trend, EMA & pattern",
+        "tbl_range": "52-week position",
+        "tbl_fund": "P/E & Dividend",
+        "tbl_signal": "Signal",
+        "tbl_action": "Action",
+        "legend_title": "How to read the columns",
+        "legend_ema": "The 7-day average price has moved above the 21-day, a short-term upward sign.",
+        "legend_gc": "EMA 20 above EMA 50, a sign the medium-term trend is turning up.",
+        "legend_sup": "Price above EMA 50 and EMA 50 above EMA 200. This arrangement is usually steadier.",
+        "legend_rsi": "RSI under 35 means the price is oversold; above 65 means overbought.",
+        "legend_ath": "Price is near or has passed its all-time or 52-week high.",
+        "legend_syariah": "Listed in the Securities Commission Malaysia Shariah-compliant securities list.",
+        "empty_match_t": "No counter matches this filter.",
+        "empty_match_s": "Remove part of the filter, or use the button below to start over.",
+        "empty_data_t": "Market data has not loaded yet.",
+        "empty_data_s": "Press \"Reload\", or check your internet connection.",
+        "badge_syariah": "🌙 Shariah",
+        "badge_nonsyariah": "Non-Shariah",
+        "badge_ath": "🏆 All-time high",
+        "badge_52w": "🚀 Near 52W high",
+        "badge_ema7": "EMA 7/21",
+        "badge_gc": "Golden cross",
+        "badge_sup": "Healthy trend",
+        "badge_volspike": "⚡ Volume surge",
+        "lbl_vol": "Volume",
+        "lbl_from_peak": "from the 52-week high",
+        "lbl_pe": "P/E",
+        "lbl_div": "Dividend",
+        "act_detail": "Analysis",
+        "act_chart": "Chart",
+        "act_watch": "Watch",
+        "act_unwatch": "Unwatch",
+        "act_alert": "Alert",
+        "showing": "Showing {n} of {t} {mkt} stocks · session {d}",
+        "mkt_my_label": "Bursa Malaysia",
+        "mkt_us_label": "US Market",
+        "method_title": "How we get this data",
+        "method_1_t": "Data source",
+        "method_2_t": "Update schedule",
+        "method_3_t": "Shariah status",
+        "method_1_b": "Closing prices, RSI, moving averages, MACD and candlestick patterns come from public market data. P/E and dividend yield come from company financial statements.",
+        "method_2_b": "On weekdays data is refreshed twice: around 5:45 pm after Bursa Malaysia closes, and 6:00 am after the US market closes. This page also re-checks every five minutes.",
+        "method_3_b": "Malaysian counters are flagged using the Securities Commission Shariah-compliant securities list. For US counters the flag is only an estimate, so please verify before deciding.",
+        "support_title": "Support and referral partners",
+        "support_sub": "Everything here is free. If it helps you, you can sign up through one of the referral links below or scan the DuitNow QR. That is how the data and hosting costs get covered.",
+        "luno_title": "Free RM25 Bitcoin (BTC)",
+        "luno_desc": "Sign up on Luno and buy RM250 of any crypto, then enter the referral code under Rewards.",
+        "luno_cta": "Open Luno Account",
+        "mplus_title": "Lowest Brokerage CDS Broker",
+        "mplus_desc": "An SC-licensed CDS account for trading Bursa Malaysia and the US market.",
+        "mplus_cta": "Register M+ Global",
+        "moomoo_title": "Free Stock Rewards",
+        "moomoo_desc": "Pro charting platform, AI analysis and free cash vouchers for new accounts.",
+        "moomoo_cta": "Claim Free Stock",
+        "ref_code": "Referral code",
+        "ref_code2": "Referral code",
+        "ref_code3": "Referral code",
+        "qr_tag": "DUITNOW QR",
+        "qr_card_title": "Voluntary Contribution",
+        "qr_card_sub": "Scan this DuitNow QR with any Malaysian banking app or TNG eWallet.",
+        "btn_show_qr": "Show DuitNow QR",
+        "qr_title": "DuitNow QR",
+        "qr_sub": "Scan this DuitNow QR with any Malaysian banking app or TNG eWallet to support the maintenance of this free tool. Donations are voluntary.",
+        "qr_payee": "Mohamad Farid Bin Mat · Malaysia National QR (BSN)",
+        "qr_err": "The QR image could not be loaded. Please refresh the page.",
+        "qr_open": "Open full image",
+        "alerts_mgr_title": "My alerts",
+        "dr_price": "Price",
+        "about_text": "A free screener for Bursa Malaysia and US market investors. Prices and indicators come from public market data, and charts are shown by TradingView.",
+        "lead_title": "Want to check your home loan eligibility?",
+        "lead_sub": "If your stock gains could cover a home deposit, send your details and we will check at no charge.",
+        "lead_name_ph": "Your full name",
+        "lead_phone_ph": "WhatsApp number (e.g. 0123456789)",
+        "lead_btn": "Send via WhatsApp",
+        "lead_note": "Your details are only used for the property eligibility check.",
+        "links_title": "Useful links",
+        "link_qr": "☕ Scan DuitNow QR / Donate",
+        "link_main": "🏠 payedlegacy.my — property",
+        "link_method": "📊 How we get the data",
+        "disclaimer_title": "Disclaimer",
+        "disclaimer_body": "Everything on this site is for reference and learning, not investment advice. Prices and indicators change, and charts are displayed by TradingView. Any buy or sell decision is your own responsibility, so please do your own research before investing.",
+        "footer_built": "Market data refreshes automatically, charts by TradingView.",
+        "drawer_kicker": "Counter analysis",
+        "drawer_price": "Price & session",
+        "drawer_tech": "Technical",
+        "drawer_fund": "Fundamental",
+        "drawer_patterns": "Candlestick patterns",
+        "drawer_ma": "Moving averages (MA/EMA)",
+        "drawer_shariah": "Shariah status",
+        "drawer_chart": "Live TradingView chart",
+        "drawer_copy": "Copy counter summary",
+        "drawer_add_alert": "Create alert",
+        "drawer_open_tv": "Open in TradingView",
+        "dr_open": "Open",
+        "dr_high": "High",
+        "dr_low": "Low",
+        "dr_prev": "Prev close",
+        "dr_vol": "Volume",
+        "dr_avgvol": "Average volume",
+        "dr_mcap": "Market cap",
+        "dr_rsi": "RSI (14)",
+        "dr_trend": "Trend",
+        "dr_macd": "MACD",
+        "dr_hist": "MACD histogram",
+        "dr_pe": "P/E",
+        "dr_div": "Dividend yield",
+        "dr_divttm": "Dividend (TTM)",
+        "dr_h52": "52W high",
+        "dr_l52": "52W low",
+        "dr_ath": "All-time high",
+        "dr_peak": "Distance from 52W peak",
+        "dr_volratio": "Volume ratio",
+        "dr_signal": "Hybrid signal",
+        "dr_sector": "Sector",
+        "dr_sample": "Session date",
+        "dr_ma20": "MA 20",
+        "dr_ma50": "MA 50",
+        "dr_ma200": "MA 200",
+        "dr_ema7": "EMA 7",
+        "dr_ema21": "EMA 21",
+        "dr_ema50": "EMA 50",
+        "dr_ema200": "EMA 200",
+        "dr_no_pattern": "No notable pattern in the last session.",
+        "calc_title": "Position Size Calculator",
+        "calc_sub": "Enter your capital and risk level, and we will work out how many units to buy.",
+        "calc_capital": "Your capital",
+        "calc_risk": "Max risk per trade (%)",
+        "calc_entry": "Buy price (entry)",
+        "calc_stop": "Cut loss price (stop)",
+        "calc_target": "Profit target (if any)",
+        "calc_market": "Market",
+        "calc_btn": "Calculate",
+        "calc_max_risk": "Maximum risk",
+        "calc_units": "Maximum units",
+        "calc_lots": "Lots (Bursa Malaysia, 100 units per lot)",
+        "calc_used": "Position value",
+        "calc_rr": "Risk:reward ratio",
+        "calc_pot": "Gain if the target is reached",
+        "calc_warn_target": "The target must be above your buy price to work out the reward ratio.",
+        "calc_invalid": "Please fill every field with a valid number.",
+        "calc_entry_gt": "Buy price must be higher than the cut-loss price.",
+        "alert_title": "Alert Settings",
+        "alert_sub": "Alerts are kept in this browser and checked every time the data refreshes. No account needed.",
+        "alert_symbol": "Counter",
+        "alert_cond": "Condition",
+        "alert_above": "Price rises above",
+        "alert_below": "Price falls below",
+        "alert_rsi_above": "RSI above",
+        "alert_rsi_below": "RSI below",
+        "alert_value": "Value",
+        "alert_note": "Note (optional)",
+        "alert_note_ph": "e.g. waiting for quarterly results",
+        "alert_save": "Save Alert",
+        "alert_invalid": "Please pick a counter and enter a valid value.",
+        "alert_saved": "Alert saved for {sym}.",
+        "manager_title": "Alerts & Watchlist",
+        "manager_sub": "Your alerts and watchlist are kept in this browser only, never sent anywhere.",
+        "manager_alerts": "Price / RSI alerts",
+        "manager_add": "Add",
+        "manager_watch": "Watchlist",
+        "manager_empty_alerts": "No alerts yet. Press \"Add\" to start.",
+        "manager_empty_watch": "No watched counters yet. Press the star on a counter row to save it.",
+        "alert_armed": "Armed",
+        "alert_fired": "Triggered",
+        "alert_delete": "Delete",
+        "alert_clear": "Clear all",
+        "alert_hit": "🔔 Alert triggered: {sym} ({desc})",
+        "toast_copied": "Counter summary copied.",
+        "toast_watch_add": "{sym} added to your watchlist.",
+        "toast_watch_del": "{sym} removed from your watchlist.",
+        "toast_csv": "CSV downloaded ({n} rows).",
+        "toast_no_rows": "No rows to download.",
+        "toast_lead": "Opening WhatsApp for {name}.",
+        "toast_lead_err": "Please enter a valid name and WhatsApp number.",
+        "err_live": "Market data cannot be loaded right now. Check your internet connection, then press \"Try again\". Old numbers are hidden so you do not read them by mistake.",
+        "stale_warn": "This data is more than {h} hours old and may not be current. Better not to rely on it. Press \"Reload\" or wait for the next update.",
+        "src_note": "Prices and indicators: {src}. Shariah list: Securities Commission Malaysia ({date}, {count} counters). Refreshed twice a day on weekdays, and this page re-checks every 5 minutes. Charts and ticker by TradingView.",
+        "src_note_nodata": "Market data cannot be loaded.",
+        "checking": "Checking the data...",
+        "loading": "Loading...",
+        "load_fail": "Market data cannot be loaded.",
+        "refreshed_at": "Last update {t}",
+        "no_data": "no data loaded",
+        "banner_title": "Alerts triggered:",
+        "lbl_none": "—",
+        "preset_momentum": "⚡ Uptrend momentum (EMA 7/21)",
+        "preset_golden": "⚡ Golden cross (EMA 20/50)",
+        "preset_dip": "🟢 Pulled back (RSI under 35)",
+        "preset_sihat": "🛡️ Healthy trend (above EMA 50 & 200)",
+        "preset_puncak": "🚀 Near 52-week high",
+        "preset_dividen": "💰 Dividend 4% or more",
+        "preset_nilai": "🏷️ Cheap valuation (P/E under 20)",
+        "preset_volum": "📊 Volume surge",
+        "criteria_label": "Rule:",
+        "crit_all": "Shows every counter in this market.",
+        "crit_momentum": "EMA 7 has crossed above EMA 21, a sign that short-term momentum is turning up.",
+        "crit_golden": "EMA 20 crossed above EMA 50, a medium-term trend signal traders often watch.",
+        "crit_dip": "RSI is under 35, so the price has fallen a lot and may be getting interesting. It can also keep falling.",
+        "crit_sihat": "Price is above EMA 50 and EMA 50 is above EMA 200. A steadier uptrend arrangement.",
+        "crit_puncak": "Price is within 10% of its 52-week high.",
+        "crit_dividen": "Dividend yield of 4% a year or more.",
+        "crit_nilai": "P/E ratio under 20, meaning the price is cheaper relative to company earnings.",
+        "crit_volum": "Trading volume is at least 1.5 times the average, a sign of rising interest.",
+        "crit_hybrid": "Shariah-compliant, price above EMA 50, and RSI still under 70 so it is not overbought.",
+        "empty_active": "Active filters:",
+        "empty_other": "This filter has {n} counters in {other}.",
+        "months": "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec",
+        "other_market": "the US market",
+        "preset_zero": "No matches in the current data"
+    }
+};;
 function t(key, vars) {
   let s = (I18N[currentLang] && I18N[currentLang][key]) || (I18N.ms[key] || key);
   if (vars) Object.keys(vars).forEach(k => { s = s.split('{' + k + '}').join(vars[k]); });
@@ -1242,7 +1595,7 @@ async function loadData(isManual) {
     STOCKS = arr.map(adaptStock);
     errBox.classList.add('hidden');
     $('btnRetry').classList.add('hidden');
-    if (status) status.textContent = t('refreshed_at', { t: (DATA_META && DATA_META.generatedAtMYT) || new Date().toLocaleTimeString() });
+    if (status) status.textContent = t('refreshed_at', { t: fmtStamp((DATA_META && DATA_META.generatedAtMYT) || new Date().toLocaleTimeString()) });
   } catch (err) {
     console.error('[screener] gagal memuatkan stocks.json:', err);
     DATA_META = null; STOCKS = [];
@@ -1257,6 +1610,7 @@ async function loadData(isManual) {
   }
   renderAll();
   evaluateAlerts();
+  buildTickerTape(false);
 }
 
 function refreshIcons() { if (window.lucide && window.lucide.createIcons) { try { window.lucide.createIcons(); } catch (e) {} } }
@@ -1266,10 +1620,10 @@ function updateStatus() {
   const el = $('dataTimestampText'), note = $('dataSourceNote'), warn = $('staleWarning'), ping = $('livePing');
   if (!el) return;
   if (DATA_META && DATA_META.generatedAt) {
-    const sesi = t('dr_sample') + ' ' + (DATA_META.mySessionDate || '-') + ' / ' + (DATA_META.usSessionDate || '-');
-    el.textContent = (DATA_META.generatedAtMYT || DATA_META.generatedAt) + ' • ' + sesi;
+    const sesi = t('dr_sample') + ': ' + fmtDate(DATA_META.mySessionDate) + ' (' + t('mkt_my_label') + ') · ' + fmtDate(DATA_META.usSessionDate) + ' (' + t('mkt_us_label') + ')';
+    el.textContent = fmtStamp(DATA_META.generatedAtMYT || DATA_META.generatedAt) + ' • ' + sesi;
     note.textContent = t('src_note', {
-      src: DATA_META.priceSource || 'Yahoo Finance',
+      src: String(DATA_META.priceSource || 'Yahoo Finance').replace(/\s*\([^)]*yfinance[^)]*\)/i, ''),
       date: DATA_META.shariahListDate || '-',
       count: DATA_META.shariahListCount || '-'
     });
@@ -1280,7 +1634,7 @@ function updateStatus() {
       if (ping) ping.style.display = '';
     } else { warn.classList.add('hidden'); }
     const fm = $('footerMeta');
-    if (fm) fm.textContent = (DATA_META.symbolCount || STOCKS.length) + ' counters • ' + (DATA_META.generatedAtMYT || '-');
+    if (fm) fm.textContent = (DATA_META.symbolCount || STOCKS.length) + ' ' + t('sum_chip_total').toLowerCase() + ' · ' + fmtStamp(DATA_META.generatedAtMYT);
   } else {
     el.textContent = t('no_data');
     note.textContent = t('src_note_nodata');
@@ -1358,27 +1712,35 @@ function renderMovers(rows) {
 
 /* ------------------------------ presets & filters ------------------------------ */
 const PRESETS = {
-  all: () => true,
-  ema7_21: s => s.ema7_21 === true,
-  ema20_50: s => s.ema20_50 === true,
-  oversold: s => (s.rsi !== null && s.rsi < 35),
-  ema_support: s => s.emaSupport === true,
-  high52w: s => s.high52w === true,
-  ath: s => s.ath === true,
-  fundamental: s => (s.pe !== null && s.pe < 15 && num(s.div) !== null && s.div >= 3.5),
-  hybrid: s => (s.syariah && (s.ema7_21 || s.ema20_50) && s.pe !== null && s.pe < 20)
+  all:      () => true,
+  momentum: s => s.ema7_21 === true,
+  golden:   s => s.ema20_50 === true,
+  dip:      s => (s.rsi !== null && s.rsi < 35),
+  sihat:    s => s.emaSupport === true,
+  puncak:   s => (s.pctHigh52 !== null && s.pctHigh52 >= -10),
+  dividen:  s => (s.div !== null && s.div >= 4),
+  nilai:    s => (s.pe !== null && s.pe < 20),
+  volum:    s => s.volSpike === true,
+  hybrid:   s => (s.syariah === true && s.ma50 !== null && s.price !== null && s.price > s.ma50 && s.rsi !== null && s.rsi < 70)
 };
 
+function presetCount(market, key) {
+  if (!STOCKS.length) return null;
+  return STOCKS.filter(s => s.market === market).filter(PRESETS[key]).length;
+}
 function renderPresets() {
   const bar = $('presetBar'); if (!bar) return;
-  const pool = STOCKS.filter(s => s.market === currentMarket);
   bar.innerHTML = PRESET_KEYS.map(k => {
-    const n = STOCKS.length ? pool.filter(PRESETS[k]).length : null;
+    const n = presetCount(currentMarket, k);
     const on = (k === activePreset);
-    return '<button onclick="applyPreset(\'' + k + '\')" class="pl-btn ' + (on ? 'pl-btn--pri' : '') + '" aria-pressed="' + on + '">' +
+    const zero = (n === 0);
+    return '<button onclick="applyPreset(\'' + k + '\')" class="pl-btn ' + (on ? 'pl-btn--pri' : '') + (zero && !on ? ' pl-btn--dim' : '') + '" ' +
+      'aria-pressed="' + on + '" title="' + esc(zero ? t('preset_zero') : t('crit_' + k)) + '">' +
       '<span>' + esc(t('preset_' + k)) + '</span>' +
-      (n === null ? '' : '<span class="pl-tag ' + (on ? 'pl-tag--mute' : 'pl-tag--info') + '">' + n + '</span>') + '</button>';
+      (n === null ? '' : '<span class="pl-tag ' + (zero ? 'pl-tag--mute' : (on ? 'pl-tag--mute' : 'pl-tag--info')) + '">' + n + '</span>') + '</button>';
   }).join('');
+  const crit = $('presetCriteria');
+  if (crit) crit.textContent = t('criteria_label') + ' ' + t('crit_' + activePreset);
 }
 function applyPreset(k) { activePreset = k; renderPresets(); applyFilters(); }
 function resetFilters() {
@@ -1463,12 +1825,22 @@ function setSort(k) {
   });
   applyFilters();
 }
+function fmtStamp(v) {
+  let s = String(v === null || v === undefined ? '' : v).replace(/\s*\(MYT\)\s*/i, ' ').trim();
+  if (currentLang === 'ms') s = s.replace(/\bAM\b/i, 'pagi').replace(/\bPM\b/i, 'petang');
+  return s || '-';
+}
+function fmtDate(v) {
+  const parts = String(v || '').slice(0, 10).split('-');
+  if (parts.length !== 3) return v || '-';
+  const names = t('months').split('|');
+  return parseInt(parts[2], 10) + ' ' + (names[parseInt(parts[1], 10) - 1] || parts[1]) + ' ' + parts[0];
+}
 function renderCounter(rows) {
   const el = $('matchCounter'); if (!el) return;
   const total = STOCKS.filter(s => s.market === currentMarket).length;
   const mkt = currentMarket === 'malaysia' ? t('mkt_my_label') : t('mkt_us_label');
-  const d = rows.length ? (rows[0].sampleDate || '-') : '-';
-  el.textContent = STOCKS.length ? t('showing', { n: rows.length, t: total, mkt: mkt, d: d }) : t('empty_data_t');
+  el.textContent = STOCKS.length ? t('showing', { n: rows.length, t: total, mkt: mkt, d: fmtDate(rows.length ? rows[0].sampleDate : '-') }) : t('empty_data_t');
 }
 
 /* ------------------------------ table & cards ------------------------------ */
@@ -1512,11 +1884,36 @@ function actionBtns(s) {
     '<button onclick="toggleWatch(\'' + esc(s.symbol) + '\')" class="pl-btn pl-btn--sm" title="' + esc(w ? t('act_unwatch') : t('act_watch')) + '" style="color:' + (w ? '#fcd34d' : '#94a3b8') + '">★</button>';
 }
 
+function activeFilterLabels() {
+  const out = [];
+  if (activePreset !== 'all') out.push(t('preset_' + activePreset));
+  const q = $('searchInput') ? $('searchInput').value.trim() : '';
+  if (q) out.push(t('lbl_search') + ': ' + q);
+  const sec = $('sectorSelect') ? $('sectorSelect').value : 'all';
+  if (sec !== 'all') out.push(sec);
+  if ($('syariahOnlyToggle') && $('syariahOnlyToggle').checked) out.push(t('chk_syariah'));
+  if ($('watchOnlyToggle') && $('watchOnlyToggle').checked) out.push(t('chk_watch'));
+  if ($('volSpikeToggle') && $('volSpikeToggle').checked) out.push(t('chk_volspike'));
+  return out;
+}
 function emptyState() {
-  const has = STOCKS.length > 0;
+  if (!STOCKS.length) {
+    return '<div class="p-8 text-center">' +
+      '<p class="text-sm font-bold text-slate-300">' + esc(t('empty_data_t')) + '</p>' +
+      '<p class="mt-1 pl-sub">' + esc(t('empty_data_s')) + '</p>' +
+      '<button onclick="loadData(true)" class="pl-btn pl-btn--pri mt-3">' + esc(t('btn_retry')) + '</button></div>';
+  }
+  const active = activeFilterLabels();
+  const other = (currentMarket === 'malaysia') ? 'america' : 'malaysia';
+  const otherN = presetCount(other, activePreset);
+  const otherLabel = (other === 'malaysia') ? t('mkt_my_label') : t('mkt_us_label');
+  let hint = '';
+  if (activePreset !== 'all' && otherN) hint = '<p class="mt-2 pl-sub">' + esc(t('empty_other', { n: otherN, other: otherLabel })) + '</p>';
   return '<div class="p-8 text-center">' +
-    '<p class="text-sm font-bold text-slate-300">' + esc(has ? t('empty_match_t') : t('empty_data_t')) + '</p>' +
-    '<p class="mt-1 pl-sub">' + esc(has ? t('empty_match_s') : t('empty_data_s')) + '</p>' +
+    '<p class="text-sm font-bold text-slate-300">' + esc(t('empty_match_t')) + '</p>' +
+    '<p class="mt-1 pl-sub">' + esc(t('empty_match_s')) + '</p>' +
+    (active.length ? '<p class="mt-2 pl-sub">' + esc(t('empty_active')) + ' ' + esc(active.join(' · ')) + '</p>' : '') +
+    hint +
     '<button onclick="resetFilters()" class="pl-btn pl-btn--pri mt-3">' + esc(t('btn_reset')) + '</button></div>';
 }
 
@@ -1577,7 +1974,7 @@ function kv(label, value, cls) {
 }
 function renderDrawer() {
   const s = drawerStock; if (!s) return;
-  $('drawerTitle').textContent = s.symbol + ' — ' + fmtPrice(s);
+  $('drawerTitle').textContent = s.symbol + ' · ' + fmtPrice(s);
   $('drawerSub').textContent = s.name + ' • ' + s.sector + ' • ' + (s.syariah ? t('badge_syariah') : t('badge_nonsyariah'));
   const up = num(s.change) !== null && s.change >= 0;
   const maRows = [
@@ -1865,7 +2262,8 @@ function handleLeadSubmit(e) {
 
 /* ------------------------------ ticker widget ------------------------------ */
 function buildTickerTape(force) {
-  const box = $('tvTickerTape'); if (!box || !STOCKS.length) return;
+  const box = $('tvTickerTape'); if (!box) return;
+  if (!STOCKS.length) { box.innerHTML = '<div class="pl-sub px-2 py-3">' + esc(t('ticker_empty')) + '</div>'; return; }
   const sig = STOCKS.map(s => s.tvSymbol).join(',');
   if (!force && sig === tickerSignature) return;
   tickerSignature = sig;
