@@ -555,7 +555,7 @@
             <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 inline-block w-full">
                 <!-- PENYELENGGARA: simpan imej QR DuitNow sebagai images/duitnow-qr.png (persegi, ~600x600 px). -->
                 <!-- Pilihan: isi nilai DUITNOW_ID dalam blok skrip utama di hujung fail untuk memaparkan butang salin DuitNow ID. -->
-                <img id="duitnowQrImg" src="images/duitnow-qr.png" alt="DuitNow QR — Payed Legacy" onload="duitnowQrLoaded()" onerror="duitnowQrFallback()" class="w-48 h-48 mx-auto rounded-lg object-contain bg-white border border-slate-200">
+                <img id="duitnowQrImg" src="images/duitnow-qr.png" alt="DuitNow QR — Payed Legacy" class="w-48 h-48 mx-auto rounded-lg object-contain bg-white border border-slate-200">
                 <p class="text-[11px] font-bold text-slate-600 mt-2">DuitNow QR / TNG eWallet</p>
                 <div id="duitnowQrNotice" class="hidden mx-auto mt-2 max-w-[13rem] text-[10px] text-slate-500 leading-relaxed">Slot QR DuitNow belum dimuatkan. Sila cuba sebentar lagi atau gunakan pautan rujukan di atas.</div>
                 <div id="duitnowIdRow" class="hidden mt-2">
@@ -794,6 +794,16 @@
         }
 
         function initDuitNow() {
+            // Slot QR: tentukan keadaan imej selepas DOM sedia (elak race dgn onerror inline)
+            const img = document.getElementById('duitnowQrImg');
+            if (img) {
+                const resolve = () => ((img.complete && img.naturalWidth > 0) ? duitnowQrLoaded() : duitnowQrFallback());
+                if (img.complete) { resolve(); }
+                else {
+                    img.addEventListener('load', duitnowQrLoaded, { once: true });
+                    img.addEventListener('error', duitnowQrFallback, { once: true });
+                }
+            }
             if (DUITNOW_ID) {
                 const row = document.getElementById('duitnowIdRow');
                 const txt = document.getElementById('duitnowIdText');
