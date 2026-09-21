@@ -357,11 +357,51 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
 
             pats = candle_patterns(o[-1], h[-1], l[-1], c[-1], o[-2], c[-2])
 
+            # ---- Enjin Global Mega-Breakout & Volume Surge -------------------
+            # ID: global_breakout_momentum_scanner
+            # Isyarat pergerakan besar (breakout/volume surge) untuk Bursa Malaysia
+            # dan pasaran US. Semua nilai dikira daripada sejarah harga sebenar.
+            e7s, e21s = ema_series(c, 7), ema_series(c, 21)
+            ema_cross = bool(len(e7s) > 1 and len(e21s) > 1
+                             and e7s[-1] > e21s[-1] and e7s[-2] <= e21s[-2])
+            vol_spike = bool(avg_vol and v[-1] >= avg_vol * 1.5)
+            momentum = bool(change >= 1.5)
+            near_high = bool(hi52 and price >= hi52 * 0.97)
+            rsi_healthy = bool(rsi_val is not None and 45.0 <= rsi_val <= 70.0)
+            breakout_score = ((35 if vol_spike else 0) + (30 if momentum else 0)
+                              + (25 if ema_cross else 0) + (10 if near_high else 0)
+                              + (5 if rsi_healthy else 0))
+            if vol_spike and (ema_cross or momentum):
+                breakout_state = "🚀 VOLUME SPIKE & BREAKOUT"
+            elif vol_spike:
+                breakout_state = "📊 VOLUME SURGE"
+            elif ema_cross:
+                breakout_state = "⚡ EMA 7/21 CROSSOVER"
+            elif momentum:
+                breakout_state = "📈 MOMENTUM NAIK"
+            else:
+                breakout_state = "—"
+
+            exch = str(info.get("exchange") or "").upper()
+            _sym = cfg.get("symbol") or ticker.split(".")[0]
+            if cfg["market"] == "KLSE":
+                tv_symbol = f"MYX:{_sym}"
+            elif exch in ("NYQ", "NYS"):
+                tv_symbol = f"NYSE:{_sym}"
+            elif exch in ("ASE", "AMX", "PCX"):
+                tv_symbol = f"AMEX:{_sym}"
+            else:
+                tv_symbol = f"NASDAQ:{_sym}"
+
             # ---- isyarat hybrid (kunci dikekalkan utk preset screener) ----
             signal = "NEUTRAL"
             state = macd_vals.get("macdState", "")
-            if rsi_val is not None and rsi_val < 35:
-                signal = "🟢 BUY ON DIP"
+            if vol_spike and (ema_cross or momentum):
+                signal = "🚀 Volum Spike & Breakout"
+            elif rsi_val is not None and rsi_val < 35:
+                signal = "🟢 Buy On Dip (Oversold)"
+            elif ema_cross:
+                signal = "⚡ EMA 7/21 Crossover"
             elif state == "GOLDEN CROSS" or (trend in ("BULLISH KUAT", "BULLISH")
                                             and state == "BULLISH" and price >= hi52 * 0.97):
                 signal = "✨ GOLDEN CROSS"
@@ -373,6 +413,8 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
                 signal = "🚀 BREAKOUT"
             elif div_yield >= 3.0:
                 signal = "💰 RAJA DIVIDEN"
+            elif momentum:
+                signal = "📈 Trend Pemulihan"
 
             data = {
                 "symbol": cfg.get("symbol") or ticker.split(".")[0],
@@ -427,6 +469,24 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
                 "marketCap": info.get("marketCap"),
                 # isyarat & kemas kini
                 "signal": signal,
+                # ---- Global Mega-Breakout & Volume Surge (global_breakout_momentum_scanner) ----
+                "scannerId": "global_breakout_momentum_scanner",
+                "tvSymbol": tv_symbol,
+                "breakoutState": breakout_state,
+                "breakoutScore": int(breakout_score),
+                "volSpikeFlag": vol_spike,
+                "momentumFlag": momentum,
+                "emaCross7_21": ema_cross,
+                "breakout": {
+                    "volSpike": vol_spike,
+                    "momentum": momentum,
+                    "emaCross": ema_cross,
+                    "nearHigh52": near_high,
+                    "rsiHealthy": rsi_healthy,
+                    "score": int(breakout_score),
+                    "state": breakout_state,
+                    "volRatio": round(vol_ratio, 2),
+                },
                 "sampleDate": str(hist.index[-1].date()),
                 "updatedAt": datetime.now(MYT).isoformat(timespec="seconds"),
             }
@@ -558,6 +618,28 @@ def main() -> int:
             "shariahListDate": sc_date,
             "shariahListCount": sc_count,
             "priceSource": "Yahoo Finance (yfinance)",
+            "scanner": "Global Mega-Breakout & Volume Surge Screener",
+            "scannerId": "global_breakout_momentum_scanner",
+            "breakoutCount": sum(
+                1 for s in out_stocks
+                if (s.get("breakout") or {}).get("volSpike")
+                and ((s.get("breakout") or {}).get("momentum") or (s.get("breakout") or {}).get("emaCross"))
+            ),
+            "volSpikeCount": sum(1 for s in out_stocks if (s.get("breakout") or {}).get("volSpike")),
+            "topBreakouts": [
+                {
+                    "symbol": s.get("symbol"),
+                    "market": s.get("market"),
+                    "state": (s.get("breakout") or {}).get("state"),
+                    "score": (s.get("breakout") or {}).get("score"),
+                    "change": s.get("change"),
+                    "volumeRatio": s.get("volumeRatio"),
+                }
+                for s in sorted(
+                    [x for x in out_stocks if (x.get("breakout") or {}).get("score", 0) > 0],
+                    key=lambda x: -((x.get("breakout") or {}).get("score") or 0),
+                )[:8]
+            ],
             "failedSymbols": failed,
             "notes": notes,
         },

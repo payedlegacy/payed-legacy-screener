@@ -471,7 +471,7 @@ details>summary::-webkit-details-marker{display:none}
         <div>
           <h2 class="text-lg sm:text-xl font-extrabold text-white flex items-center gap-2">
             <i data-lucide="sliders-horizontal" class="w-5 h-5 text-brand-400"></i><span data-i18n="screener_title">Screener saham</span>
-            <span class="pl-tag pl-tag--info" data-i18n="screener_badge">10 tapisan siap pakai</span>
+            <span class="pl-tag pl-tag--info" data-i18n="screener_badge">11 tapisan siap pakai</span>
           </h2>
           <p class="text-[11px] text-slate-400 mt-0.5" data-i18n="screener_sub">Gabungan tapisan teknikal, fundamental, corak candlestick dan status Syariah. Tekan tajuk lajur untuk susun.</p>
         </div>
@@ -891,7 +891,7 @@ let isFetching = false;
 let lastFocus = null;
 let drawerStock = null;
 
-const PRESET_KEYS = ['all', 'momentum', 'golden', 'dip', 'sihat', 'puncak', 'dividen', 'nilai', 'volum', 'hybrid'];
+const PRESET_KEYS = ['all', 'breakout', 'momentum', 'golden', 'dip', 'sihat', 'puncak', 'dividen', 'nilai', 'volum', 'hybrid'];
 const COLS = 9;
 
 /* ------------------------------ i18n ------------------------------ */
@@ -946,7 +946,7 @@ const I18N = {
         "sum_chip_vol": "Volum melonjak",
         "sum_chip_flat": "Tiada perubahan",
         "screener_title": "Screener saham",
-        "screener_badge": "10 tapisan siap pakai",
+        "screener_badge": "11 tapisan siap pakai",
         "screener_sub": "Gabungan tapisan teknikal, fundamental, corak candlestick dan status Syariah. Tekan tajuk lajur untuk susun.",
         "preset_label": "Tapisan siap pakai",
         "btn_reset": "Buang semua tapisan",
@@ -1175,6 +1175,11 @@ const I18N = {
         "crit_nilai": "Nisbah P/E bawah 20, jadi harga saham lebih murah berbanding keuntungan syarikat.",
         "crit_volum": "Volum dagangan sekurang-kurangnya 1.5 kali ganda purata, tanda minat pelabur sedang meningkat.",
         "crit_hybrid": "Patuh Syariah, harga di atas EMA 50, dan RSI masih bawah 70 supaya tidak terlebih beli.",
+        "preset_breakout": "🚀 Breakout global (volum + momentum)",
+        "crit_breakout": "Volum dagangan 1.5 kali ganda purata, dan sama ada harga naik 1.5% atau EMA 7 baru melepasi EMA 21 - tanda pergerakan besar sedang bermula. Merangkumi Bursa Malaysia dan pasaran US.",
+        "chart_loading": "Memuatkan carta TradingView…",
+        "chart_blocked": "Carta tidak dapat dimuatkan kerana rangkaian menyekat TradingView — buka terus di",
+        "breakout_note": "🚀 Breakout dipantau:",
         "empty_active": "Tapisan aktif:",
         "empty_other": "Tapisan ini ada {n} kaunter dalam {other}.",
         "months": "Jan|Feb|Mac|Apr|Mei|Jun|Jul|Ogos|Sep|Okt|Nov|Dis",
@@ -1231,7 +1236,7 @@ const I18N = {
         "sum_chip_vol": "Volume surge",
         "sum_chip_flat": "Unchanged",
         "screener_title": "Stock screener",
-        "screener_badge": "10 ready filters",
+        "screener_badge": "11 ready filters",
         "screener_sub": "Technical, fundamental, candlestick pattern and Shariah filters in one place. Click a column title to sort.",
         "preset_label": "Ready-made filters",
         "btn_reset": "Clear all filters",
@@ -1460,6 +1465,11 @@ const I18N = {
         "crit_nilai": "P/E ratio under 20, meaning the price is cheaper relative to company earnings.",
         "crit_volum": "Trading volume is at least 1.5 times the average, a sign of rising interest.",
         "crit_hybrid": "Shariah-compliant, price above EMA 50, and RSI still under 70 so it is not overbought.",
+        "preset_breakout": "🚀 Global breakout (volume + momentum)",
+        "crit_breakout": "Trading volume is 1.5x the average and either price is up 1.5% or EMA 7 has just crossed above EMA 21 - early signs of a big move. Covers Bursa Malaysia and the US market.",
+        "chart_loading": "Loading TradingView chart…",
+        "chart_blocked": "Chart could not load because the network blocked TradingView — open it directly at",
+        "breakout_note": "🚀 Breakouts tracked:",
         "empty_active": "Active filters:",
         "empty_other": "This filter has {n} counters in {other}.",
         "months": "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec",
@@ -1525,9 +1535,22 @@ function adaptStock(s) {
     ema20_50: (typeof s.ema20_50 === 'boolean') ? s.ema20_50 : (ma20 !== null && ma50 !== null && ma20 > ma50),
     emaSupport: (typeof s.emaSupport === 'boolean') ? s.emaSupport : (price !== null && ma50 !== null && ma200 !== null && price > ma50 && ma50 > ma200),
     volSpike: (num(s.volumeRatio) || 0) >= 1.5,
+    breakout: (function () {
+      const vr = num(s.volumeRatio) || 0;
+      const b = s.breakout || {};
+      const volSpike = (typeof b.volSpike === 'boolean') ? b.volSpike : vr >= 1.5;
+      const chg = num(s.change);
+      const momentum = (typeof b.momentum === 'boolean') ? b.momentum : (chg !== null && chg >= 1.5);
+      const emaCross = (typeof b.emaCross === 'boolean') ? b.emaCross : (typeof s.emaCross7_21 === 'boolean' ? s.emaCross7_21 : false);
+      const pct = num(s.pctHigh52);
+      const nearHigh52 = (typeof b.nearHigh52 === 'boolean') ? b.nearHigh52 : (pct !== null && pct >= -3);
+      const score = (typeof b.score === 'number') ? b.score : ((volSpike ? 35 : 0) + (momentum ? 30 : 0) + (emaCross ? 25 : 0) + (nearHigh52 ? 10 : 0));
+      return { volSpike: volSpike, momentum: momentum, emaCross: emaCross, nearHigh52: nearHigh52, score: score, state: s.breakoutState || b.state || '' };
+    })(),
+    breakoutState: s.breakoutState || (s.breakout && s.breakout.state) || '',
     high52w: (typeof s.high52w === 'boolean') ? s.high52w : ((price !== null && high52) ? price >= high52 * 0.97 : false),
     ath: (typeof s.ath === 'boolean') ? s.ath : false,
-    tvSymbol: (market === 'malaysia') ? ('MYX:' + s.symbol) : s.symbol
+    tvSymbol: s.tvSymbol || ((market === 'malaysia') ? ('MYX:' + s.symbol) : s.symbol)
   };
 }
 
@@ -1622,11 +1645,21 @@ function updateStatus() {
   if (DATA_META && DATA_META.generatedAt) {
     const sesi = t('dr_sample') + ': ' + fmtDate(DATA_META.mySessionDate) + ' (' + t('mkt_my_label') + ') · ' + fmtDate(DATA_META.usSessionDate) + ' (' + t('mkt_us_label') + ')';
     el.textContent = fmtStamp(DATA_META.generatedAtMYT || DATA_META.generatedAt) + ' • ' + sesi;
-    note.textContent = t('src_note', {
+    let noteTxt = t('src_note', {
       src: String(DATA_META.priceSource || 'Yahoo Finance').replace(/\s*\([^)]*yfinance[^)]*\)/i, ''),
       date: DATA_META.shariahListDate || '-',
       count: DATA_META.shariahListCount || '-'
     });
+    /* Enjin Global Mega-Breakout: senaraikan kaunter yang sedang breakout (kedua-dua pasaran) */
+    const brk = (DATA_META.topBreakouts || [])
+      .filter(b => (b.score || 0) >= 55 && (b.state || '').indexOf('BREAKOUT') !== -1)
+      .slice(0, 4);
+    if (brk.length) {
+      noteTxt += ' · ' + t('breakout_note') + ' ' + brk.map(b =>
+        b.symbol + ' (' + (b.market === 'KLSE' ? 'MY' : 'US') + ' ' +
+        ((b.change >= 0 ? '+' : '') + Number(b.change).toFixed(2)) + '%)').join(', ');
+    }
+    note.textContent = noteTxt;
     const age = Date.now() - new Date(DATA_META.generatedAt).getTime();
     if (isFinite(age) && age > 86400000) {
       warn.classList.remove('hidden');
@@ -1713,6 +1746,9 @@ function renderMovers(rows) {
 /* ------------------------------ presets & filters ------------------------------ */
 const PRESETS = {
   all:      () => true,
+  /* Enjin Global Mega-Breakout & Volume Surge (id: global_breakout_momentum_scanner):
+     volum melonjak DAN (harga naik >= 1.5% ATAU EMA 7 baru melepasi EMA 21) */
+  breakout: s => !!(s.breakout && s.breakout.volSpike && (s.breakout.momentum || s.breakout.emaCross)),
   momentum: s => s.ema7_21 === true,
   golden:   s => s.ema20_50 === true,
   dip:      s => (s.rsi !== null && s.rsi < 35),
@@ -1765,6 +1801,8 @@ function renderSectorOptions() {
   sel.value = (prev === 'all' || list.indexOf(prev) !== -1) ? prev : 'all';
 }
 function isWatched(sym) { return watchlist.indexOf(sym) !== -1; }
+/* Enjin Global Mega-Breakout: volum melonjak + (momentum harga atau EMA 7/21 baru silang) */
+function isBreakout(s) { return !!(s && s.breakout && s.breakout.volSpike && (s.breakout.momentum || s.breakout.emaCross)); }
 function toggleWatch(sym, silent) {
   const i = watchlist.indexOf(sym);
   if (i === -1) { watchlist.push(sym); if (!silent) toast(t('toast_watch_add', { sym: sym }), 'ok'); }
@@ -1925,7 +1963,8 @@ function renderTable(rows) {
     return '<tr>' +
       '<td><div class="flex items-center gap-2 flex-wrap"><span class="pl-sym pl-mono">' + esc(s.symbol) + '</span>' +
         (s.syariah ? '<span class="pl-tag pl-tag--teal">' + esc(t('badge_syariah')) + '</span>' : '<span class="pl-tag pl-tag--mute">' + esc(t('badge_nonsyariah')) + '</span>') +
-        (isWatched(s.symbol) ? '<span class="pl-tag pl-tag--gold">★</span>' : '') + '</div>' +
+        (isWatched(s.symbol) ? '<span class="pl-tag pl-tag--gold">★</span>' : '') +
+        (isBreakout(s) ? '<span class="pl-tag pl-tag--gold" title="' + esc(t('crit_breakout')) + '">🚀</span>' : '') + '</div>' +
         '<div class="pl-name">' + esc(s.name) + '</div><div class="pl-sub">' + esc(s.sector) + '</div></td>' +
       '<td class="text-right"><div class="pl-mono pl-strong" style="font-size:13px">' + fmtPrice(s) + '</div><div class="pl-sub pl-mono">' + esc(s.volume) + ' vol</div></td>' +
       '<td><span class="' + (up ? 'pl-pos' : 'pl-neg') + ' pl-mono" style="font-size:12px">' + fmtPct(s.change) + '</span><div class="pl-sub pl-mono">' + fmtNum(s.prevClose, 3) + ' → ' + fmtNum(s.price, 3) + '</div></td>' +
@@ -1951,7 +1990,8 @@ function renderCards(rows) {
     return '<article class="pl-mcard">' +
       '<div class="flex items-start justify-between gap-2">' +
         '<div class="min-w-0"><div class="flex items-center gap-1.5 flex-wrap"><span class="pl-sym pl-mono">' + esc(s.symbol) + '</span>' +
-        (s.syariah ? '<span class="pl-tag pl-tag--teal">🌙</span>' : '') + (isWatched(s.symbol) ? '<span class="pl-tag pl-tag--gold">★</span>' : '') + '</div>' +
+        (s.syariah ? '<span class="pl-tag pl-tag--teal">🌙</span>' : '') + (isWatched(s.symbol) ? '<span class="pl-tag pl-tag--gold">★</span>' : '') +
+        (isBreakout(s) ? '<span class="pl-tag pl-tag--gold" title="' + esc(t('crit_breakout')) + '">🚀</span>' : '') + '</div>' +
         '<p class="pl-name" style="max-width:none">' + esc(s.name) + ' • ' + esc(s.sector) + '</p></div>' +
         '<div class="text-right shrink-0"><p class="pl-mono pl-strong">' + fmtPrice(s) + '</p><p class="pl-mono ' + (up ? 'pl-pos' : 'pl-neg') + '" style="font-size:11px">' + fmtPct(s.change) + '</p></div>' +
       '</div>' +
@@ -2046,7 +2086,9 @@ function renderDrawer() {
 }
 function buildStockChart(containerId, proName) {
   const box = $(containerId); if (!box) return;
-  box.innerHTML = '<div class="tradingview-widget-container__widget" style="height:100%"></div>';
+  box.style.position = 'relative';
+  box.innerHTML = '<div class="tradingview-widget-container__widget" style="height:100%"></div>' +
+    '<div id="chartFallback" class="pl-sub" style="position:absolute;left:0;right:0;bottom:0;padding:6px 10px;text-align:center;background:rgba(2,6,23,.75)">' + esc(t('chart_loading')) + '</div>';
   const sc = document.createElement('script');
   sc.type = 'text/javascript'; sc.async = true;
   sc.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
@@ -2056,6 +2098,13 @@ function buildStockChart(containerId, proName) {
     studies: ['RSI@tv-basicstudies'], support_host: 'https://www.tradingview.com'
   });
   box.appendChild(sc);
+  /* jaring keselamatan: kalau rangkaian/pelindung iklan menyekat TradingView, tunjuk pautan terus */
+  setTimeout(function () {
+    const fb = document.getElementById('chartFallback');
+    if (!fb) return;
+    if (box.querySelector('iframe')) { fb.style.display = 'none'; return; }
+    fb.innerHTML = esc(t('chart_blocked')) + ' <a style="text-decoration:underline" target="_blank" rel="noopener" href="https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(proName) + '">TradingView ↗</a>';
+  }, 12000);
 }
 function copySummary() {
   const s = drawerStock; if (!s) return;
