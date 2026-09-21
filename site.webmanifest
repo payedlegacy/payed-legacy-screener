@@ -1,0 +1,14 @@
+{
+  "name": "Payed Legacy Screener — Saham Malaysia & US",
+  "short_name": "PL Screener",
+  "description": "Screener saham Bursa Malaysia & US: teknikal, fundamental, corak candlestick dan status Syariah.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#04070f",
+  "theme_color": "#04070f",
+  "lang": "ms",
+  "icons": [
+    { "src": "/assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}

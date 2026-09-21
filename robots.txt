@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Alat pengiklanan: Google AdSense perlu akses crawler untuk iklan
+User-agent: Mediapartners-Google
+Allow: /
+
+Sitemap: https://screener.payedlegacy.my/sitemap.xml
