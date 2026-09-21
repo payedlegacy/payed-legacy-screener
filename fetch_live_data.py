@@ -384,7 +384,10 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
 
             exch = str(info.get("exchange") or "").upper()
             _sym = cfg.get("symbol") or ticker.split(".")[0]
-            if cfg["market"] == "KLSE":
+            if cfg.get("tvSymbol"):
+                # ticker TradingView rasmi (disahkan dalam watchlist.json — cth MYEG = MYX:ZETRIX)
+                tv_symbol = str(cfg["tvSymbol"]).strip()
+            elif cfg["market"] == "KLSE":
                 tv_symbol = f"MYX:{_sym}"
             elif exch in ("NYQ", "NYS"):
                 tv_symbol = f"NYSE:{_sym}"

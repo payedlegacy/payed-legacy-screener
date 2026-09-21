@@ -148,6 +148,13 @@ body{
 .pl-tag--violet{background:rgba(167,139,250,.14);color:#c4b5fd;border-color:rgba(167,139,250,.35)}
 .pl-tag--teal{background:rgba(45,212,191,.13);color:#5eead4;border-color:rgba(45,212,191,.35)}
 .pl-tag--mute{background:rgba(148,163,184,.10);color:var(--muted);border-color:var(--line)}
+.pl-tag--live{background:rgba(16,185,129,.14);color:#6ee7b7;border-color:rgba(52,211,153,.45)}
+.pl-livedot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#34d399;margin-right:5px;vertical-align:middle;animation:plPulse 1.8s ease-in-out infinite}
+@keyframes plPulse{0%,100%{opacity:1}50%{opacity:.3}}
+.pl-flash-up{animation:plFlashUp 1.8s ease-out}
+.pl-flash-down{animation:plFlashDown 1.8s ease-out}
+@keyframes plFlashUp{0%{background:rgba(16,185,129,.38)}100%{background:transparent}}
+@keyframes plFlashDown{0%{background:rgba(244,63,94,.34)}100%{background:transparent}}
 
 /* ---------- buttons ---------- */
 .pl-btn{
@@ -410,7 +417,9 @@ details>summary::-webkit-details-marker{display:none}
           </div>
           <p id="dataSourceNote" class="text-[10px] text-slate-400 leading-relaxed">Sedang memuatkan data pasaran...</p>
         </div>
-        <div class="flex items-center gap-2 shrink-0">
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <span id="liveChip" class="pl-tag pl-tag--mute" data-i18n="live_init">Menyambung suapan langsung…</span>
+          <span id="sessionChip" class="pl-tag pl-tag--mute" data-i18n="session_init">Status sesi</span>
           <button id="btnRefresh" onclick="loadData(true)" class="pl-btn">
             <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-gold-400"></i><span data-i18n="btn_refresh">Muat semula</span>
           </button>
@@ -597,6 +606,7 @@ details>summary::-webkit-details-marker{display:none}
         <div class="rounded-xl border border-white/10 bg-ink-950/40 p-3.5">
           <p class="font-bold text-white mb-1 flex items-center gap-1.5"><i data-lucide="database" class="w-3.5 h-3.5 text-brand-400"></i><span data-i18n="method_1_t">Sumber data</span></p>
           <p id="methodSource" data-i18n="method_1_b">Harga penutup, RSI, purata bergerak, MACD dan corak candlestick diambil daripada data pasaran awam. P/E dan kadar dividen datang daripada data penyata kewangan syarikat.</p>
+          <p id="methodLive" data-i18n="method_live">Harga, perubahan, volum, RSI dan purata bergerak (EMA 7/21, 20/50/200) dikemas kini terus daripada suapan pasaran awam setiap 60 saat semasa halaman ini dibuka. Corak candlestick, status Syariah dan nota fundamental pula berdasarkan sesi penuh terakhir, jadi tandanya berubah selepas pasaran tutup.</p>
         </div>
         <div class="rounded-xl border border-white/10 bg-ink-950/40 p-3.5">
           <p class="font-bold text-white mb-1 flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5 text-cyan-300"></i><span data-i18n="method_2_t">Bila dikemas kini</span></p>
@@ -1012,6 +1022,21 @@ const I18N = {
         "method_2_t": "Bila dikemas kini",
         "method_3_t": "Status Syariah",
         "method_1_b": "Harga penutup, RSI, purata bergerak, MACD dan corak candlestick diambil daripada data pasaran awam. P/E dan kadar dividen datang daripada data penyata kewangan syarikat.",
+        "live_init": "Menyambung suapan langsung…",
+        "live_on": "Harga langsung",
+        "live_off": "Mod sesi (suapan langsung tidak tersedia)",
+        "live_ago": "dikemas {n}s lalu",
+        "live_stocks": "kaunter",
+        "live_title": "Harga, RSI dan EMA dikemas kini terus daripada suapan pasaran awam",
+        "live_err": "Suapan harga langsung tidak dapat dicapai — angka sesi terakhir dipaparkan. Semak sambungan internet, kemudian tekan Muat semula.",
+        "session_init": "Status sesi",
+        "session_open": "Sesi BUKA • tutup {t}",
+        "session_closed": "Sesi TUTUP • buka {t}",
+        "session_title": "Status sesi pasaran (waktu Malaysia)",
+        "dr_live_price": "Harga langsung",
+        "dr_session_close": "Penutup sesi",
+        "dr_premarket": "Pra-pasaran",
+        "method_live": "Harga, perubahan, volum, RSI dan purata bergerak (EMA 7/21, 20/50/200) dikemas kini terus daripada suapan pasaran awam setiap 60 saat semasa halaman ini dibuka. Corak candlestick, status Syariah dan nota fundamental pula berdasarkan sesi penuh terakhir, jadi tandanya berubah selepas pasaran tutup.",
         "method_2_b": "Pada hari bekerja, data dikemas kini dua kali: sekitar 5:45 petang selepas Bursa Malaysia tutup, dan 6:00 pagi selepas pasaran US tutup. Halaman ini turut menyemak semula setiap lima minit.",
         "method_3_b": "Kaunter Bursa Malaysia ditanda mengikut senarai sekuriti patuh Syariah Suruhanjaya Sekuriti Malaysia. Untuk kaunter US, tanda itu hanya anggaran, jadi sila semak sendiri sebelum membuat keputusan.",
         "support_title": "Sokongan dan rakan rujukan",
@@ -1302,6 +1327,21 @@ const I18N = {
         "method_2_t": "Update schedule",
         "method_3_t": "Shariah status",
         "method_1_b": "Closing prices, RSI, moving averages, MACD and candlestick patterns come from public market data. P/E and dividend yield come from company financial statements.",
+        "live_init": "Connecting to live feed…",
+        "live_on": "Live prices",
+        "live_off": "Session mode (live feed unavailable)",
+        "live_ago": "updated {n}s ago",
+        "live_stocks": "stocks",
+        "live_title": "Price, RSI and EMA refresh straight from a public market feed",
+        "live_err": "The live price feed could not be reached — last session figures are shown. Check your connection, then press Reload.",
+        "session_init": "Session status",
+        "session_open": "Session OPEN • closes {t}",
+        "session_closed": "Session CLOSED • opens {t}",
+        "session_title": "Market session status (Malaysia time)",
+        "dr_live_price": "Live price",
+        "dr_session_close": "Session close",
+        "dr_premarket": "Pre-market",
+        "method_live": "Price, change, volume, RSI and moving averages (EMA 7/21, 20/50/200) refresh straight from a public market feed every 60 seconds while this page is open. Candlestick patterns, Shariah status and fundamental notes come from the last completed session, so their flags change after the market closes.",
         "method_2_b": "On weekdays data is refreshed twice: around 5:45 pm after Bursa Malaysia closes, and 6:00 am after the US market closes. This page also re-checks every five minutes.",
         "method_3_b": "Malaysian counters are flagged using the Securities Commission Shariah-compliant securities list. For US counters the flag is only an estimate, so please verify before deciding.",
         "support_title": "Support and referral partners",
@@ -1966,7 +2006,7 @@ function renderTable(rows) {
         (isWatched(s.symbol) ? '<span class="pl-tag pl-tag--gold">★</span>' : '') +
         (isBreakout(s) ? '<span class="pl-tag pl-tag--gold" title="' + esc(t('crit_breakout')) + '">🚀</span>' : '') + '</div>' +
         '<div class="pl-name">' + esc(s.name) + '</div><div class="pl-sub">' + esc(s.sector) + '</div></td>' +
-      '<td class="text-right"><div class="pl-mono pl-strong" style="font-size:13px">' + fmtPrice(s) + '</div><div class="pl-sub pl-mono">' + esc(s.volume) + ' vol</div></td>' +
+      '<td class="text-right"><div class="pl-mono pl-strong' + (s.flash === 'up' ? ' pl-flash-up' : s.flash === 'down' ? ' pl-flash-down' : '') + '" style="font-size:13px">' + fmtPrice(s) + '</div><div class="pl-sub pl-mono">' + esc(s.volume) + ' vol</div>' + (typeof livePreLine === 'function' ? livePreLine(s) : '') + '</td>' +
       '<td><span class="' + (up ? 'pl-pos' : 'pl-neg') + ' pl-mono" style="font-size:12px">' + fmtPct(s.change) + '</span><div class="pl-sub pl-mono">' + fmtNum(s.prevClose, 3) + ' → ' + fmtNum(s.price, 3) + '</div></td>' +
       '<td>' + rsiTag(s) + '</td>' +
       '<td><div class="flex flex-wrap gap-1">' + tagList(s) + '</div>' +
@@ -1993,7 +2033,7 @@ function renderCards(rows) {
         (s.syariah ? '<span class="pl-tag pl-tag--teal">🌙</span>' : '') + (isWatched(s.symbol) ? '<span class="pl-tag pl-tag--gold">★</span>' : '') +
         (isBreakout(s) ? '<span class="pl-tag pl-tag--gold" title="' + esc(t('crit_breakout')) + '">🚀</span>' : '') + '</div>' +
         '<p class="pl-name" style="max-width:none">' + esc(s.name) + ' • ' + esc(s.sector) + '</p></div>' +
-        '<div class="text-right shrink-0"><p class="pl-mono pl-strong">' + fmtPrice(s) + '</p><p class="pl-mono ' + (up ? 'pl-pos' : 'pl-neg') + '" style="font-size:11px">' + fmtPct(s.change) + '</p></div>' +
+        '<div class="text-right shrink-0"><p class="pl-mono pl-strong' + (s.flash === 'up' ? ' pl-flash-up' : s.flash === 'down' ? ' pl-flash-down' : '') + '">' + fmtPrice(s) + '</p><p class="pl-mono ' + (up ? 'pl-pos' : 'pl-neg') + '" style="font-size:11px">' + fmtPct(s.change) + '</p>' + (typeof livePreLine === 'function' ? livePreLine(s) : '') + '</div>' +
       '</div>' +
       '<div class="pl-grid2 mt-2">' +
         '<div class="pl-kv"><span>RSI</span><span class="pl-mono">' + fmtNum(s.rsi, 1) + '</span></div>' +
@@ -2035,6 +2075,7 @@ function renderDrawer() {
         kv(t('dr_high'), fmtNum(s.dayHigh, 3), 'pl-pos') + kv(t('dr_low'), fmtNum(s.dayLow, 3), 'pl-neg') +
         kv(t('dr_vol'), esc(s.volume)) + kv(t('dr_avgvol'), esc(s.avgVolume)) +
         kv(t('dr_volratio'), fmtNum(s.volumeRatio, 2) + (s.volSpike ? ' ⚡' : '')) + kv(t('dr_mcap'), fmtCompact(s.marketCap, s)) +
+        (typeof liveRows === 'function' ? liveRows(s) : '') +
       '</div>' +
     '</div>' +
 
@@ -2099,12 +2140,17 @@ function buildStockChart(containerId, proName) {
   });
   box.appendChild(sc);
   /* jaring keselamatan: kalau rangkaian/pelindung iklan menyekat TradingView, tunjuk pautan terus */
-  setTimeout(function () {
+  let waited = 0;
+  const guard = setInterval(function () {
     const fb = document.getElementById('chartFallback');
-    if (!fb) return;
-    if (box.querySelector('iframe')) { fb.style.display = 'none'; return; }
-    fb.innerHTML = esc(t('chart_blocked')) + ' <a style="text-decoration:underline" target="_blank" rel="noopener" href="https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(proName) + '">TradingView ↗</a>';
-  }, 12000);
+    if (!fb || !document.body.contains(box)) { clearInterval(guard); return; }
+    if (box.querySelector('iframe')) { fb.style.display = 'none'; clearInterval(guard); return; }
+    waited += 1000;
+    if (waited >= 15000) {
+      fb.innerHTML = esc(t('chart_blocked')) + ' <a style="text-decoration:underline" target="_blank" rel="noopener" href="https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(proName) + '">TradingView ↗</a>';
+      clearInterval(guard);
+    }
+  }, 1000);
 }
 function copySummary() {
   const s = drawerStock; if (!s) return;
@@ -2424,6 +2470,377 @@ function initDuitNowQr() {
   if (img.complete) { img.naturalWidth > 0 ? ok() : bad(); }
   else { img.addEventListener('load', ok, { once: true }); img.addEventListener('error', bad, { once: true }); }
 }
+</script>
+
+<script>
+/* ==========================================================================
+   SUAPAN HARGA LANGSUNG — screener.payedlegacy.my
+   Harga, perubahan, volum, RSI dan EMA diambil terus daripada suapan pasaran
+   awam TradingView (CORS dibenarkan) setiap 60 saat semasa halaman dibuka.
+   Nilai daripada stocks.json kekal sebagai sandaran + sumber penunjuk sesi
+   (corak candlestick, status Syariah, MACD, nota fundamental).
+   Tiada angka direka: jika suapan gagal, data sesi dipaparkan dan pengguna
+   dimaklumkan melalui cip status.
+   ========================================================================== */
+(function () {
+  'use strict';
+  var LIVE_MS = 60000;
+  var URLS = {
+    malaysia: 'https://scanner.tradingview.com/malaysia/scan',
+    america: 'https://scanner.tradingview.com/america/scan'
+  };
+  var COLS = ['close', 'change', 'change_abs', 'volume', 'average_volume_10d_calc',
+    'relative_volume_10d_calc', 'RSI', 'EMA7', 'EMA21', 'EMA20', 'EMA50', 'EMA200',
+    'price_52_week_high', 'price_52_week_low', 'High.All', 'price_earnings_ttm',
+    'dividend_yield_recent', 'market_cap_basic', 'premarket_close', 'premarket_change'];
+
+  var st = { at: 0, ok: false, busy: false, count: 0, err: '', tries: 0 };
+  window.LIVE_STATE = st;
+
+  function n(v) {
+    if (v === null || v === undefined || v === '') return null;
+    var x = Number(v);
+    return isFinite(x) ? x : null;
+  }
+  function fmtVol(v) {
+    if (v === null) return '-';
+    if (v >= 1e9) return (v / 1e9).toFixed(1) + 'B';
+    if (v >= 1e6) return (v / 1e6).toFixed(1) + 'M';
+    if (v >= 1e3) return (v / 1e3).toFixed(1) + 'K';
+    return String(Math.round(v));
+  }
+  function tvSym(s) { return s.tvSymbol || (s.market === 'malaysia' ? 'MYX:' + s.symbol : s.symbol); }
+  function txt(k, p) { try { return t(k, p); } catch (e) { return k; } }
+  function esc2(v) { try { return esc(v); } catch (e) { return String(v); } }
+
+  /* ---------------- sesi pasaran (waktu Malaysia) ---------------- */
+  function parts(date, tz) {
+    var dtf = new Intl.DateTimeFormat('en-US', {
+      timeZone: tz, hour12: false, year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', weekday: 'short'
+    });
+    var o = {};
+    dtf.formatToParts(date).forEach(function (p) { o[p.type] = p.value; });
+    o.hour = Number(o.hour) % 24;
+    o.minute = Number(o.minute);
+    o.mins = o.hour * 60 + o.minute;
+    o.wd = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 0 }[o.weekday];
+    return o;
+  }
+  function tzOffsetMin(date, tz) {
+    var p = parts(date, tz);
+    var asUTC = Date.UTC(Number(p.year), Number(p.month) - 1, Number(p.day), p.hour, p.minute, 0);
+    return (asUTC - Math.floor(date.getTime() / 60000) * 60000) / 60000;
+  }
+  function fmtMYT(ms) {
+    try {
+      return new Intl.DateTimeFormat(currentLang === 'en' ? 'en-GB' : 'ms-MY',
+        { timeZone: 'Asia/Kuala_Lumpur', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(ms));
+    } catch (e) { return ''; }
+  }
+  function fmtMYTday(ms) {
+    try {
+      return new Intl.DateTimeFormat(currentLang === 'en' ? 'en-GB' : 'ms-MY',
+        { timeZone: 'Asia/Kuala_Lumpur', weekday: 'short' }).format(new Date(ms));
+    } catch (e) { return ''; }
+  }
+  function etBoundary(etHour, etMinute, dayShift) {
+    var now = new Date();
+    var off = tzOffsetMin(now, 'America/New_York');
+    var p = parts(now, 'America/New_York');
+    var base = Date.UTC(Number(p.year), Number(p.month) - 1, Number(p.day) + (dayShift || 0), etHour, etMinute, 0);
+    return base - off * 60000;
+  }
+  /* Sesi: Bursa 09:00-17:00 MYT (Isnin-Jumaat); US 09:30-16:00 waktu New York (Isnin-Jumaat) */
+  function sessionInfo(market) {
+    var now = new Date();
+    if (market === 'malaysia') {
+      var p = parts(now, 'Asia/Kuala_Lumpur');
+      var wk = p.wd >= 1 && p.wd <= 5;
+      var open = wk && p.mins >= 540 && p.mins < 1020;
+      var shift = 0;
+      if (open) { /* tutup hari ini */ }
+      else if (wk && p.mins < 540) { shift = 0; }
+      else {
+        shift = (p.wd === 5) ? 3 : (p.wd === 6 ? 2 : 1);
+      }
+      var tgt = open ? null : etLocal('Asia/Kuala_Lumpur', 9, 0, shift);
+      return { open: open, when: tgt ? fmtMYTday(tgt) + ' ' + fmtMYT(tgt) : fmtMYT(etLocal('Asia/Kuala_Lumpur', 17, 0, 0)) };
+    }
+    var e = parts(now, 'America/New_York');
+    var wkUS = e.wd >= 1 && e.wd <= 5;
+    var openUS = wkUS && e.mins >= 570 && e.mins < 960;
+    if (openUS) return { open: true, when: fmtMYT(etBoundary(16, 0, 0)) };
+    var shiftUS = 0;
+    if (wkUS && e.mins < 570) shiftUS = 0;
+    else if (e.wd === 5) shiftUS = 3;
+    else if (e.wd === 6) shiftUS = 2;
+    else shiftUS = 1;
+    var t2 = etBoundary(9, 30, shiftUS);
+    return { open: false, when: fmtMYTday(t2) + ' ' + fmtMYT(t2) };
+  }
+  function etLocal(tz, hour, minute, dayShift) {
+    var now = new Date();
+    var p = parts(now, tz);
+    var off = tzOffsetMin(now, tz);
+    return Date.UTC(Number(p.year), Number(p.month) - 1, Number(p.day) + (dayShift || 0), hour, minute, 0) - off * 60000;
+  }
+
+  /* ---------------- tarikan + gabungan data ---------------- */
+  function mapRow(d) {
+    return {
+      close: n(d[0]), change: n(d[1]), changeAbs: n(d[2]), volume: n(d[3]), avgVol: n(d[4]),
+      relVol: n(d[5]), rsi: n(d[6]), ema7: n(d[7]), ema21: n(d[8]), ema20: n(d[9]),
+      ema50: n(d[10]), ema200: n(d[11]), high52: n(d[12]), low52: n(d[13]), highAll: n(d[14]),
+      pe: n(d[15]), div: n(d[16]), mcap: n(d[17]), pre: n(d[18]), preChg: n(d[19])
+    };
+  }
+  function pull(market) {
+    var list = STOCKS.filter(function (s) { return s.market === market; });
+    if (!list.length) return Promise.resolve({});
+    var out = {};
+    var chain = Promise.resolve();
+    for (var i = 0; i < list.length; i += 25) {
+      (function (chunk) {
+        chain = chain.then(function () {
+          var body = JSON.stringify({
+            symbols: { tickers: chunk.map(tvSym), query: { types: [] } },
+            columns: COLS
+          });
+          return fetch(URLS[market], {
+            method: 'POST', cache: 'no-store',
+            /* SENGAJA tiada header Content-Type: JSON: supaya ini "simple request"
+               dan TIDAK mencetuskan preflight CORS (preflight ditolak oleh suapan). */
+            body: body
+          }).then(function (r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return r.json();
+          }).then(function (j) {
+            (j.data || []).forEach(function (row) { out[row.s] = row.d; });
+          });
+        });
+      })(list.slice(i, i + 25));
+    }
+    return chain.then(function () { return out; });
+  }
+
+  function overlay(s, lv) {
+    if (!s.live) {
+      s.session = {
+        price: s.price, change: s.change, rsi: s.rsi, volume: s.volume, sampleDate: s.sampleDate,
+        pe: s.pe, div: s.div, volumeRatio: s.volumeRatio, ema7: s.ema7, ema21: s.ema21,
+        high52: s.high52, low52: s.low52, breakout: s.breakout, breakoutState: s.breakoutState,
+        signal: s.signal, trend: s.trend, prevClose: s.prevClose, dayHigh: s.dayHigh, dayLow: s.dayLow
+      };
+      s.usingLive = true;
+    }
+    s.live = true;
+    s.liveAt = st.at;
+    var wasLive = !!(s.session);          /* lapisan pertama: jangan kilatkan seluruh jadual */
+    var oldPrice = s.price;
+    if (lv.close !== null) s.price = lv.close;
+    s.flash = (wasLive && oldPrice !== null && s.price !== null && s.price !== oldPrice)
+      ? (s.price > oldPrice ? 'up' : 'down') : null;
+    if (lv.change !== null) s.change = lv.change;
+    if (lv.volume !== null) { s.volumeRaw = lv.volume; s.volume = fmtVol(lv.volume); }
+    if (lv.avgVol !== null) s.avgVolume = fmtVol(lv.avgVol);
+    if (lv.volume !== null && lv.avgVol) s.volumeRatio = Math.round((lv.volume / lv.avgVol) * 100) / 100;
+    if (lv.rsi !== null) s.rsi = Math.round(lv.rsi * 10) / 10;
+    if (lv.ema7 !== null) s.ema7 = Math.round(lv.ema7 * 10000) / 10000;
+    if (lv.ema21 !== null) s.ema21 = Math.round(lv.ema21 * 10000) / 10000;
+    if (lv.ema50 !== null) s.ema50 = Math.round(lv.ema50 * 10000) / 10000;
+    if (lv.ema200 !== null) s.ema200 = Math.round(lv.ema200 * 10000) / 10000;
+    if (lv.ema20 !== null) s.ma20 = Math.round(lv.ema20 * 10000) / 10000;
+    if (lv.pe !== null) s.pe = Math.round(lv.pe * 100) / 100;
+    if (lv.div !== null) s.div = Math.round(lv.div * 100) / 100;
+    if (lv.mcap !== null) s.marketCap = lv.mcap;
+    if (lv.high52 !== null) s.high52 = lv.high52;
+    if (lv.low52 !== null) s.low52 = lv.low52;
+    if (lv.highAll !== null) s.highAll = lv.highAll;
+    if (lv.pre !== null) s.preMarket = lv.pre;
+    if (lv.preChg !== null) s.preMarketChange = lv.preChg;
+
+    if (s.price !== null && s.high52 !== null) {
+      s.pctHigh52 = Math.round((s.price / s.high52 - 1) * 10000) / 100;
+      s.high52w = s.pctHigh52 >= -3;
+    }
+    if (s.price !== null && s.high52 !== null && s.low52 !== null && s.high52 > s.low52) {
+      s.position = Math.max(0, Math.min(100, ((s.price - s.low52) / (s.high52 - s.low52)) * 100));
+    }
+    if (s.price !== null && s.highAll !== null) s.ath = s.price >= s.highAll * 0.995;
+
+    var vr = s.volumeRatio;
+    var volSpike = vr !== null && vr >= 1.5;
+    var momentum = s.change !== null && s.change >= 1.5;
+    var emaCross = !!(s.session && s.session.breakout && s.session.breakout.emaCross);
+    var nearHigh = s.pctHigh52 !== null && s.pctHigh52 >= -3;
+    var rsiHealthy = s.rsi !== null && s.rsi >= 45 && s.rsi <= 70;
+    var score = (volSpike ? 35 : 0) + (momentum ? 30 : 0) + (emaCross ? 25 : 0) + (nearHigh ? 10 : 0) + (rsiHealthy ? 5 : 0);
+    var state = (volSpike && (emaCross || momentum)) ? '🚀 VOLUME SPIKE & BREAKOUT'
+      : volSpike ? '📊 VOLUME SURGE'
+        : emaCross ? '⚡ EMA 7/21 CROSSOVER'
+          : momentum ? '📈 MOMENTUM NAIK' : '—';
+
+    s.volSpike = volSpike;
+    s.ema7_21 = (s.ema7 !== null && s.ema21 !== null) ? s.ema7 > s.ema21 : s.ema7_21;
+    s.ema20_50 = (s.ema20 === undefined || s.ma20 === null || s.ema50 === null) ? s.ema20_50 : s.ma20 > s.ema50;
+    s.emaSupport = (s.price !== null && s.ema50 !== null && s.ema200 !== null)
+      ? (s.price > s.ema50 && s.ema50 > s.ema200) : s.emaSupport;
+    s.breakout = {
+      volSpike: volSpike, momentum: momentum, emaCross: emaCross, nearHigh52: nearHigh,
+      rsiHealthy: rsiHealthy, score: score, state: state,
+      volRatio: s.volumeRatio
+    };
+    s.breakoutState = state;
+
+    var sig = null;
+    if (volSpike && (emaCross || momentum)) sig = '🚀 Volum Spike & Breakout';
+    else if (s.rsi !== null && s.rsi < 35) sig = '🟢 Buy On Dip (Oversold)';
+    else if (emaCross) sig = '⚡ EMA 7/21 Crossover';
+    else if (momentum) sig = '📈 Momentum naik';
+    s.signal = sig || (s.session && s.session.signal) || s.signal;
+
+    if (s.price !== null && s.ma20 !== null && s.ema50 !== null && s.ema200 !== null) {
+      if (s.price > s.ma20 && s.ma20 > s.ema50 && s.ema50 > s.ema200) s.trend = 'BULLISH KUAT';
+      else if (s.price > s.ema50 && s.ema50 > s.ema200) s.trend = 'BULLISH';
+      else if (s.price < s.ma20 && s.ma20 < s.ema50 && s.ema50 < s.ema200) s.trend = 'BEARISH';
+      else if (s.price < s.ema200) s.trend = 'LEMAH';
+      else s.trend = 'NEUTRAL';
+    }
+  }
+
+  window.liveRows = function (s) {
+    if (!s || !s.live) return '';
+    var kvv = (typeof kv === 'function') ? kv : function (a, b) { return '<div class="pl-kv"><span>' + a + '</span><span class="pl-mono">' + b + '</span></div>'; };
+    var money = (s.market === 'malaysia') ? 'RM ' : '$ ';
+    var dec = Math.abs(s.price) < 1 ? 3 : 2;
+    var out = kvv('🟢 ' + txt('dr_live_price'), money + s.price.toFixed(dec) + ' (' + (s.change >= 0 ? '+' : '') + s.change.toFixed(2) + '%)',
+      s.change >= 0 ? 'pl-pos' : 'pl-neg');
+    if (s.session && s.session.price !== null && s.session.sampleDate) {
+      out += kvv(txt('dr_session_close'), money + Number(s.session.price).toFixed(dec) + ' • ' + fmtDay(s.session.sampleDate));
+    }
+    if (s.preMarket !== undefined && s.preMarket !== null) {
+      out += kvv(txt('dr_premarket'), money + Number(s.preMarket).toFixed(dec) + ' (' + (s.preMarketChange >= 0 ? '+' : '') + Number(s.preMarketChange).toFixed(2) + '%)');
+    }
+    return out;
+  };
+  /* baris pra-pasaran kecil untuk kaunter US (dipaparkan hanya bila sesi biasa tutup) */
+  window.livePreLine = function (s) {
+    if (!s || s.market !== 'america' || s.preMarket === undefined || s.preMarket === null) return '';
+    if (s.preMarketChange === undefined || s.preMarketChange === null) return '';
+    if (sessionInfo('america').open) return '';
+    var up = Number(s.preMarketChange) >= 0;
+    return '<div class="pl-sub pl-mono ' + (up ? 'pl-pos' : 'pl-neg') + '">' + esc2(txt('dr_premarket')) + ' ' +
+      Number(s.preMarket).toFixed(2) + ' ' + (up ? '+' : '') + Number(s.preMarketChange).toFixed(2) + '%</div>';
+  };
+  function fmtDay(iso) {
+    try {
+      var d = new Date(iso + 'T00:00:00+08:00');
+      if (isNaN(d.getTime())) return iso;
+      return new Intl.DateTimeFormat(currentLang === 'en' ? 'en-GB' : 'ms-MY',
+        { timeZone: 'Asia/Kuala_Lumpur', day: '2-digit', month: 'short' }).format(d);
+    } catch (e) { return iso; }
+  }
+
+  /* ---------------- cip status ---------------- */
+  function paint() {
+    var lc = document.getElementById('liveChip');
+    var sc = document.getElementById('sessionChip');
+    if (lc) {
+      if (st.ok) {
+        lc.className = 'pl-tag pl-tag--live';
+        lc.title = txt('live_title');
+        lc.innerHTML = '<span class="pl-livedot"></span>' + esc2(txt('live_on')) + ' · ' +
+          st.count + ' ' + esc2(txt('live_stocks')) + ' · ' +
+          esc2(txt('live_ago', { n: Math.max(0, Math.round((Date.now() - st.at) / 1000)) }));
+      } else if (st.err) {
+        lc.className = 'pl-tag pl-tag--mute';
+        lc.title = txt('live_err');
+        lc.innerHTML = '📄 ' + esc2(txt('live_off'));
+      } else {
+        lc.className = 'pl-tag pl-tag--mute';
+        lc.innerHTML = esc2(txt('live_init'));
+      }
+    }
+    if (sc) {
+      var info = sessionInfo(currentMarket);
+      sc.className = 'pl-tag ' + (info.open ? 'pl-tag--ok' : 'pl-tag--mute');
+      sc.title = txt('session_title');
+      sc.innerHTML = (currentMarket === 'malaysia' ? '🇲🇾 ' : '🇺🇸 ') +
+        esc2(txt(info.open ? 'session_open' : 'session_closed', { t: info.when }));
+    }
+  }
+  window.paintLiveChips = paint;
+
+  /* ---------------- gelung kemas kini ---------------- */
+  function refreshLive(fromUser) {
+    if (st.busy || !STOCKS.length) return Promise.resolve();
+    st.busy = true;
+    return Promise.all([pull('malaysia'), pull('america')]).then(function (res) {
+      var bySym = {};
+      var a = res[0] || {}, b = res[1] || {};
+      var i;
+      for (i in a) bySym[i] = a[i];
+      for (i in b) bySym[i] = b[i];
+      var count = 0;
+      STOCKS.forEach(function (s) {
+        var key = tvSym(s);
+        var row = bySym[key] || bySym[s.symbol];
+        if (row && row.length) { overlay(s, mapRow(row)); count++; }
+      });
+      if (!count) throw new Error('tiada baris diterima');
+      st.ok = true; st.err = ''; st.count = count; st.at = Date.now(); st.tries = 0;
+      renderAll();
+      paint();
+      /* kilatan warna hanya sekali selepas harga berubah */
+      setTimeout(function () { STOCKS.forEach(function (x) { x.flash = null; }); }, 2000);
+    }).catch(function (e) {
+      st.ok = false;
+      st.err = String(e && e.message ? e.message : e);
+      st.tries++;
+      paint();
+    }).then(function () { st.busy = false; });
+  }
+  window.refreshLive = refreshLive;
+
+  function startLoop() {
+    if (window.__liveLoop) return;
+    window.__liveLoop = setInterval(function () {
+      if (document.hidden) { paint(); return; }
+      paint();
+      if (Date.now() - st.at > LIVE_MS - 5000) refreshLive(false);
+    }, 15000);
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden && Date.now() - st.at > LIVE_MS - 5000) refreshLive(false);
+    });
+  }
+
+  /* pasang: selepas setiap muat data (dan apabila butang "Muat semula" diklik) */
+  function boot() {
+    if (typeof STOCKS === 'undefined' || typeof loadData !== 'function') { setTimeout(boot, 400); return; }
+    var orig = window.loadData;
+    window.loadData = function () {
+      var args = arguments;
+      return Promise.resolve(orig.apply(this, args)).then(function (r) {
+        return refreshLive(true).then(function () { return r; });
+      });
+    };
+    /* tukar bahasa -> cip boleh guna semula teks baharu (kilatkan semula) */
+    if (typeof window.setLang === 'function' && !window.__liveLangHooked) {
+      window.__liveLangHooked = true;
+      var origLang = window.setLang;
+      window.setLang = function () {
+        var r = origLang.apply(this, arguments);
+        try { paint(); } catch (e) {}
+        return r;
+      };
+    }
+    startLoop();
+    refreshLive(true);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
 </script>
 </body>
 </html>
