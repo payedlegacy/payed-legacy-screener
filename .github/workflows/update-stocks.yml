@@ -1,0 +1,95 @@
+name: Auto-Update Data Saham (stocks.json)
+
+# Pipeline auto-data untuk screener.payedlegacy.my
+#  - Berjalan setiap hari bekerja selepas pasaran tutup:
+#      * 09:45 UTC (17:45 MYT) — selepas Bursa Malaysia tutup (17:00 MYT)
+#      * 22:00 UTC (06:00 MYT keesokan) — selepas US Market tutup (16:00 ET)
+#  - Menulis semula stocks.json, kemudian commit + push ke main.
+#  - Push ke main mencetuskan auto-deploy Vercel (git integration) — TIADA muat naik manual.
+
+on:
+  schedule:
+    - cron: '45 9 * * 1-5'
+    - cron: '0 22 * * 1-5'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'fetch_live_data.py'
+      - 'watchlist.json'
+      - 'shariah_overrides.json'
+      - 'requirements-stocks.txt'
+      - '.github/workflows/update-stocks.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auto-update-stocks
+  cancel-in-progress: false
+
+jobs:
+  update-stocks:
+    name: Tarik data pasaran & kemas kini stocks.json
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Pasang kebergantungan
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-stocks.txt
+
+      - name: Tarik data terkini -> stocks.json
+        run: python fetch_live_data.py --out stocks.json
+
+      - name: Sahkan stocks.json sah
+        run: |
+          python - <<'PY'
+          import json, sys
+          d = json.load(open('stocks.json', encoding='utf-8'))
+          n = len(d.get('stocks', []))
+          meta = d.get('meta', {})
+          print('kaunter:', n, '| dijana:', meta.get('generatedAtMYT'), '| gagal:', meta.get('failedSymbols'))
+          if n < 1:
+              sys.exit('stocks.json kosong — batalkan commit')
+          PY
+
+      - name: Commit & push jika ada perubahan
+        run: |
+          git config user.name  "payed-legacy-bot"
+          git config user.email "payedlegacy@gmail.com"
+          git add stocks.json
+          if git diff --cached --quiet; then
+            echo "Tiada perubahan data — tiada commit."
+            exit 0
+          fi
+          git commit -m "chore(data): auto-update stocks.json [$(date -u '+%Y-%m-%d %H:%M UTC')]"
+          git push origin HEAD:main
+
+      - name: Ringkasan ringkas
+        if: always()
+        run: |
+          echo "### Auto-Update Data Saham" >> $GITHUB_STEP_SUMMARY
+          python - <<'PY' >> $GITHUB_STEP_SUMMARY
+          import json
+          try:
+              d = json.load(open('stocks.json', encoding='utf-8'))
+              m = d.get('meta', {})
+              print(f"- Dijana: {m.get('generatedAtMYT')}")
+              print(f"- Kaunter: {m.get('symbolCount')} (Bursa {m.get('klseCount')} / US {m.get('usCount')})")
+              print(f"- Senarai Syariah SC: {m.get('shariahListDate')} ({m.get('shariahListCount')} kod)")
+              print(f"- Sesi pasaran: Bursa {m.get('mySessionDate')} / US {m.get('usSessionDate')}")
+              print(f"- Simbol gagal: {m.get('failedSymbols') or 'tiada'}")
+              for n in (m.get('notes') or [])[:10]:
+                  print(f"  - {n}")
+          except Exception as e:
+              print(f"- Gagal baca stocks.json: {e}")
+          PY

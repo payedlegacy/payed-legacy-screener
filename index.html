@@ -398,6 +398,13 @@
                             <option value="Property">Hartanah / Pembinaan</option>
                             <option value="Energy">Tenaga & Minyak</option>
                             <option value="Consumer">Barangan Pengguna</option>
+                            <option value="Finance">Kewangan & Perbankan</option>
+                            <option value="Utilities">Utiliti & Tenaga</option>
+                            <option value="Healthcare">Penjagaan Kesihatan</option>
+                            <option value="Telco">Telekomunikasi</option>
+                            <option value="Plantation">Perladangan</option>
+                            <option value="Industrials">Perindustrian</option>
+                            <option value="Materials">Bahan Asas</option>
                         </select>
                     </div>
                     <div class="col-span-2 sm:col-span-1">
@@ -421,6 +428,8 @@
                             <th class="py-3 px-4">Harga Terkini</th>
                             <th class="py-3 px-4">Perubahan 24j</th>
                             <th class="py-3 px-4">RSI (14)</th>
+                            <th class="py-3 px-4">MA / MACD</th>
+                            <th class="py-3 px-4">Corak Candlestick</th>
                             <th class="py-3 px-4">Nisbah PE</th>
                             <th class="py-3 px-4">Kadar Dividen</th>
                             <th class="py-3 px-4">Sinyal Hybrid</th>
@@ -436,7 +445,18 @@
             <!-- STATUS BAWAH JADUAL -->
             <div class="p-4 bg-slate-50 border-t border-slate-200 flex justify-between items-center text-xs text-slate-500">
                 <span id="resultCount">Menunjukkan 0 kaunter yang memenuhi kriteria</span>
-                <span class="text-[11px] text-slate-400">Nota: Data disemak secara client-side real-time.</span>
+                <span class="text-[11px] text-slate-400">Nota: Data harga, teknikal & fundamental dikemas kini secara automatik setiap hari bekerja.</span>
+            </div>
+
+            <!-- JEJAK MASA AUTO-DATA PIPELINE: TERAKHIR KEMASKINI -->
+            <div id="dataMetaBar" class="px-4 py-3 bg-slate-900 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 text-[11px] text-slate-200">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <span id="lastUpdateLabel" data-i18n-skip>Terakhir Kemaskini:</span>
+                    <strong id="lastUpdateValue" data-i18n-skip class="font-mono text-emerald-400">&mdash;</strong>
+                    <span id="dataStatusBadge" data-i18n-skip class="hidden text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-900 text-emerald-300 tracking-wider">AUTO</span>
+                </span>
+                <span id="dataSourceNote" data-i18n-skip class="text-[10px] text-slate-400">Sumber: Yahoo Finance &bull; Senarai Syariah SC</span>
             </div>
         </section>
 
@@ -711,7 +731,19 @@
             "💰 RAJA DIVIDEN": "💰 DIVIDEND KING",
             "Volum:": "Volume:",
             "Tiada kaunter dijumpai dengan kriteria tapisan ini. Cuba longgarkan syarat penapis.": "No stocks found matching these filters. Try relaxing the filter criteria.",
-            "🎁 KOD LUNO: 429D5F (Percuma RM25 BTC)": "🎁 LUNO CODE: 429D5F (Free RM25 BTC)"
+            "🎁 KOD LUNO: 429D5F (Percuma RM25 BTC)": "🎁 LUNO CODE: 429D5F (Free RM25 BTC)",
+            "MA / MACD": "MA / MACD",
+            "Corak Candlestick": "Candlestick Pattern",
+            "Kewangan & Perbankan": "Finance & Banking",
+            "Utiliti & Tenaga": "Utilities & Energy",
+            "Penjagaan Kesihatan": "Healthcare",
+            "Telekomunikasi": "Telecommunications",
+            "Perladangan": "Plantation",
+            "Perindustrian": "Industrials",
+            "Bahan Asas": "Basic Materials",
+            "Lain-lain": "Others",
+            "Nota: Data harga, teknikal & fundamental dikemas kini secara automatik setiap hari bekerja.": "Note: Price, technical & fundamental data are updated automatically every business day.",
+            "Baris:": "Row:"
 };
         const I18N_EN_PH = {
             "Contoh: GAMUDA, NVDA...": "e.g. GAMUDA, NVDA...",
@@ -779,6 +811,7 @@
             applyLang(lang);
             renderTop5Movers();
             renderTable(lastFiltered);
+            updateDataMeta();
         }
 
         // 1. DATASET SAHAM HYBRID (KLSE & US MARKET)
@@ -792,6 +825,124 @@
             { symbol: "MYEG", name: "MYEG Services", market: "KLSE", price: 0.915, change: 1.10, rsi: 54, pe: 13.5, divYield: 2.8, shariah: true, sector: "Technology", volume: "22.8M", signal: "NEUTRAL" },
             { symbol: "TENAGA", name: "Tenaga Nasional", market: "KLSE", price: 13.80, change: -0.25, rsi: 41, pe: 15.1, divYield: 3.8, shariah: true, sector: "Utilities", volume: "5.6M", signal: "✨ GOLDEN CROSS" },
         ];
+
+        // ================= DATA LIVE (AUTO-DATA PIPELINE) =================
+        // STOCKS diisi oleh loadLiveStocks() daripada stocks.json (dijana oleh
+        // GitHub Actions). mockStocks kekal sebagai set sandaran jika muat turun gagal.
+        let STOCKS = mockStocks;
+        let DATA_META = null;
+
+        // Pemformatan harga: 3 titik perpuluhan utk kaunter bawah RM1/$1 (cth 0.205)
+        function fmtPrice(s) {
+            const v = Number(s && s.price);
+            if (!isFinite(v)) return '-';
+            const cur = (s.market === 'KLSE') ? 'RM ' : '$ ';
+            return cur + v.toFixed(v < 1 ? 3 : 2);
+        }
+
+        function fmtNum(v, suffix) {
+            if (v === null || v === undefined || v === '' || !isFinite(Number(v))) return '-';
+            return Number(v) + (suffix || '');
+        }
+
+        // Aras harga (MA/MACD): 3 titik perpuluhan utk kaunter bawah RM1/$1
+        function fmtLvl(v) {
+            if (v === null || v === undefined || v === '' || !isFinite(Number(v))) return '-';
+            const n = Number(v);
+            return n.toFixed(Math.abs(n) < 1 ? 3 : 2);
+        }
+
+        // Corak candlestick: label BM/EN + warna (bullish/bearish)
+        const PATTERN_BM = {
+            "Doji": "Doji",
+            "Bullish Marubozu": "Marubozu Bullish",
+            "Bearish Marubozu": "Marubozu Bearish",
+            "Hammer": "Hammer (Tukul)",
+            "Hanging Man": "Hanging Man",
+            "Shooting Star": "Shooting Star",
+            "Inverted Hammer": "Inverted Hammer",
+            "Bullish Engulfing": "Engulfing Bullish (Selubung Naik)",
+            "Bearish Engulfing": "Engulfing Bearish (Selubung Turun)"
+        };
+        const PATTERN_TONE = {
+            "Bullish Engulfing": "bull", "Hammer": "bull", "Inverted Hammer": "bull",
+            "Bullish Marubozu": "bull",
+            "Bearish Engulfing": "bear", "Shooting Star": "bear", "Hanging Man": "bear",
+            "Bearish Marubozu": "bear"
+        };
+
+        function patternList(s) {
+            if (Array.isArray(s.patterns) && s.patterns.length) return s.patterns;
+            if (s.patternSummary) return String(s.patternSummary).split(',').map(x => x.trim()).filter(Boolean);
+            return [];
+        }
+
+        function renderPatternCell(s) {
+            const list = patternList(s);
+            if (!list.length) return '<span class="text-slate-300">-</span>';
+            const tone = list.map(p => PATTERN_TONE[p]).filter(Boolean)[0];
+            const cls = tone === 'bull' ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                      : tone === 'bear' ? 'bg-red-50 text-red-700 border-red-200'
+                      : 'bg-slate-50 text-slate-600 border-slate-200';
+            const label = list.map(p => currentLang === 'en' ? p : (PATTERN_BM[p] || p)).join(', ');
+            return `<span class="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-md border ${cls}">${label}</span>`;
+        }
+
+        function trendClass(t) {
+            if (t === 'BULLISH KUAT' || t === 'BULLISH') return 'text-emerald-600';
+            if (t === 'BEARISH' || t === 'LEMAH') return 'text-red-600';
+            return 'text-slate-500';
+        }
+
+        // Label masa "Terakhir Kemaskini" + sumber data (dipanggil setiap render/setLang)
+        function updateDataMeta() {
+            const lab = document.getElementById('lastUpdateLabel');
+            const val = document.getElementById('lastUpdateValue');
+            const src = document.getElementById('dataSourceNote');
+            const badge = document.getElementById('dataStatusBadge');
+            if (lab) lab.textContent = T('Terakhir Kemaskini:', 'Last Updated:');
+            if (!val) return;
+            if (DATA_META && DATA_META.generatedAtMYT) {
+                val.textContent = DATA_META.generatedAtMYT;
+                val.className = 'font-mono text-emerald-400';
+                if (badge) badge.classList.remove('hidden');
+                if (src) {
+                    const sh = DATA_META.shariahListDate
+                        ? T(` • Senarai Syariah SC ${DATA_META.shariahListDate} (${DATA_META.shariahListCount} kod)`,
+                            ` • SC Shariah List ${DATA_META.shariahListDate} (${DATA_META.shariahListCount} codes)`)
+                        : '';
+                    const sesi = T(` • ${DATA_META.symbolCount} kaunter • sesi Bursa ${DATA_META.mySessionDate || '-'} / US ${DATA_META.usSessionDate || '-'}`,
+                                   ` • ${DATA_META.symbolCount} counters • Bursa session ${DATA_META.mySessionDate || '-'} / US ${DATA_META.usSessionDate || '-'}`);
+                    src.textContent = T('Sumber: ', 'Source: ') + (DATA_META.priceSource || 'Yahoo Finance') + sh + sesi;
+                }
+            } else {
+                val.textContent = T('set data lalai (stocks.json tidak dapat dibaca)', 'default dataset (stocks.json unavailable)');
+                val.className = 'font-mono text-amber-400';
+                if (badge) badge.classList.add('hidden');
+                if (src) src.textContent = T('Sumber: set data lalai dalam index.html', 'Source: default dataset inside index.html');
+            }
+        }
+
+        // Muat turun data terkini daripada stocks.json (cache-busting + no-store)
+        async function loadLiveStocks() {
+            try {
+                const res = await fetch('stocks.json?_=' + Date.now(), { cache: 'no-store' });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const payload = await res.json();
+                if (payload && Array.isArray(payload.stocks) && payload.stocks.length) {
+                    STOCKS = payload.stocks;
+                    DATA_META = payload.meta || null;
+                } else {
+                    throw new Error('struktur stocks.json tidak sah');
+                }
+            } catch (err) {
+                console.warn('[auto-data] stocks.json gagal dibaca — guna set lalai:', err);
+                DATA_META = null;
+            }
+            updateDataMeta();
+            renderTop5Movers();
+            applyFilters();
+        }
 
         let activeMoversMarket = "KLSE";
         let activePreset = "ALL";
@@ -832,7 +983,11 @@
         // 3. ENJIN TOP 5 SAHAM TUMPUAN
         function renderTop5Movers() {
             const container = document.getElementById('top5Container');
-            const filtered = mockStocks.filter(s => s.market === activeMoversMarket).slice(0, 4);
+            const filtered = STOCKS
+                .filter(s => s.market === activeMoversMarket)
+                .slice()
+                .sort((a, b) => Math.abs(Number(b.change) || 0) - Math.abs(Number(a.change) || 0))
+                .slice(0, 4);
 
             container.innerHTML = filtered.map(s => `
                 <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2 hover:border-blue-400 transition">
@@ -844,14 +999,14 @@
                         ${s.shariah ? '<span class="bg-emerald-100 text-emerald-800 text-[9px] font-bold px-1.5 py-0.5 rounded">🌙 Syariah</span>' : ''}
                     </div>
                     <div class="flex justify-between items-baseline pt-1">
-                        <span class="font-bold text-xs text-slate-800">${s.market === 'KLSE' ? 'RM ' : '$ '}${s.price.toFixed(2)}</span>
+                        <span class="font-bold text-xs text-slate-800">${fmtPrice(s)}</span>
                         <span class="text-xs font-bold ${s.change >= 0 ? 'text-emerald-600' : 'text-red-600'}">
                             ${s.change >= 0 ? '+' : ''}${s.change}%
                         </span>
                     </div>
                     <div class="text-[10px] text-slate-400 flex justify-between border-t border-slate-200 pt-1">
                         <span><span>Volum:</span> ${s.volume}</span>
-                        <span><span>PE:</span> ${s.pe}</span>
+                        <span><span>PE:</span> ${fmtNum(s.pe)}</span>
                     </div>
                 </div>
             `).join('');
@@ -874,21 +1029,26 @@
             const sectorVal = document.getElementById('sectorFilter').value;
             const marketVal = document.getElementById('marketFilter').value;
 
-            const filtered = mockStocks.filter(s => {
-                if (search && !s.symbol.includes(search) && !s.name.toUpperCase().includes(search)) return false;
+            // Data: STOCKS (live daripada stocks.json) — sandaran set lalai jika gagal
+            const filtered = STOCKS.filter(s => {
+                const sym = String(s.symbol || '').toUpperCase();
+                const nm = String(s.name || '').toUpperCase();
+                const rsiS = (s.rsi === null || s.rsi === undefined) ? null : Number(s.rsi);
+
+                if (search && !sym.includes(search) && !nm.includes(search)) return false;
                 if (shariahOnly && !s.shariah) return false;
                 if (marketVal !== 'ALL' && s.market !== marketVal) return false;
                 if (sectorVal !== 'ALL' && s.sector !== sectorVal) return false;
-                if (peVal !== 'ALL' && s.pe > parseFloat(peVal)) return false;
-                
-                if (rsiVal === 'OVERSOLD' && s.rsi >= 35) return false;
-                if (rsiVal === 'NEUTRAL' && (s.rsi < 35 || s.rsi > 60)) return false;
-                if (rsiVal === 'OVERBOUGHT' && s.rsi <= 70) return false;
+                if (peVal !== 'ALL' && (s.pe === null || s.pe === undefined || Number(s.pe) > parseFloat(peVal))) return false;
 
-                if (activePreset === 'BOD' && s.rsi >= 35) return false;
-                if (activePreset === 'BREAKOUT' && !s.signal.includes('BREAKOUT')) return false;
-                if (activePreset === 'DIVIDEND' && s.divYield < 3.0) return false;
-                if (activePreset === 'GOLDEN_CROSS' && !s.signal.includes('GOLDEN CROSS')) return false;
+                if (rsiVal === 'OVERSOLD' && (rsiS === null || rsiS >= 35)) return false;
+                if (rsiVal === 'NEUTRAL' && (rsiS === null || rsiS < 35 || rsiS > 60)) return false;
+                if (rsiVal === 'OVERBOUGHT' && (rsiS === null || rsiS <= 70)) return false;
+
+                if (activePreset === 'BOD' && (rsiS === null || rsiS >= 35)) return false;
+                if (activePreset === 'BREAKOUT' && !String(s.signal || '').includes('BREAKOUT')) return false;
+                if (activePreset === 'DIVIDEND' && (Number(s.divYield) || 0) < 3.0) return false;
+                if (activePreset === 'GOLDEN_CROSS' && !String(s.signal || '').includes('GOLDEN CROSS')) return false;
 
                 return true;
             });
@@ -911,7 +1071,7 @@
             if (data.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="9" class="text-center py-8 text-slate-400">
+                        <td colspan="11" class="text-center py-8 text-slate-400">
                             Tiada kaunter dijumpai dengan kriteria tapisan ini. Cuba longgarkan syarat penapis.
                         </td>
                     </tr>
@@ -930,17 +1090,22 @@
                             ? '<span class="inline-flex items-center gap-1 bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">🌙 Syariah</span>' 
                             : '<span class="text-slate-400 text-[10px]">Bukan Syariah</span>'}
                     </td>
-                    <td class="py-3 px-4 font-bold">${s.market === 'KLSE' ? 'RM ' : '$ '}${s.price.toFixed(2)}</td>
+                    <td class="py-3 px-4 font-bold">${fmtPrice(s)}</td>
                     <td class="py-3 px-4 font-bold ${s.change >= 0 ? 'text-emerald-600' : 'text-red-600'}">
                         ${s.change >= 0 ? '+' : ''}${s.change}%
                     </td>
                     <td class="py-3 px-4">
-                        <span class="px-2 py-0.5 rounded font-mono text-[11px] ${s.rsi < 35 ? 'bg-emerald-100 text-emerald-800 font-bold' : 'bg-slate-100 text-slate-700'}">
-                            ${s.rsi}
+                        <span class="px-2 py-0.5 rounded font-mono text-[11px] ${(Number(s.rsi) < 35) ? 'bg-emerald-100 text-emerald-800 font-bold' : (Number(s.rsi) > 70 ? 'bg-red-100 text-red-700 font-bold' : 'bg-slate-100 text-slate-700')}">
+                            ${fmtNum(s.rsi)}
                         </span>
                     </td>
-                    <td class="py-3 px-4">${s.pe}</td>
-                    <td class="py-3 px-4 font-semibold text-purple-700">${s.divYield > 0 ? s.divYield + '%' : '-'}</td>
+                    <td class="py-3 px-4">
+                        <span class="block font-semibold text-[10px] ${trendClass(s.trend)}">${s.trend || '-'}</span>
+                        <span class="block text-[10px] text-slate-400 font-mono">MA20 ${fmtLvl(s.ma20)} | ${s.macdState || '-'}${s.macdState ? ' (H ' + fmtLvl(s.macdHist) + ')' : ''}</span>
+                    </td>
+                    <td class="py-3 px-4">${renderPatternCell(s)}</td>
+                    <td class="py-3 px-4">${fmtNum(s.pe)}</td>
+                    <td class="py-3 px-4 font-semibold text-purple-700">${(Number(s.divYield) || 0) > 0 ? fmtNum(s.divYield, '%') : '-'}</td>
                     <td class="py-3 px-4">
                         <span class="text-[10px] font-extrabold px-2 py-1 rounded-md bg-blue-50 text-blue-700 border border-blue-200">
                             ${s.signal}
@@ -1083,7 +1248,9 @@
             applyFilters();
             initDuitNow();
             applyLang(savedLang);
-            setInterval(fetchLiveTickerData, 30000);
+            loadLiveStocks();                              // tarik stocks.json terkini
+            setInterval(fetchLiveTickerData, 30000);       // ticker kripto (30s)
+            setInterval(loadLiveStocks, 300000);           // semak stocks.json (5 min)
         });
     </script>
 </body>

@@ -1,0 +1,25 @@
+{
+  "_nota": "Fallback status Syariah jika senarai rasmi SC tidak dapat dimuat turun. Nilai di bawah disalin daripada senarai SC 'List of Shariah-compliant Securities as at 29 May 2026' (848 kod patuh). Pipeline akan mengutamakan PDF rasmi SC secara automatik dan menggunakan fail ini hanya sebagai sandaran.",
+  "asOf": "2026-05-29",
+  "source": "SC — Senarai Sekuriti Patuh Syariah (29 Mei 2026)",
+  "codes": {
+    "5398": { "shariah": true,  "name": "Gamuda Bhd" },
+    "0267": { "shariah": true,  "name": "ECA Integrated Solution Bhd" },
+    "1155": { "shariah": false, "name": "Malayan Banking Bhd" },
+    "0138": { "shariah": true,  "name": "My E.G. Services Bhd (kini Zetrix AI Bhd)" },
+    "5347": { "shariah": true,  "name": "Tenaga Nasional Bhd" },
+    "1023": { "shariah": false, "name": "CIMB Group Holdings Bhd" },
+    "1295": { "shariah": false, "name": "Public Bank Bhd" },
+    "5211": { "shariah": true,  "name": "Sunway Bhd" },
+    "0166": { "shariah": true,  "name": "Inari Amertron Bhd" },
+    "4197": { "shariah": true,  "name": "Sime Darby Bhd" },
+    "7113": { "shariah": true,  "name": "Top Glove Corporation Bhd" },
+    "6947": { "shariah": true,  "name": "CelcomDigi Bhd" },
+    "5285": { "shariah": true,  "name": "SD Guthrie Bhd" },
+    "5183": { "shariah": true,  "name": "PETRONAS Chemicals Group Bhd" },
+    "5296": { "shariah": true,  "name": "MR D.I.Y. Group (M) Bhd" },
+    "3816": { "shariah": true,  "name": "MISC Bhd" },
+    "1961": { "shariah": false, "name": "IOI Corporation Bhd" },
+    "4863": { "shariah": true,  "name": "Telekom Malaysia Bhd" }
+  }
+}

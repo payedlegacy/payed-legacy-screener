@@ -1,0 +1,31 @@
+{
+  "_nota": "Watchlist rasmi screener.payedlegacy.my. Tambah/buang kaunter di sini sahaja — pipeline akan menarik data automatik. 'sector' ialah label tetap untuk penapis di index.html (Technology, Property, Finance, Utilities, Healthcare, Energy, Consumer, Plantation, Industrials, Telco). 'bursaCode' hanya untuk kaunter Bursa Malaysia (rujukan senarai Syariah SC).",
+  "updated": "2026-09-21",
+  "stocks": [
+    { "symbol": "GAMUDA",    "ticker": "5398.KL", "bursaCode": "5398", "market": "KLSE", "sector": "Property" },
+    { "symbol": "ECA",       "ticker": "0267.KL", "bursaCode": "0267", "market": "KLSE", "sector": "Technology" },
+    { "symbol": "MAYBANK",   "ticker": "1155.KL", "bursaCode": "1155", "market": "KLSE", "sector": "Finance" },
+    { "symbol": "MYEG",      "ticker": "0138.KL", "bursaCode": "0138", "market": "KLSE", "sector": "Technology", "notaNama": "Syarikat kini Zetrix AI Bhd — nama diambil automatik dari sumber data." },
+    { "symbol": "TENAGA",    "ticker": "5347.KL", "bursaCode": "5347", "market": "KLSE", "sector": "Utilities" },
+    { "symbol": "CIMB",      "ticker": "1023.KL", "bursaCode": "1023", "market": "KLSE", "sector": "Finance" },
+    { "symbol": "PBBANK",    "ticker": "1295.KL", "bursaCode": "1295", "market": "KLSE", "sector": "Finance" },
+    { "symbol": "SUNWAY",    "ticker": "5211.KL", "bursaCode": "5211", "market": "KLSE", "sector": "Property" },
+    { "symbol": "INARI",     "ticker": "0166.KL", "bursaCode": "0166", "market": "KLSE", "sector": "Technology" },
+    { "symbol": "SIME",      "ticker": "4197.KL", "bursaCode": "4197", "market": "KLSE", "sector": "Industrials" },
+    { "symbol": "TOPGLOV",   "ticker": "7113.KL", "bursaCode": "7113", "market": "KLSE", "sector": "Healthcare" },
+    { "symbol": "CDB",       "ticker": "6947.KL", "bursaCode": "6947", "market": "KLSE", "sector": "Telco" },
+    { "symbol": "SDGUTHRIE", "ticker": "5285.KL", "bursaCode": "5285", "market": "KLSE", "sector": "Plantation" },
+    { "symbol": "PETCHEM",   "ticker": "5183.KL", "bursaCode": "5183", "market": "KLSE", "sector": "Energy" },
+    { "symbol": "MRDIY",     "ticker": "5296.KL", "bursaCode": "5296", "market": "KLSE", "sector": "Consumer" },
+    { "symbol": "MISC",      "ticker": "3816.KL", "bursaCode": "3816", "market": "KLSE", "sector": "Energy" },
+
+    { "symbol": "NVDA",  "ticker": "NVDA",  "market": "US", "sector": "Technology" },
+    { "symbol": "AAPL",  "ticker": "AAPL",  "market": "US", "sector": "Technology" },
+    { "symbol": "TSLA",  "ticker": "TSLA",  "market": "US", "sector": "Consumer" },
+    { "symbol": "MSFT",  "ticker": "MSFT",  "market": "US", "sector": "Technology" },
+    { "symbol": "AMZN",  "ticker": "AMZN",  "market": "US", "sector": "Consumer" },
+    { "symbol": "GOOGL", "ticker": "GOOGL", "market": "US", "sector": "Technology" },
+    { "symbol": "META",  "ticker": "META",  "market": "US", "sector": "Technology" },
+    { "symbol": "AMD",   "ticker": "AMD",   "market": "US", "sector": "Technology" }
+  ]
+}

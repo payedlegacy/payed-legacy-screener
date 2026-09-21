@@ -1,0 +1,9 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Fail sementara pipeline
+.sc_shariah_tmp.pdf
+__test_en.html
