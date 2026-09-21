@@ -606,11 +606,11 @@ details>summary::-webkit-details-marker{display:none}
         <div class="rounded-xl border border-white/10 bg-ink-950/40 p-3.5">
           <p class="font-bold text-white mb-1 flex items-center gap-1.5"><i data-lucide="database" class="w-3.5 h-3.5 text-brand-400"></i><span data-i18n="method_1_t">Sumber data</span></p>
           <p id="methodSource" data-i18n="method_1_b">Harga penutup, RSI, purata bergerak, MACD dan corak candlestick diambil daripada data pasaran awam. P/E dan kadar dividen datang daripada data penyata kewangan syarikat.</p>
-          <p id="methodLive" data-i18n="method_live">Harga, perubahan, volum, RSI dan purata bergerak (EMA 7/21, 20/50/200) dikemas kini terus daripada suapan pasaran awam setiap 60 saat semasa halaman ini dibuka. Corak candlestick, status Syariah dan nota fundamental pula berdasarkan sesi penuh terakhir, jadi tandanya berubah selepas pasaran tutup.</p>
+          <p id="methodLive" data-i18n="method_live">Harga, perubahan, volum, RSI dan purata bergerak (EMA 7/21, 20/50/200) dikemas kini terus daripada suapan pasaran awam setiap 60 saat semasa halaman ini dibuka. Di belakangnya, salinan data penuh (penunjuk, skor breakout, status Syariah) dijana semula setiap 15 minit semasa waktu dagangan Bursa Malaysia dan pasaran US. Corak candlestick dan nota fundamental pula berdasarkan sesi penuh terakhir.</p>
         </div>
         <div class="rounded-xl border border-white/10 bg-ink-950/40 p-3.5">
           <p class="font-bold text-white mb-1 flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5 text-cyan-300"></i><span data-i18n="method_2_t">Bila dikemas kini</span></p>
-          <p data-i18n="method_2_b">Pada hari bekerja, data dikemas kini dua kali: sekitar 5:45 petang selepas Bursa Malaysia tutup, dan 6:00 pagi selepas pasaran US tutup. Halaman ini turut menyemak semula setiap lima minit.</p>
+          <p data-i18n="method_2_b">Pada hari bekerja, salinan data penuh dikemas kini sekitar 5:45 petang (selepas Bursa Malaysia tutup) dan 6:00 pagi (selepas pasaran US tutup), manakala harga dan penunjuk dikemas kini setiap 15 minit semasa waktu dagangan kedua-dua pasaran. Halaman ini turut menyemak semula setiap lima minit.</p>
         </div>
         <div class="rounded-xl border border-white/10 bg-ink-950/40 p-3.5">
           <p class="font-bold text-white mb-1 flex items-center gap-1.5"><i data-lucide="moon" class="w-3.5 h-3.5 text-teal-300"></i><span data-i18n="method_3_t">Status Syariah</span></p>
@@ -879,6 +879,10 @@ details>summary::-webkit-details-marker{display:none}
 
 /* ------------------------------ state ------------------------------ */
 const DATA_URL = 'stocks.json';
+/* Salinan intraday (setiap 15 minit semasa waktu dagangan) yang diterbitkan ke cabang `data`
+   oleh workflow "Kemas Kini Intraday". Dibaca dari GitHub raw (CORS dibenarkan) supaya
+   data segar 15 minit TANPA mencetuskan deploy Vercel setiap kali. */
+const DATA_URL_FRESH = 'https://raw.githubusercontent.com/payedlegacy/payed-legacy-screener/data/stocks.json';
 const LS_LANG = 'screener_lang';
 const LS_WATCH = 'screener_watchlist';
 const LS_ALERTS = 'screener_alerts';
@@ -1036,8 +1040,8 @@ const I18N = {
         "dr_live_price": "Harga langsung",
         "dr_session_close": "Penutup sesi",
         "dr_premarket": "Pra-pasaran",
-        "method_live": "Harga, perubahan, volum, RSI dan purata bergerak (EMA 7/21, 20/50/200) dikemas kini terus daripada suapan pasaran awam setiap 60 saat semasa halaman ini dibuka. Corak candlestick, status Syariah dan nota fundamental pula berdasarkan sesi penuh terakhir, jadi tandanya berubah selepas pasaran tutup.",
-        "method_2_b": "Pada hari bekerja, data dikemas kini dua kali: sekitar 5:45 petang selepas Bursa Malaysia tutup, dan 6:00 pagi selepas pasaran US tutup. Halaman ini turut menyemak semula setiap lima minit.",
+        "method_live": "Harga, perubahan, volum, RSI dan purata bergerak (EMA 7/21, 20/50/200) dikemas kini terus daripada suapan pasaran awam setiap 60 saat semasa halaman ini dibuka. Di belakangnya, salinan data penuh (penunjuk, skor breakout, status Syariah) dijana semula setiap 15 minit semasa waktu dagangan Bursa Malaysia dan pasaran US. Corak candlestick dan nota fundamental pula berdasarkan sesi penuh terakhir.",
+        "method_2_b": "Pada hari bekerja, salinan data penuh dikemas kini sekitar 5:45 petang (selepas Bursa Malaysia tutup) dan 6:00 pagi (selepas pasaran US tutup), manakala harga dan penunjuk dikemas kini setiap 15 minit semasa waktu dagangan kedua-dua pasaran. Halaman ini turut menyemak semula setiap lima minit.",
         "method_3_b": "Kaunter Bursa Malaysia ditanda mengikut senarai sekuriti patuh Syariah Suruhanjaya Sekuriti Malaysia. Untuk kaunter US, tanda itu hanya anggaran, jadi sila semak sendiri sebelum membuat keputusan.",
         "support_title": "Sokongan dan rakan rujukan",
         "support_sub": "Semua alat di sini percuma dan tiada bayaran. Kalau ia membantu anda, bolehlah daftar melalui pautan rujukan di bawah atau imbas QR DuitNow. Itu sahaja cara kami menampung kos data dan hosting.",
@@ -1342,7 +1346,7 @@ const I18N = {
         "dr_session_close": "Session close",
         "dr_premarket": "Pre-market",
         "method_live": "Price, change, volume, RSI and moving averages (EMA 7/21, 20/50/200) refresh straight from a public market feed every 60 seconds while this page is open. Candlestick patterns, Shariah status and fundamental notes come from the last completed session, so their flags change after the market closes.",
-        "method_2_b": "On weekdays data is refreshed twice: around 5:45 pm after Bursa Malaysia closes, and 6:00 am after the US market closes. This page also re-checks every five minutes.",
+        "method_2_b": "On weekdays the full data copy is refreshed around 5:45 pm (after Bursa Malaysia closes) and 6:00 am (after the US market closes), while prices and indicators refresh every 15 minutes during both markets' trading hours. This page also re-checks every five minutes.",
         "method_3_b": "Malaysian counters are flagged using the Securities Commission Shariah-compliant securities list. For US counters the flag is only an estimate, so please verify before deciding.",
         "support_title": "Support and referral partners",
         "support_sub": "Everything here is free. If it helps you, you can sign up through one of the referral links below or scan the DuitNow QR. That is how the data and hosting costs get covered.",
@@ -1641,6 +1645,25 @@ function closeDrawer() {
 }
 
 /* ------------------------------ data load ------------------------------ */
+/* Ambil satu sumber data; pulangkan {payload, arr, ts} atau null kalau gagal.
+   `ts` = masa janaan data, untuk memilih sumber yang PALING BAHARU antara
+   salinan intraday (cabang data) dan fail yang di-deploy bersama laman. */
+async function ambilSumber(url) {
+  try {
+    const sambung = (url.indexOf('?') === -1) ? '?t=' : '&t=';
+    const res = await fetch(url + sambung + Date.now(), { cache: 'no-store' });
+    if (!res.ok) return null;
+    const payload = await res.json();
+    const arr = Array.isArray(payload) ? payload : (payload && payload.stocks);
+    if (!Array.isArray(arr) || !arr.length) return null;
+    const meta = Array.isArray(payload) ? null : (payload && payload.meta);
+    const ts = Date.parse((meta && meta.generatedAt) || '') || 0;
+    return { payload: payload, arr: arr, ts: ts, url: url };
+  } catch (e) {
+    return null;
+  }
+}
+
 async function loadData(isManual) {
   if (isFetching) return;
   isFetching = true;
@@ -1649,12 +1672,15 @@ async function loadData(isManual) {
   if (status) status.textContent = t('checking');
   if (isManual) errBox.classList.add('hidden');
   try {
-    const res = await fetch(DATA_URL + '?t=' + Date.now(), { cache: 'no-store' });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const payload = await res.json();
-    const arr = Array.isArray(payload) ? payload : (payload && payload.stocks);
-    if (!Array.isArray(arr) || !arr.length) throw new Error('empty payload');
+    /* dua sumber: salinan intraday (15 minit semasa waktu dagangan) + fail laman;
+       ambil yang paling baharu — kalau salah satu tidak dapat dihubungi, yang lain tetap jalan */
+    const sumber = await Promise.all([ambilSumber(DATA_URL_FRESH), ambilSumber(DATA_URL)]);
+    const sah = sumber.filter(Boolean).sort((a, b) => b.ts - a.ts);
+    if (!sah.length) throw new Error('semua sumber data gagal');
+    const payload = sah[0].payload;
+    const arr = sah[0].arr;
     DATA_META = payload.meta || null;
+    if (DATA_META) DATA_META.__sumber = (sah[0].url === DATA_URL_FRESH) ? 'intraday' : 'site';
     STOCKS = arr.map(adaptStock);
     errBox.classList.add('hidden');
     $('btnRetry').classList.add('hidden');

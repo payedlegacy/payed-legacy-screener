@@ -630,8 +630,16 @@ def main() -> int:
             src = val.get("source", "SC") if isinstance(val, dict) else "SC"
             rec["shariahSource"] = f"Override manual ({src})"
         elif cfg["market"] == "KLSE":
-            rec["shariah"] = bool(cfg.get("shariahFallback", False))
-            rec["shariahSource"] = "Anggaran (senarai SC tidak tersedia)"
+            # Senarai SC tidak tersedia (cth run intraday --offline-shariah):
+            # kekalkan status Syariah yang terakhir diketahui daripada stocks.json sebelumnya
+            # supaya tapisan Syariah TIDAK jadi salah.
+            prev = prev_stocks.get(sym) or {}
+            if isinstance(prev.get("shariah"), bool):
+                rec["shariah"] = prev["shariah"]
+                rec["shariahSource"] = prev.get("shariahSource") or "Senarai SC (dikekalkan dari kemas kini lepas)"
+            else:
+                rec["shariah"] = bool(cfg.get("shariahFallback", False))
+                rec["shariahSource"] = "Anggaran (senarai SC tidak tersedia)"
         else:
             ok, src = shariah_us(rec["sector"], rec.get("totalDebt"), rec.get("marketCap"))
             rec["shariah"] = ok

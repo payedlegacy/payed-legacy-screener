@@ -1,0 +1,71 @@
+name: Kemas Kini Intraday stocks.json (15 minit)
+
+# Harga dikemas setiap 15 minit SEMASA waktu dagangan sahaja:
+#   * Bursa Malaysia : 09:00–17:45 MYT  = 01:00–09:45 UTC  (Isnin–Jumaat)
+#   * Pasaran US     : 21:00–04:45 MYT  = 13:00–20:45 UTC  (Isnin–Jumaat)
+#   * Di luar waktu itu tiada perubahan harga, jadi tiada run berjadual.
+#
+# Hasil dihantar ke cabang `data` (BUKAN `main`) sebagai SATU commit sahaja
+# (force-push). Laman web membaca salinan itu daripada raw.githubusercontent.com
+# (CORS dibenarkan), jadi data segar 15 minit TANPA mencetuskan deploy Vercel
+# setiap 15 minit. Fail stocks.json dalam `main` kekal dikemas 2x sehari oleh
+# workflow "Auto-Update Data Saham" sebagai salinan sandaran penuh.
+
+on:
+  schedule:
+    - cron: '*/15 1-9 * * 1-5'    # waktu dagangan Bursa Malaysia
+    - cron: '*/15 13-20 * * 1-5'  # waktu dagangan pasaran US
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: intraday-stocks
+  cancel-in-progress: false
+
+jobs:
+  intraday:
+    name: Jana & terbitkan salinan intraday (cabang data)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements-stocks.txt
+
+      - name: Pasang kebergantungan
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-stocks.txt
+
+      - name: Jana stocks.json (intraday, langkau muat turun senarai SC)
+        run: python fetch_live_data.py --out stocks.json --offline-shariah --workers 8
+
+      - name: Sahkan stocks.json sah
+        run: |
+          python - <<'PY'
+          import json, sys
+          d = json.load(open('stocks.json', encoding='utf-8'))
+          n = len(d.get('stocks', []))
+          meta = d.get('meta', {})
+          print('kaunter:', n, '| dijana:', meta.get('generatedAtMYT'), '| gagal:', meta.get('failedSymbols'))
+          if n < 1:
+              sys.exit('stocks.json kosong — batalkan terbit')
+          PY
+
+      - name: Terbitkan ke cabang data (satu commit sahaja)
+        run: |
+          git config user.name  "payed-legacy-bot"
+          git config user.email "payedlegacy@gmail.com"
+          git checkout -B data
+          git add -f stocks.json
+          git commit -m "intraday: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push --force origin data

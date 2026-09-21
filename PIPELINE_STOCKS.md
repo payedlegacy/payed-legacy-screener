@@ -187,4 +187,53 @@ dan `meta.notes` ("SEMAK TICKER ... — suapan kata: <nama syarikat>"). Ini yang
 kes sebenar: **YTLPOWR pernah dipetakan kepada `4677.KL` (YTL Corporation, RM2.36) sedangkan
 YTL Power International ialah `6742.KL` (RM5.89)** — nama syarikat dari suapan itulah bukti paling kuat.
 
+## Kemas kini INTRAday setiap 15 minit semasa waktu dagangan (cabang `data`)
+
+Tetingkap: **Bursa Malaysia 09:00–17:45 MYT** dan **pasaran US 21:00–04:45 MYT** (Isnin–Jumaat).
+Di luar waktu itu tiada janaan (harga tidak berubah).
+
+**Dua cara menjalankannya (kedua-duanya menerbitkan ke cabang `data` yang sama):**
+
+1. **Penjadual di PC ini — AKTIF sekarang.** Skrip `%LOCALAPPDATA%\hermes\scripts\screener-intraday.sh`
+   dijadualkan oleh cron Hermes setiap 15 minit. Skrip menyemak tetingkap waktu dagangan sendiri,
+   menjana `stocks.json` (`--offline-shariah`, ~6–10 saat) dan menerbitkannya dengan
+   `git commit-tree` + `git push --force <commit>:refs/heads/data` — jadi working tree tempatan
+   tidak terusik. Senyap bila berjaya; hanya bercakap apabila gagal. Log:
+   `%LOCALAPPDATA%\hermes\logs\screener-intraday.log`.
+2. **Workflow GitHub Actions — fail sudah sedia tetapi BELUM aktif:**
+   `tools/github-workflows-ready/intraday-stocks.yml`. Ia tidak boleh dipasang kerana
+   `GITHUB_TOKEN` dalam `.env` hanya berskop `repo`; GitHub menolak push yang mencipta fail
+   di `.github/workflows/` tanpa skop `workflow`. Selepas skop itu ditambah, salin fail ke
+   `.github/workflows/` dan commit — kemas kini akan berjalan di awan walaupun PC dimatikan.
+   Langkah penuh: `tools/github-workflows-ready/README.md`.
+
+**Kenapa cabang `data`, bukan `main`:** setiap commit ke `main` mencetuskan deploy Vercel.
+Dengan 4 run sejam, `main` akan menghasilkan ~60+ deploy sehari (had Vercel Hobby = 100 deploy/hari).
+Cabang `data` hanya menyimpan satu commit (force-push), jadi tiada deploy langsung.
+Fail `stocks.json` dalam `main` kekal dikemas 2x sehari sebagai salinan sandaran penuh.
+
+**`--offline-shariah`:** run intraday langkau muat turun PDF Suruhanjaya Sekuriti (senarai itu
+hanya berubah 2x setahun). Kerana itu `fetch_live_data.py` **mewarisi bendera Syariah**
+kaunter Bursa daripada `stocks.json` sebelumnya (`prev_stocks`) + `meta.shariahListDate/Count`
+— tanpa ini semua kaunter Bursa akan jadi "bukan Syariah" secara salah (sudah diuji).
+
+**Laman web (`index.html`):** fungsi `ambilSumber(url)` mengambil KEDUA-DUA sumber
+(`DATA_URL_FRESH` = cabang data, `DATA_URL` = fail laman) pada setiap muat semula, dan
+memilih yang `meta.generatedAt` paling baharu; sumber dijejak dalam `DATA_META.__sumber`
+(`intraday` / `site`). Jika salah satu tidak dapat dihubungi, yang satu lagi tetap berfungsi.
+
+**Hebahan masa sebenar untuk pelawat:** lapisan harga langsung dalam pelayar (60 saat) +
+fail intraday (15 minit). Jadi halaman sentiasa segar walaupun penonton tidak menekan apa-apa.
+
+### Ujian pantas run intraday (di PC)
+```bash
+cp stocks.json "$LOCALAPPDATA/Temp/main_copy.json"     # jadi "fail sebelumnya" untuk warisan
+uv run --quiet --with "yfinance>=1.7,<2" --with "pypdf>=6,<7" \
+  python fetch_live_data.py --out "$LOCALAPPDATA/Temp/main_copy.json" --offline-shariah --workers 8
+# semak: harga berubah, bendera Syariah TIDAK berubah, tvSymbol kekal
+bash "$LOCALAPPDATA/hermes/scripts/screener-intraday.sh"   # terbitkan ke cabang data (senyap bila ok)
+```
+
+
+
 
