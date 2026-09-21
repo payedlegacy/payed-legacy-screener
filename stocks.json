@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generatedAt": "2026-09-21T18:20:37+08:00",
-    "generatedAtMYT": "21 Sep 2026, 6:20 PM (MYT)",
-    "generatedAtUTC": "2026-09-21T10:20:37+00:00",
+    "generatedAt": "2026-09-21T18:23:13+08:00",
+    "generatedAtMYT": "21 Sep 2026, 6:23 PM (MYT)",
+    "generatedAtUTC": "2026-09-21T10:23:13+00:00",
     "symbolCount": 41,
     "klseCount": 26,
     "usCount": 15,
@@ -152,7 +152,7 @@
         "volRatio": 1.1
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:35+08:00",
+      "updatedAt": "2026-09-21T18:23:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -225,7 +225,7 @@
         "volRatio": 0.56
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:35+08:00",
+      "updatedAt": "2026-09-21T18:23:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -296,7 +296,7 @@
         "volRatio": 0.7
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:35+08:00",
+      "updatedAt": "2026-09-21T18:23:10+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -367,7 +367,7 @@
         "volRatio": 0.48
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:35+08:00",
+      "updatedAt": "2026-09-21T18:23:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -440,7 +440,7 @@
         "volRatio": 1.73
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:35+08:00",
+      "updatedAt": "2026-09-21T18:23:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -511,7 +511,7 @@
         "volRatio": 0.64
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:35+08:00",
+      "updatedAt": "2026-09-21T18:23:10+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -582,7 +582,7 @@
         "volRatio": 0.34
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:35+08:00",
+      "updatedAt": "2026-09-21T18:23:10+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -653,7 +653,7 @@
         "volRatio": 1.45
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:35+08:00",
+      "updatedAt": "2026-09-21T18:23:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -724,7 +724,7 @@
         "volRatio": 0.61
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:35+08:00",
+      "updatedAt": "2026-09-21T18:23:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -797,7 +797,7 @@
         "volRatio": 0.92
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -868,7 +868,7 @@
         "volRatio": 0.29
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -941,7 +941,7 @@
         "volRatio": 0.78
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1012,7 +1012,7 @@
         "volRatio": 0.27
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1085,7 +1085,7 @@
         "volRatio": 0.66
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1156,7 +1156,7 @@
         "volRatio": 0.35
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1227,7 +1227,7 @@
         "volRatio": 0.77
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1300,7 +1300,7 @@
         "volRatio": 1.47
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:11+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1373,7 +1373,7 @@
         "volRatio": 0.55
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1444,7 +1444,7 @@
         "volRatio": 0.97
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1515,7 +1515,7 @@
         "volRatio": 0.55
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:11+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1586,7 +1586,7 @@
         "volRatio": 0.76
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:11+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1659,7 +1659,7 @@
         "volRatio": 0.57
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1732,7 +1732,7 @@
         "volRatio": 0.82
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:12+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1803,7 +1803,7 @@
         "volRatio": 1.23
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:12+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1874,7 +1874,7 @@
         "volRatio": 1.02
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:12+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1947,7 +1947,7 @@
         "volRatio": 0.42
       },
       "sampleDate": "2026-09-21",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:12+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -2018,7 +2018,7 @@
         "volRatio": 1.41
       },
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T18:20:36+08:00",
+      "updatedAt": "2026-09-21T18:23:12+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -2091,7 +2091,7 @@
         "volRatio": 1.99
       },
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T18:20:37+08:00",
+      "updatedAt": "2026-09-21T18:23:12+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -2162,7 +2162,7 @@
         "volRatio": 1.28
       },
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T18:20:37+08:00",
+      "updatedAt": "2026-09-21T18:23:12+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -2233,7 +2233,7 @@
         "volRatio": 1.88
       },
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T18:20:37+08:00",
+      "updatedAt": "2026-09-21T18:23:12+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -2304,7 +2304,7 @@
         "volRatio": 1.59
       },
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T18:20:37+08:00",
+      "updatedAt": "2026-09-21T18:23:12+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -2375,7 +2375,7 @@
         "volRatio": 1.87
       },
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T18:20:37+08:00",
+      "updatedAt": "2026-09-21T18:23:12+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -2446,7 +2446,7 @@
         "volRatio": 1.48
       },
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T18:20:37+08:00",
+      "updatedAt": "2026-09-21T18:23:12+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -2517,7 +2517,7 @@
         "volRatio": 1.67
       },
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T18:20:37+08:00",
+      "updatedAt": "2026-09-21T18:23:12+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -2588,7 +2588,7 @@
         "volRatio": 3.7
       },
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T18:20:37+08:00",
+      "updatedAt": "2026-09-21T18:23:12+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -2662,7 +2662,7 @@
         "volRatio": 1.36
       },
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T18:20:37+08:00",
+      "updatedAt": "2026-09-21T18:23:12+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -2733,7 +2733,7 @@
         "volRatio": 1.98
       },
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T18:20:37+08:00",
+      "updatedAt": "2026-09-21T18:23:13+08:00",
       "shariah": false,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -2804,7 +2804,7 @@
         "volRatio": 1.64
       },
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T18:20:37+08:00",
+      "updatedAt": "2026-09-21T18:23:13+08:00",
       "shariah": false,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -2875,7 +2875,7 @@
         "volRatio": 1.78
       },
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T18:20:37+08:00",
+      "updatedAt": "2026-09-21T18:23:13+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -2946,7 +2946,7 @@
         "volRatio": 1.7
       },
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T18:20:37+08:00",
+      "updatedAt": "2026-09-21T18:23:13+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -3017,7 +3017,7 @@
         "volRatio": 1.27
       },
       "sampleDate": "2026-09-18",
-      "updatedAt": "2026-09-21T18:20:37+08:00",
+      "updatedAt": "2026-09-21T18:23:13+08:00",
       "shariah": false,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
