@@ -107,3 +107,46 @@ python fetch_live_data.py --offline-shariah      # tanpa muat turun PDF SC
   dari `stocks.json` sebelum ini dan dicatat dalam `meta.notes` / `meta.failedSymbols`.
 - Bursa Malaysia mengumumkan senarai Syariah pada hujung Jumaat terakhir Mei/November;
   pipeline akan menangkap senarai baharu secara automatik pada run berikutnya.
+
+## Enjin Global Mega-Breakout & Volume Surge (`global_breakout_momentum_scanner`)
+
+Ditambah 2026-09-21. Tujuan: mengesan kaunter yang bakal membuat **pergerakan besar**
+(volume surge / breakout) merentasi **Bursa Malaysia dan pasaran US** — bukan sekadar
+menyaring trend.
+
+### Apa yang dikira (setiap simbol, daripada sejarah harga sebenar)
+| Medan JSON | Maksud | Ambang |
+|---|---|---|
+| `breakout.volSpike` | Volum hari ini vs purata 20 hari | `>= 1.5x` |
+| `breakout.momentum` | Perubahan harga hari ini | `>= +1.5%` |
+| `breakout.emaCross` | EMA 7 **baru** silang naik melepasi EMA 21 (bar semalam di bawah) | silang hari ini |
+| `breakout.nearHigh52` | Harga hampir puncak 52 minggu | dalam 3% |
+| `breakout.rsiHealthy` | RSI dalam zon sihat (bukan terlebih beli/jual) | 45–70 |
+| `breakout.score` | Skor 0–100: volum 35 + momentum 30 + silang 25 + hampir puncak 10 + RSI 5 | — |
+| `breakoutState` | `🚀 VOLUME SPIKE & BREAKOUT` / `📊 VOLUME SURGE` / `⚡ EMA 7/21 CROSSOVER` / `📈 MOMENTUM NAIK` / `—` | — |
+| `signal` | Isyarat utama: Breakout > Buy On Dip (RSI<35) > EMA 7/21 Crossover > isyarat lama | — |
+| `tvSymbol` | Simbol carta TradingView (`MYX:` / `NASDAQ:` / `NYSE:` / `AMEX:`) | — |
+
+### Meta tambahan dalam `stocks.json`
+`meta.scanner`, `meta.scannerId`, `meta.breakoutCount`, `meta.volSpikeCount`,
+`meta.topBreakouts[]` (8 teratas: symbol, market, state, score, change, volumeRatio).
+
+### Di pihak laman web (`index.html`)
+- Chip tapisan baharu **🚀 Breakout global (volum + momentum)** — `PRESETS.breakout`,
+  dihitung daripada `breakout.volSpike && (breakout.momentum || breakout.emaCross)`.
+- Badge **🚀** pada baris jadual dan kad mudah alih untuk kaunter breakout.
+- Baris status menyenaraikan breakout yang dipantau (kedua-dua pasaran) daripada `meta.topBreakouts`.
+
+### ATURAN PENTING — kod kaunter Bursa Malaysia
+Kaunter Bursa **mesti** guna kod angka Yahoo Finance (`1155.KL`, `5398.KL`, `4677.KL`).
+Kod huruf seperti `MAYBANK.KL`, `TENAGA.KL`, `GAMUDA.KL` **tidak berfungsi** (Yahoo pulangkan
+kosong → simbol dilangkau senyap). Tambah kaunter baharu dalam `watchlist.json` sahaja;
+`market` mesti `KLSE` atau `US`, dan `bursaCode` diisi untuk kaunter Bursa (rujukan Syariah SC).
+
+### Ujian manual di PC (tanpa pasang apa-apa ke dalam sistem)
+```bash
+cd "C:/Users/admin/repos/payed-legacy-screener"
+uv run --quiet --with "yfinance>=1.7,<2" --with "pypdf>=6,<7" python fetch_live_data.py --out stocks.json
+```
+Kemudian semak `meta.breakoutCount`, `meta.topBreakouts`, dan medan `breakout` bagi setiap rekod.
+
