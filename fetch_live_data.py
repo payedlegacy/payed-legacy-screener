@@ -325,6 +325,16 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
             macd_vals = macd(c) or {}
             ma20, ma50, ma200 = sma(c, 20), sma(c, 50), sma(c, 200)
 
+            # --- EMA (7/21 & 20/50) + bendera preset screener -----------------
+            def _last(seq):
+                return seq[-1] if seq else None
+
+            e7, e21 = _last(ema_series(c, 7)), _last(ema_series(c, 21))
+            e20, e50, e200 = _last(ema_series(c, 20)), _last(ema_series(c, 50)), _last(ema_series(c, 200))
+            ema7_21 = bool(e7 and e21 and e7 > e21)
+            ema20_50 = bool(e20 and e50 and e20 > e50)
+            ema_support = bool(price and e50 and e200 and price > e50 and e50 > e200)
+
             trend = "NEUTRAL"
             if ma20 and ma50 and ma200:
                 if price > ma20 > ma50 > ma200:
@@ -340,6 +350,10 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
 
             hi52 = max(h[-252:]) if len(h) >= 252 else max(h)
             lo52 = min(l[-252:]) if len(l) >= 252 else min(l)
+            high_all = max(h)                      # puncak tertinggi dlm sejarah tersedia (2 tahun)
+            high52w = bool(hi52 and price >= hi52 * 0.97)
+            ath = bool(high_all and price >= high_all * 0.995)
+            pct_high52 = round((price / hi52 - 1.0) * 100.0, 2) if hi52 else None
 
             pats = candle_patterns(o[-1], h[-1], l[-1], c[-1], o[-2], c[-2])
 
@@ -377,6 +391,10 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
                 "dayLow": round(l[-1], 4),
                 "high52": round(hi52, 4),
                 "low52": round(lo52, 4),
+                "highAll": round(high_all, 4),
+                "high52w": high52w,
+                "ath": ath,
+                "pctHigh52": pct_high52,
                 "volume": fmt_volume(v[-1]),
                 "avgVolume": fmt_volume(avg_vol),
                 "volumeRatio": round(vol_ratio, 2),
@@ -386,6 +404,15 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
                 "ma50": round(ma50, 4) if ma50 else None,
                 "ma200": round(ma200, 4) if ma200 else None,
                 "trend": trend,
+                # EMA & bendera preset (dikira drpd sejarah harga sebenar)
+                "ema7": round(e7, 4) if e7 else None,
+                "ema21": round(e21, 4) if e21 else None,
+                "ema20": round(e20, 4) if e20 else None,
+                "ema50": round(e50, 4) if e50 else None,
+                "ema200": round(e200, 4) if e200 else None,
+                "ema7_21": ema7_21,
+                "ema20_50": ema20_50,
+                "emaSupport": ema_support,
                 "macd": macd_vals.get("macd"),
                 "macdSignal": macd_vals.get("macdSignal"),
                 "macdHist": macd_vals.get("macdHist"),
