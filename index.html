@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Screener Saham Ringkas &amp; Patuh | Payed Legacy</title>
-    <meta name="description" content="Screener saham ringkas & patuh Syariah untuk Bursa Malaysia dan pasaran US. Harga dan penunjuk dikemas kini automatik dua kali sehari pada hari bekerja; ticker dan carta dipaparkan secara langsung oleh TradingView.">
+    <meta name="description" content="Screener saham Bursa Malaysia &amp; pasaran US: tapisan teknikal, fundamental, corak candlestick dan status Syariah. Harga &amp; penunjuk dikemas kini automatik; carta dan ticker dipaparkan langsung oleh TradingView.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://screener.payedlegacy.my/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Payed Legacy Screener">
-    <meta property="og:title" content="Screener Saham Ringkas & Patuh | Payed Legacy">
-    <meta property="og:description" content="Tapisan teknikal, fundamental dan status Syariah untuk Bursa Malaysia & pasaran US. Data terkini, carta langsung TradingView.">
+    <meta property="og:title" content="Screener Saham Ringkas &amp; Patuh | Payed Legacy">
+    <meta property="og:description" content="Tapisan teknikal, fundamental, corak candlestick dan status Syariah. Data terkini, carta langsung TradingView.">
     <meta property="og:url" content="https://screener.payedlegacy.my/">
     
     <!-- Tailwind CSS CDN -->
@@ -21,6 +21,8 @@
     
     <!-- Google AdSense Main Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9978987699948390" crossorigin="anonymous"></script>
+
+    <!-- TradingView: skrip widget dimuatkan secara dinamik oleh buildTickerTape() -->
 
     <script>
         tailwind.config = {
@@ -43,22 +45,6 @@
     </script>
     
     <style>
-        .ticker-wrap {
-            width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        .ticker {
-            display: inline-block;
-            animation: marquee 30s linear infinite;
-        }
-        .ticker:hover {
-            animation-play-state: paused;
-        }
-        @keyframes marquee {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-50%, 0, 0); }
-        }
         ::-webkit-scrollbar {
             height: 6px;
             width: 6px;
@@ -70,27 +56,30 @@
             background: #cbd5e1;
             border-radius: 4px;
         }
+        .tradingview-widget-container {
+            width: 100%;
+            overflow: hidden;
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between">
 
-    <header class="bg-slate-900 text-slate-200 text-xs py-2 border-b border-slate-800 shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
-            <div class="flex items-center space-x-2 font-bold text-amber-400 min-w-max mr-4">
-                <i data-lucide="zap" class="w-4 h-4"></i>
-                <span data-i18n="live_market">PASARAN LIVE (TradingView):</span>
+    <!-- HEADER WITH TRADINGVIEW OFFICIAL TICKER TAPE -->
+    <header class="bg-slate-950 border-b border-slate-800 shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-2 sm:px-4 flex items-center justify-between gap-2 py-1">
+            <div class="flex items-center space-x-1.5 font-bold text-amber-400 text-xs min-w-max pl-2">
+                <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                <span>PASARAN LIVE:</span>
             </div>
             
-            <div class="flex-1 overflow-hidden px-3">
-                <div id="tvTickerTape" class="tradingview-widget-container" style="width:100%">
-                    <div class="text-slate-400 text-[11px] flex items-center gap-1">
-                        <span data-i18n="loading_ticker">Memuatkan ticker pasaran TradingView...</span>
-                    </div>
-                </div>
+            <!-- TRADINGVIEW TICKER TAPE WIDGET (dibina daripada senarai watchlist TERKINI) -->
+            <div id="tvTickerTape" class="flex-1 overflow-hidden tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <div class="text-slate-500 text-[11px] px-2 py-1">Memuatkan ticker pasaran TradingView...</div>
             </div>
 
             <!-- LANGUAGE TOGGLE -->
-            <div class="ml-4 min-w-max flex items-center space-x-3 text-slate-400">
+            <div class="pr-2 min-w-max flex items-center space-x-2 text-slate-400">
                 <button onclick="toggleLanguage()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold border border-slate-700 transition flex items-center gap-1 text-xs">
                     <i data-lucide="globe" class="w-3.5 h-3.5"></i>
                     <span id="langLabel">BM | EN</span>
@@ -99,7 +88,8 @@
         </div>
     </header>
 
-    <nav class="bg-white border-b border-slate-200 sticky top-9 z-40 shadow-sm">
+    <!-- NAVIGATION BAR -->
+    <nav class="bg-slate-900 border-b border-slate-800 sticky top-10 z-40 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center space-x-3">
@@ -107,23 +97,23 @@
                         <i data-lucide="line-chart" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <a href="#" class="font-extrabold text-xl tracking-tight text-slate-900">
-                            Payed Legacy <span class="text-blue-600">Screener Studio</span>
+                        <a href="#" class="font-extrabold text-xl tracking-tight text-white">
+                            Payed Legacy <span class="text-blue-500">Screener Studio</span>
                         </a>
-                        <p class="text-[10px] text-slate-500 font-medium" data-i18n="nav_subtitle">Portal Screener Pasaran Bursa Malaysia & US Market.</p>
+                        <p class="text-[10px] text-slate-400 font-medium" data-i18n="nav_subtitle">Portal Screener Pasaran Bursa Malaysia & US Market.</p>
                     </div>
                 </div>
 
                 <div class="flex items-center space-x-2 sm:space-x-3">
-                    <button onclick="openModal('alertModal')" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition shadow-sm">
+                    <button onclick="openModal('alertModal')" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg bg-red-950/60 text-red-400 border border-red-800/60 hover:bg-red-900/50 transition shadow-sm">
                         <i data-lucide="bell" class="w-4 h-4"></i>
                         <span class="hidden sm:inline" data-i18n="btn_alerts">Tetapan Amaran Pintar</span>
                     </button>
-                    <button onclick="openModal('calcModal')" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
-                        <i data-lucide="calculator" class="w-4 h-4 text-blue-600"></i>
+                    <button onclick="openModal('calcModal')" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 transition">
+                        <i data-lucide="calculator" class="w-4 h-4 text-blue-400"></i>
                         <span class="hidden sm:inline" data-i18n="btn_calc">Kalkulator Posisi</span>
                     </button>
-                    <button onclick="openModal('donationModal')" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-amber-400 text-slate-900 hover:bg-amber-300 shadow-sm transition">
+                    <button onclick="openModal('donationModal')" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-amber-400 text-slate-950 hover:bg-amber-300 shadow-sm transition">
                         <i data-lucide="qr-code" class="w-4 h-4"></i>
                         <span data-i18n="btn_support">Sokong Web</span>
                     </button>
@@ -132,11 +122,12 @@
         </div>
     </nav>
 
+    <!-- MAIN CONTENT -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
 
         <!-- ADSENSE BANNER TOP -->
-        <div class="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-center shadow-sm">
-            <p class="text-xs text-slate-400 mb-2 font-semibold tracking-wider uppercase">Iklan / Sponsored</p>
+        <div class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-center shadow-sm">
+            <p class="text-xs text-slate-500 mb-2 font-semibold tracking-wider uppercase">Iklan / Sponsored</p>
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-9978987699948390"
@@ -148,9 +139,36 @@
             </script>
         </div>
 
+        <!-- LIVE DATA STATUS PANEL -->
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+            <div class="space-y-1">
+                <div class="flex items-center gap-2 text-xs font-bold text-amber-400">
+                    <span class="relative flex h-2.5 w-2.5">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
+                    </span>
+                    <span><span data-i18n="data_updated_label">Data setakat:</span> <span id="dataTimestampText">memuatkan…</span></span>
+                </div>
+                <p id="dataSourceNote" class="text-[11px] text-slate-400">
+                    Sumber harga &amp; penunjuk: memuatkan…
+                </p>
+            </div>
+            
+            <button id="btnRefresh" onclick="refreshLiveData()" class="w-full md:w-auto px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold text-xs rounded-xl border border-slate-700 transition flex items-center justify-center gap-1.5 shadow-sm">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                <span data-i18n="btn_refresh">Muat Semula Data</span>
+            </button>
+            <span id="refreshStatus" class="text-[10px] text-slate-500 md:text-right"></span>
+        </div>
+
+        <!-- AMARAN KESEGARAN DATA -->
+        <div id="staleWarning" class="hidden bg-amber-950/60 border border-amber-800/60 text-amber-300 rounded-2xl px-4 py-3 text-[11px] font-semibold"></div>
+        <div id="loadError" class="hidden bg-red-950/60 border border-red-800/60 text-red-300 rounded-2xl px-4 py-3 text-[11px] font-semibold"></div>
+
+        <!-- PROMOTIONAL CARDS -->
         <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <!-- Luno Card -->
-            <div class="bg-gradient-to-br from-emerald-900 to-slate-900 text-white rounded-2xl p-4 shadow-sm border border-emerald-800 flex flex-col justify-between relative overflow-hidden">
+            <div class="bg-gradient-to-br from-emerald-950 to-slate-900 text-white rounded-2xl p-4 shadow-sm border border-emerald-800/60 flex flex-col justify-between relative overflow-hidden">
                 <div>
                     <div class="flex justify-between items-center mb-2">
                         <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-bold">LUNO MALAYSIA</span>
@@ -160,7 +178,7 @@
                     <p class="text-xs text-slate-300 mt-1" data-i18n="luno_desc">Daftar & beli RM250 mana-mana kripto di Luno. Masukkan kod rujukan di ruang Rewards.</p>
                 </div>
                 <div class="mt-4 space-y-2">
-                    <div class="flex items-center justify-between bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+                    <div class="flex items-center justify-between bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700">
                         <span class="text-xs text-slate-400" data-i18n="ref_code">Kod Rujukan:</span>
                         <span class="font-mono text-xs font-bold text-emerald-400 tracking-wider">429D5F</span>
                     </div>
@@ -171,7 +189,7 @@
             </div>
 
             <!-- M+ Global Card -->
-            <div class="bg-gradient-to-br from-blue-900 to-slate-900 text-white rounded-2xl p-4 shadow-sm border border-blue-800 flex flex-col justify-between relative overflow-hidden">
+            <div class="bg-gradient-to-br from-blue-950 to-slate-900 text-white rounded-2xl p-4 shadow-sm border border-blue-800/60 flex flex-col justify-between relative overflow-hidden">
                 <div>
                     <div class="flex justify-between items-center mb-2">
                         <span class="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[10px] px-2 py-0.5 rounded-full font-bold">M+ GLOBAL / MPLUS</span>
@@ -181,7 +199,7 @@
                     <p class="text-xs text-slate-300 mt-1" data-i18n="mplus_desc">Akaun CDS berlesen Suruhanjaya Sekuriti untuk dagangan Bursa Malaysia & US Market.</p>
                 </div>
                 <div class="mt-4 space-y-2">
-                    <div class="flex items-center justify-between bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+                    <div class="flex items-center justify-between bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700">
                         <span class="text-xs text-slate-400" data-i18n="ref_code">Kod Rujukan:</span>
                         <span class="font-mono text-xs font-bold text-blue-400 tracking-wider">A42L2G</span>
                     </div>
@@ -192,7 +210,7 @@
             </div>
 
             <!-- Moomoo MY Card -->
-            <div class="bg-gradient-to-br from-purple-900 to-slate-900 text-white rounded-2xl p-4 shadow-sm border border-purple-800 flex flex-col justify-between relative overflow-hidden">
+            <div class="bg-gradient-to-br from-purple-950 to-slate-900 text-white rounded-2xl p-4 shadow-sm border border-purple-800/60 flex flex-col justify-between relative overflow-hidden">
                 <div>
                     <div class="flex justify-between items-center mb-2">
                         <span class="bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[10px] px-2 py-0.5 rounded-full font-bold">MOOMOO MALAYSIA</span>
@@ -202,7 +220,7 @@
                     <p class="text-xs text-slate-300 mt-1" data-i18n="moomoo_desc">Nikmati platform carta Pro, analisis AI, dan baucar tunai percuma apabila deposit akaun baru.</p>
                 </div>
                 <div class="mt-4 space-y-2">
-                    <div class="flex items-center justify-between bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+                    <div class="flex items-center justify-between bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700">
                         <span class="text-xs text-slate-400" data-i18n="ref_code">Kod Rujukan:</span>
                         <span class="font-mono text-xs font-bold text-purple-300 tracking-wider">0Jzl2X</span>
                     </div>
@@ -213,139 +231,121 @@
             </div>
         </section>
 
-        <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-5">
-            <div class="flex flex-col md:flex-row justify-between md:items-center gap-3 border-b border-slate-100 pb-4">
+        <!-- SCREENER TABLE SECTION -->
+        <section class="bg-slate-950 rounded-2xl border border-slate-800 shadow-sm p-5 space-y-5">
+            <div class="flex flex-col md:flex-row justify-between md:items-center gap-3 border-b border-slate-800 pb-4">
                 <div>
-                    <h2 class="font-extrabold text-xl text-slate-900 flex items-center gap-2">
-                        <i data-lucide="sliders" class="w-5 h-5 text-blue-600"></i>
+                    <h2 class="font-extrabold text-xl text-white flex items-center gap-2">
+                        <i data-lucide="sliders" class="w-5 h-5 text-blue-500"></i>
                         <span data-i18n="screener_title">Hybrid Stock Screener</span>
                     </h2>
-                    <p class="text-xs text-slate-500" data-i18n="screener_sub">Tapis Kombinasi Teknik Baru: Fundamental + Teknikal + Corak Candlestick + Status Syariah</p>
+                    <p class="text-xs text-slate-400" data-i18n="screener_sub">Tapis Kombinasi Teknik Baru: Fundamental + Teknikal + Corak Candlestick + Status Syariah</p>
                 </div>
 
                 <!-- MARKET SELECTION BUTTONS -->
                 <div class="flex items-center gap-2">
-                    <div class="inline-flex p-1 bg-slate-100 rounded-xl text-xs font-bold">
+                    <div class="inline-flex p-1 bg-slate-900 rounded-xl border border-slate-800 text-xs font-bold">
                         <button id="btnMarketMY" onclick="switchMarket('malaysia')" class="px-3.5 py-1.5 rounded-lg bg-blue-600 text-white shadow-sm transition flex items-center gap-1.5">
                             🇲🇾 Bursa Malaysia (KLSE)
                         </button>
-                        <button id="btnMarketUS" onclick="switchMarket('america')" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+                        <button id="btnMarketUS" onclick="switchMarket('america')" class="px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1.5">
                             🇺🇸 US Market (NYSE / NASDAQ)
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+            <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 space-y-3">
                 <div class="flex items-center justify-between">
-                    <p class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                        <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
+                    <p class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
                         <span data-i18n="preset_label">PRESET STRATEGI POPULAR (1-KLIK):</span>
                     </p>
-                    <label class="inline-flex items-center gap-1.5 cursor-pointer text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg">
-                        <input type="checkbox" id="syariahOnlyToggle" onchange="applyFilters()" class="rounded text-emerald-600 focus:ring-emerald-500">
+                    <label class="inline-flex items-center gap-1.5 cursor-pointer text-xs font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2.5 py-1 rounded-lg">
+                        <input type="checkbox" id="syariahOnlyToggle" onchange="applyFilters()" class="rounded text-emerald-500 focus:ring-emerald-500 bg-slate-900 border-slate-700">
                         <span>🌙 Syariah Sahaja</span>
                     </label>
                 </div>
                 
-                <!-- PRESET BUTTONS (SEMUA DIKIRA DARIPADA DATA LIVE) -->
+                <!-- PRESET BUTTONS CATEGORIZED -->
                 <div class="flex flex-wrap gap-2 text-xs font-semibold">
                     <button onclick="applyPreset('all')" id="preset-all" class="preset-btn px-3 py-1.5 rounded-lg bg-blue-600 text-white border border-blue-600 shadow-sm transition">
                         📋 Semua Saham
                     </button>
-                    <button onclick="applyPreset('momentum')" id="preset-momentum" class="preset-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-amber-500 hover:text-amber-700 shadow-sm transition">
-                        ⚡ Momentum (EMA7 &gt; EMA21)
+                    <button onclick="applyPreset('ema7_21')" id="preset-ema7_21" class="preset-btn px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:border-amber-500 hover:text-amber-400 shadow-sm transition flex items-center gap-1">
+                        ⚡ EMA 7 Cross 21 (Momentum)
                     </button>
-                    <button onclick="applyPreset('golden')" id="preset-golden" class="preset-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-amber-500 hover:text-amber-700 shadow-sm transition">
-                        ✨ Golden Cross (EMA20 &gt; EMA50)
+                    <button onclick="applyPreset('ema20_50')" id="preset-ema20_50" class="preset-btn px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:border-amber-500 hover:text-amber-400 shadow-sm transition flex items-center gap-1">
+                        ⚡ EMA 20 Cross 50 (Golden Cross)
                     </button>
-                    <button onclick="applyPreset('dip')" id="preset-dip" class="preset-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-emerald-500 hover:text-emerald-700 shadow-sm transition">
-                        🟢 Buy On Dip (RSI &lt; 35)
+                    <button onclick="applyPreset('oversold')" id="preset-oversold" class="preset-btn px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:border-emerald-500 hover:text-emerald-400 shadow-sm transition flex items-center gap-1">
+                        🟢 Buy On Dip (RSI < 35)
                     </button>
-                    <button onclick="applyPreset('support')" id="preset-support" class="preset-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-blue-500 hover:text-blue-700 shadow-sm transition">
-                        🛡️ Sokongan (Harga &gt; EMA50 &gt; EMA200)
+                    <button onclick="applyPreset('ema_support')" id="preset-ema_support" class="preset-btn px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:border-blue-500 hover:text-blue-400 shadow-sm transition flex items-center gap-1">
+                        🛡️ Support 50/200 EMA
                     </button>
-                    <button onclick="applyPreset('high52')" id="preset-high52" class="preset-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-purple-500 hover:text-purple-700 shadow-sm transition">
-                        🚀 Hampir Puncak 52M (&ge;97%)
+                    <button onclick="applyPreset('high52w')" id="preset-high52w" class="preset-btn px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:border-purple-500 hover:text-purple-400 shadow-sm transition flex items-center gap-1">
+                        🚀 Breakout 52-Week High
                     </button>
-                    <button onclick="applyPreset('volume')" id="preset-volume" class="preset-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-orange-500 hover:text-orange-700 shadow-sm transition">
-                        📊 Lonjakan Volum (&ge;1.5&times;)
+                    <button onclick="applyPreset('ath')" id="preset-ath" class="preset-btn px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:border-purple-500 hover:text-purple-400 shadow-sm transition flex items-center gap-1">
+                        🏆 All-Time High (ATH)
                     </button>
-                    <button onclick="applyPreset('fundamental')" id="preset-fundamental" class="preset-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-teal-500 hover:text-teal-700 shadow-sm transition">
-                        🏛️ Fundamental (P/E &lt; 15 &amp; Div &ge; 3.5%)
+                    <button onclick="applyPreset('fundamental')" id="preset-fundamental" class="preset-btn px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:border-teal-500 hover:text-teal-400 shadow-sm transition flex items-center gap-1">
+                        🏛️ Fundamental (Low PE & Div > 3.5%)
                     </button>
-                    <button onclick="applyPreset('hybrid')" id="preset-hybrid" class="preset-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-indigo-500 hover:text-indigo-700 shadow-sm transition">
-                        🔮 Hybrid Super (Syariah + Momentum)
+                    <button onclick="applyPreset('hybrid')" id="preset-hybrid" class="preset-btn px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:border-indigo-500 hover:text-indigo-400 shadow-sm transition flex items-center gap-1">
+                        🔮 Hybrid Super Screener
                     </button>
                 </div>
             </div>
 
             <div class="flex flex-col sm:flex-row gap-3 items-center justify-between text-xs">
                 <div class="relative w-full sm:w-72">
-                    <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
-                    <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Cari Kod / Nama Saham..." class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:border-blue-500">
+                    <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-500"></i>
+                    <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Cari Kod / Nama Saham..." class="w-full pl-9 pr-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500">
                 </div>
 
                 <div class="flex items-center gap-2 w-full sm:w-auto">
-                    <span class="text-slate-500 font-semibold min-w-max">Sektor:</span>
-                    <select id="sectorSelect" onchange="applyFilters()" class="w-full sm:w-48 px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:border-blue-500">
+                    <span class="text-slate-400 font-semibold min-w-max">Sektor:</span>
+                    <select id="sectorSelect" onchange="applyFilters()" class="w-full sm:w-48 px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-blue-500">
                         <option value="all">Semua Sektor</option>
                     </select>
                 </div>
             </div>
 
-            <!-- PANEL KESEGARAN DATA (auto-data stocks.json) -->
-            <div class="p-3 bg-slate-900 text-slate-300 rounded-xl border border-slate-800 text-[11px] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div class="space-y-0.5">
-                    <p>
-                        <span class="text-amber-400 font-bold" data-i18n="data_updated_label">Data setakat:</span>
-                        <span id="lastUpdateValue" class="font-mono text-emerald-400">memuatkan...</span>
-                    </p>
-                    <p id="dataSourceNote" class="text-slate-400">Sumber: stocks.json</p>
-                </div>
-                <button onclick="loadLiveStocks()" class="min-w-max inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold border border-slate-700 transition">
-                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
-                    <span>Muat Semula Data</span>
-                </button>
-            </div>
-
-            <div id="staleWarning" class="hidden p-3 rounded-xl border border-amber-300 bg-amber-50 text-amber-800 text-[11px] font-semibold"></div>
-            <div id="loadError" class="hidden p-3 rounded-xl border border-red-300 bg-red-50 text-red-700 text-[11px] font-semibold"></div>
-
-            <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-sm">
+            <div class="overflow-x-auto rounded-xl border border-slate-800 shadow-sm">
                 <table class="w-full text-left border-collapse text-xs">
                     <thead>
-                        <tr class="bg-slate-100 text-slate-700 uppercase font-bold tracking-wider border-b border-slate-200">
-                            <th class="p-3">Simbol &amp; Syarikat</th>
+                        <tr class="bg-slate-900 text-slate-300 uppercase font-bold tracking-wider border-b border-slate-800">
+                            <th class="p-3">Simbol & Syarikat</th>
                             <th class="p-3">Harga</th>
-                            <th class="p-3">Perubahan</th>
+                            <th class="p-3">Perubahan 24j</th>
                             <th class="p-3">RSI (14)</th>
-                            <th class="p-3">Trend &amp; Penunjuk</th>
-                            <th class="p-3">Corak Candle</th>
-                            <th class="p-3">Paras 52M</th>
-                            <th class="p-3">P/E &amp; Div</th>
-                            <th class="p-3">Signal</th>
-                            <th class="p-3 text-center">Carta</th>
+                            <th class="p-3">Status EMA / Reversal</th>
+                            <th class="p-3">High 52W / ATH</th>
+                            <th class="p-3">P/E & Dividend</th>
+                            <th class="p-3">Signal Hybrid</th>
+                            <th class="p-3 text-center">Tindakan</th>
                         </tr>
                     </thead>
-                    <tbody id="stockTableBody" class="divide-y divide-slate-200 bg-white">
+                    <tbody id="stockTableBody" class="divide-y divide-slate-800/80 bg-slate-950">
                         <!-- Dynamic Stock Rows -->
                     </tbody>
                 </table>
             </div>
 
-            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-2">
-                <span class="flex items-center gap-1 font-semibold text-slate-700">
-                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
-                    <span data-i18n="verified_note">Harga &amp; penunjuk dikemas kini automatik 2&times; sehari (hari bekerja). Ticker pasaran &amp; carta: widget rasmi TradingView (langsung).</span>
+            <div class="p-3 bg-slate-900 rounded-xl border border-slate-800 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-400 gap-2">
+                <span class="flex items-center gap-1 font-semibold text-slate-300">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+                    <span data-i18n="verified_note">Data harga, nisbah fundamental & penunjuk teknikal disalurkan secara terus untuk panduan analisis.</span>
                 </span>
-                <span class="text-[11px] text-slate-400" id="matchCounter">Menunjukkan data pasaran.</span>
+                <span class="text-[11px] text-slate-500" id="matchCounter">Menunjukkan data pasaran.</span>
             </div>
         </section>
 
         <!-- ADSENSE BANNER BOTTOM -->
-        <div class="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-center shadow-sm">
-            <p class="text-xs text-slate-400 mb-2 font-semibold tracking-wider uppercase">Iklan / Sponsored</p>
+        <div class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-center shadow-sm">
+            <p class="text-xs text-slate-500 mb-2 font-semibold tracking-wider uppercase">Iklan / Sponsored</p>
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-9978987699948390"
@@ -359,7 +359,8 @@
 
     </main>
 
-    <footer class="bg-slate-900 text-slate-300 border-t border-slate-800 mt-12">
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="space-y-3">
@@ -375,7 +376,7 @@
                 </div>
 
                 <!-- LEAD GEN PROPERTY -->
-                <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700 space-y-3">
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-3">
                     <div class="flex items-center space-x-2 text-amber-400 font-bold text-xs">
                         <i data-lucide="home" class="w-4 h-4"></i>
                         <span>PAYED LEGACY PROPERTY</span>
@@ -384,8 +385,8 @@
                     <p class="text-[11px] text-slate-400" data-i18n="lead_sub">Tukarkan keuntungan pasaran saham anda kepada aset fizikal hartanah yang berterusan.</p>
                     
                     <form onsubmit="handleLeadSubmit(event)" class="space-y-2">
-                        <input type="text" id="leadName" placeholder="Nama Penuh Anda" required class="w-full text-xs px-3 py-1.5 bg-slate-900 border border-slate-700 rounded text-slate-200 focus:outline-none focus:border-blue-500">
-                        <input type="tel" id="leadPhone" placeholder="Nombor WhatsApp" required class="w-full text-xs px-3 py-1.5 bg-slate-900 border border-slate-700 rounded text-slate-200 focus:outline-none focus:border-blue-500">
+                        <input type="text" id="leadName" placeholder="Nama Penuh Anda" required class="w-full text-xs px-3 py-1.5 bg-slate-950 border border-slate-800 rounded text-slate-200 focus:outline-none focus:border-blue-500">
+                        <input type="tel" id="leadPhone" placeholder="Nombor WhatsApp" required class="w-full text-xs px-3 py-1.5 bg-slate-950 border border-slate-800 rounded text-slate-200 focus:outline-none focus:border-blue-500">
                         <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs py-1.5 rounded transition" data-i18n="lead_btn">
                             Hantar Semakan Kelayakan
                         </button>
@@ -404,7 +405,7 @@
                 </div>
             </div>
 
-            <div class="border-t border-slate-800 pt-6 text-[11px] text-slate-400 space-y-2 leading-relaxed">
+            <div class="border-t border-slate-800/80 pt-6 text-[11px] text-slate-500 space-y-2 leading-relaxed">
                 <p class="font-bold text-slate-300 flex items-center gap-1">
                     <i data-lucide="shield-alert" class="w-4 h-4 text-amber-500 inline"></i>
                     PENAFIAN PELABURAN (FINANCIAL DISCLAIMER):
@@ -414,67 +415,73 @@
                 </p>
             </div>
 
-            <div class="border-t border-slate-800 pt-4 flex flex-col sm:flex-row justify-between items-center text-[11px] text-slate-500">
+            <div class="border-t border-slate-800/80 pt-4 flex flex-col sm:flex-row justify-between items-center text-[11px] text-slate-500">
                 <p>&copy; 2026 payedlegacy.my. Hak Cipta Terpelihara.</p>
             </div>
         </div>
     </footer>
 
-    <!-- MODALS -->
-    <!-- MODAL 1: SMART ALERTS SETTINGS -->
-    <div id="alertModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl relative space-y-4">
-            <button onclick="closeModal('alertModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
-            
-            <div class="flex items-center space-x-2 text-red-600 font-bold text-lg">
-                <i data-lucide="bell-ring" class="w-6 h-6 animate-bounce"></i>
-                <h3 data-i18n="alert_modal_title">Tetapan Amaran Pintar</h3>
+    <!-- MODAL 1: LIVE TRADINGVIEW CHART -->
+    <div id="chartModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-5xl w-full h-[85vh] p-4 shadow-2xl relative flex flex-col">
+            <div class="flex justify-between items-center mb-3">
+                <h3 id="modalChartTitle" class="font-bold text-base text-white flex items-center gap-2">
+                    <i data-lucide="line-chart" class="w-5 h-5 text-blue-500"></i>
+                    <span>Carta Langsung TradingView</span>
+                </h3>
+                <button onclick="closeModal('chartModal')" class="text-slate-400 hover:text-white p-1 rounded-lg bg-slate-800 hover:bg-slate-700 transition">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
             </div>
             
-            <p class="text-xs text-slate-500" data-i18n="alert_modal_sub">Fungsi ini dalam pembangunan dan akan dihubungkan dengan API webhooks pada versi akan datang.</p>
+            <div id="tradingviewChartContainer" class="flex-1 w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950">
+                <!-- Dynamic TradingView Advanced Chart Widget -->
+            </div>
+            <p class="text-[10px] text-slate-500 mt-2">
+                <a id="chartModalLink" href="https://www.tradingview.com/" target="_blank" rel="noopener" class="hover:text-blue-400 hover:underline">Buka penuh di TradingView</a>
+                • Carta dipaparkan langsung oleh TradingView. Bukan nasihat pelaburan.
+            </p>
         </div>
     </div>
 
-    <!-- MODAL 2: POSITION SIZE CALCULATOR -->
-    <div id="calcModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl relative space-y-4">
-            <button onclick="closeModal('calcModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+    <!-- MODAL 2: POSITION CALCULATOR -->
+    <div id="calcModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative space-y-4">
+            <button onclick="closeModal('calcModal')" class="absolute top-4 right-4 text-slate-400 hover:text-white">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
             
-            <div class="flex items-center space-x-2 text-blue-600 font-bold text-lg">
+            <div class="flex items-center space-x-2 text-blue-400 font-bold text-lg">
                 <i data-lucide="calculator" class="w-6 h-6"></i>
                 <h3 data-i18n="calc_modal_title">Kalkulator Saiz Posisi</h3>
             </div>
             
-            <p class="text-xs text-slate-500" data-i18n="calc_modal_sub">Kira saiz lot / unit beli mengikut kawalan risiko modal anda.</p>
+            <p class="text-xs text-slate-400" data-i18n="calc_modal_sub">Kira saiz lot / unit beli mengikut kawalan risiko modal anda.</p>
 
-            <div class="space-y-3 text-xs">
+            <div class="space-y-3 text-xs text-slate-200">
                 <div>
                     <label class="block font-semibold mb-1" data-i18n="calc_capital">Jumlah Modal (RM / USD)</label>
-                    <input type="number" id="calcCapital" value="10000" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg">
+                    <input type="number" id="calcCapital" value="10000" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white">
                 </div>
                 <div>
                     <label class="block font-semibold mb-1" data-i18n="calc_risk">Risiko Maksimum Per Trade (%)</label>
-                    <input type="number" id="calcRiskPct" value="2" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg">
+                    <input type="number" id="calcRiskPct" value="2" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white">
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <label class="block font-semibold mb-1" data-i18n="calc_entry">Harga Beli (Entry)</label>
-                        <input type="number" step="0.001" id="calcEntry" value="0.205" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg">
+                        <input type="number" step="0.001" id="calcEntry" value="0.205" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white">
                     </div>
                     <div>
                         <label class="block font-semibold mb-1" data-i18n="calc_stop">Harga Cut Loss (Stop)</label>
-                        <input type="number" step="0.001" id="calcStop" value="0.185" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg">
+                        <input type="number" step="0.001" id="calcStop" value="0.185" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white">
                     </div>
                 </div>
                 <button onclick="calculatePosition()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded-lg transition" data-i18n="calc_btn">
                     Kira Unit Beli
                 </button>
 
-                <div id="calcResult" class="hidden p-3 bg-blue-50 border border-blue-200 rounded-lg space-y-1 text-blue-900 font-medium">
+                <div id="calcResult" class="hidden p-3 bg-blue-950/80 border border-blue-800/80 rounded-lg space-y-1 text-blue-200 font-medium">
                     <!-- Dynamic result -->
                 </div>
             </div>
@@ -482,64 +489,58 @@
     </div>
 
     <!-- MODAL 3: DONATION & DUITNOW QR -->
-    <div id="donationModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl relative text-center space-y-4">
-            <button onclick="closeModal('donationModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+    <div id="donationModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-sm w-full p-6 shadow-2xl relative text-center space-y-4">
+            <button onclick="closeModal('donationModal')" class="absolute top-4 right-4 text-slate-400 hover:text-white">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
             
-            <div class="inline-flex bg-amber-100 p-3 rounded-full text-amber-600 mb-1">
+            <div class="inline-flex bg-amber-500/20 p-3 rounded-full text-amber-400 mb-1 border border-amber-500/30">
                 <i data-lucide="qr-code" class="w-8 h-8"></i>
             </div>
 
-            <h3 class="font-bold text-lg text-slate-900" data-i18n="qr_title">QR DuitNow</h3>
-            <p class="text-xs text-slate-500 leading-relaxed" data-i18n="qr_sub">
+            <h3 class="font-bold text-lg text-white" data-i18n="qr_title">QR DuitNow</h3>
+            <p class="text-xs text-slate-400 leading-relaxed" data-i18n="qr_sub">
                 Imbas QR DuitNow ini menggunakan mana-mana aplikasi perbankan Malaysia / TNG eWallet untuk menyokong penyenggaraan alatan percuma ini. Sumbangan adalah sukarela.
             </p>
 
-            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 inline-block">
+            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 inline-block">
                 <img id="duitnowQrImg" src="assets/duitnow-qr.png" alt="QR DuitNow — Mohamad Farid Bin Mat (BSN / Malaysia National QR)" class="w-48 h-48 mx-auto rounded-lg object-contain bg-white">
-                <p class="text-[11px] font-bold text-slate-700 mt-2" data-i18n="qr_payee">Mohamad Farid Bin Mat — Malaysia National QR (BSN)</p>
-                <p id="duitnowQrNotice" class="hidden text-[10px] text-red-600 font-semibold mt-1">Imej QR tidak dapat dimuatkan. Sila muat semula halaman.</p>
-                <a href="assets/duitnow-qr.png" target="_blank" rel="noopener" class="mt-1 inline-block text-[10px] font-semibold text-blue-600 hover:underline">Buka imej penuh</a>
+                <p class="text-[11px] font-bold text-slate-300 mt-2" data-i18n="qr_payee">Mohamad Farid Bin Mat — Malaysia National QR (BSN)</p>
+                <p id="duitnowQrNotice" class="hidden text-[10px] text-red-400 font-semibold mt-1">Imej QR tidak dapat dimuatkan. Sila muat semula halaman.</p>
+                <a href="assets/duitnow-qr.png" target="_blank" rel="noopener" class="mt-1 inline-block text-[10px] font-semibold text-blue-400 hover:underline">Buka imej penuh</a>
             </div>
         </div>
     </div>
 
-    <!-- MODAL 4: CARTA LANGSUNG TRADINGVIEW -->
-    <div id="chartModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-6">
-        <div class="bg-white rounded-2xl max-w-5xl w-full p-4 shadow-xl relative space-y-3">
-            <button onclick="closeModal('chartModal')" class="absolute top-3 right-3 text-slate-400 hover:text-slate-600 z-10">
+    <!-- MODAL 4: ALERT SETTINGS -->
+    <div id="alertModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative space-y-4">
+            <button onclick="closeModal('alertModal')" class="absolute top-4 right-4 text-slate-400 hover:text-white">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
-            <div class="flex items-center gap-2 text-slate-900 font-bold text-sm pr-8">
-                <i data-lucide="line-chart" class="w-5 h-5 text-blue-600"></i>
-                <span id="chartModalTitle">Carta Langsung TradingView</span>
+            
+            <div class="flex items-center space-x-2 text-red-500 font-bold text-lg">
+                <i data-lucide="bell-ring" class="w-6 h-6 animate-bounce"></i>
+                <h3 data-i18n="alert_modal_title">Tetapan Amaran Pintar</h3>
             </div>
-            <p class="text-[11px] text-slate-500">
-                Carta dipaparkan secara langsung oleh widget rasmi TradingView. Untuk rujukan analisis sahaja — bukan nasihat pelaburan.
-            </p>
-            <div id="tvChartBox" class="tradingview-widget-container rounded-xl overflow-hidden border border-slate-200" style="height:68vh; min-height:420px;"></div>
-            <div class="text-right">
-                <a id="chartModalLink" href="https://www.tradingview.com/" target="_blank" rel="noopener" class="text-[11px] font-semibold text-blue-600 hover:underline">Buka penuh di TradingView</a>
-            </div>
+            
+            <p class="text-xs text-slate-400" data-i18n="alert_modal_sub">Fungsi amaran automatik sedang dihubungkan bersama API Webhooks untuk pemberitahuan Telegram / WhatsApp.</p>
         </div>
     </div>
 
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
     <script>
         /* ==========================================================================
-           SCREENER RINGKAS & PATUH — SEMUA ANGKA DATANG DARIPADA DATA TERKINI
+           SCREENER RINGKAS & PATUH (TEMA GELAP) — SEMUA ANGKA DARIPADA DATA TERKINI
            --------------------------------------------------------------------------
-           1) Harga, RSI, EMA/MA, MACD, corak candlestick, P/E, dividen, status
-              Syariah  ->  stocks.json
-                 dijana automatik oleh GitHub Actions
-                 (.github/workflows/update-stocks.yml) 2x sehari hari bekerja:
-                   17:45 MYT (selepas Bursa Malaysia tutup)
-                   06:00 MYT (selepas pasaran US tutup)
-                 sumber harga: Yahoo Finance
-           2) Ticker pasaran + carta  ->  widget rasmi TradingView (langsung)
-           TIDAK ADA data lama disimpan dalam fail ini. Jika stocks.json gagal
-           dimuatkan, halaman hanya memaparkan amaran (bukan angka lama).
+           Harga, RSI, EMA/MA, MACD, corak candlestick, P/E, dividen, status Syariah
+             -> stocks.json  (dijana automatik oleh GitHub Actions 2x sehari pada hari
+                bekerja: 17:45 MYT selepas Bursa tutup, 06:00 MYT selepas US tutup;
+                sumber harga: Yahoo Finance)
+           Ticker pasaran + carta -> widget rasmi TradingView (langsung)
+           Halaman ini TIDAK menyimpan angka lama: jika stocks.json gagal dimuatkan,
+           ia hanya memaparkan amaran (bukan harga basi).
            ========================================================================== */
 
         let currentLang = "BM";
@@ -549,13 +550,14 @@
         let currentSelectedMarket = 'malaysia';
         let activePreset = 'all';
         let tickerSignature = '';
+        let isFetching = false;
 
-        /* ---------------------- i18n (BM / EN) ---------------------- */
+        /* ------------------------- i18n (BM / EN) ------------------------- */
         const dictionary = {
             BM: {
-                live_market: "PASARAN LIVE (TradingView):",
-                loading_ticker: "Memuatkan ticker pasaran TradingView...",
-                nav_subtitle: "Portal screener ringkas & patuh Syariah — Bursa Malaysia & Pasaran US.",
+                data_updated_label: "Data setakat:",
+                btn_refresh: "Muat Semula Data",
+                nav_subtitle: "Portal Screener Pasaran Bursa Malaysia & US Market.",
                 btn_alerts: "Tetapan Amaran Pintar",
                 btn_calc: "Kalkulator Posisi",
                 btn_support: "Sokong Web",
@@ -569,11 +571,10 @@
                 moomoo_desc: "Nikmati platform carta Pro, analisis AI, dan baucar tunai percuma apabila deposit akaun baru.",
                 moomoo_cta: "Tuntut Saham Percuma",
                 ref_code: "Kod Rujukan:",
-                screener_title: "Screener Ringkas & Patuh",
-                screener_sub: "Tapisan teknikal + fundamental + status Syariah. Semua angka diambil terus daripada fail data automatik (stocks.json) — tiada data lama disimpan dalam halaman ini.",
-                preset_label: "PRESET STRATEGI (1-KLIK):",
+                screener_title: "Hybrid Stock Screener",
+                screener_sub: "Tapisan teknikal + fundamental + corak candlestick + status Syariah — semua angka daripada data pasaran terkini.",
+                preset_label: "PRESET STRATEGI POPULAR (1-KLIK):",
                 verified_note: "Harga & penunjuk dikemas kini automatik 2× sehari (hari bekerja). Ticker pasaran & carta: widget rasmi TradingView (langsung).",
-                data_updated_label: "Data setakat:",
                 about_text: "Portal penyaring saham percuma untuk komuniti pelabur Bursa Malaysia & US Market. Membantu pedagang memantau data analisis teknikal & fundamental.",
                 lead_title: "Semak Kelayakan Pinjaman Rumah Anda (Percuma)",
                 lead_sub: "Tukarkan keuntungan pasaran saham anda kepada aset fizikal hartanah yang berterusan.",
@@ -582,7 +583,7 @@
                 link_donation: "☕ Imbas QR DuitNow / Sumbangan",
                 disclaimer_body: "Segala maklumat dan keputusan penyaring di laman web screener.payedlegacy.my adalah untuk tujuan rujukan dan maklumat am sahaja. Harga dan penunjuk teknikal dikemas kini secara automatik daripada sumber data awam (Yahoo Finance) dua kali sehari pada hari bekerja; ticker pasaran dan carta dipaparkan secara langsung oleh widget rasmi TradingView. Ia bukan nasihat pelaburan dan tidak boleh ditafsirkan sedemikian. Pengguna bertanggungjawab sepenuhnya ke atas sebarang keputusan pelaburan.",
                 alert_modal_title: "Tetapan Amaran Pintar",
-                alert_modal_sub: "Fungsi ini dalam pembangunan dan akan dihubungkan dengan API webhooks pada versi akan datang.",
+                alert_modal_sub: "Fungsi amaran automatik sedang dihubungkan bersama API Webhooks untuk pemberitahuan Telegram / WhatsApp.",
                 calc_modal_title: "Kalkulator Saiz Posisi",
                 calc_modal_sub: "Kira saiz lot / unit beli mengikut kawalan risiko modal anda.",
                 calc_capital: "Jumlah Modal (RM / USD)",
@@ -595,9 +596,9 @@
                 qr_payee: "Mohamad Farid Bin Mat — Malaysia National QR (BSN)"
             },
             EN: {
-                live_market: "LIVE MARKET (TradingView):",
-                loading_ticker: "Loading TradingView market ticker...",
-                nav_subtitle: "Simple, Shariah-compliant screener portal — Bursa Malaysia & US Market.",
+                data_updated_label: "Data as of:",
+                btn_refresh: "Reload Data",
+                nav_subtitle: "Stock Screener Portal for Bursa Malaysia & US Market.",
                 btn_alerts: "Smart Alert Settings",
                 btn_calc: "Position Calculator",
                 btn_support: "Support Us",
@@ -611,11 +612,10 @@
                 moomoo_desc: "Enjoy Pro charting platform, AI analysis, and free cash vouchers upon new account deposit.",
                 moomoo_cta: "Claim Free Stock",
                 ref_code: "Referral Code:",
-                screener_title: "Simple & Compliant Screener",
-                screener_sub: "Technical + fundamental + Shariah screening. Every figure comes straight from the automated data file (stocks.json) — no stale data is stored in this page.",
-                preset_label: "STRATEGY PRESETS (1-CLICK):",
+                screener_title: "Hybrid Stock Screener",
+                screener_sub: "Technical + fundamental + candlestick pattern + Shariah screening — every figure from current market data.",
+                preset_label: "POPULAR STRATEGY PRESETS (1-CLICK):",
                 verified_note: "Prices & indicators auto-update twice daily on weekdays. Market ticker & charts: official TradingView widgets (live).",
-                data_updated_label: "Data as of:",
                 about_text: "Free stock screener portal for Bursa Malaysia & US Market investor community. Assisting traders in monitoring technical & fundamental data.",
                 lead_title: "Check Your Housing Loan Eligibility (Free)",
                 lead_sub: "Convert your stock market gains into tangible physical real estate assets.",
@@ -624,7 +624,7 @@
                 link_donation: "☕ Scan DuitNow QR / Support",
                 disclaimer_body: "All information and screener results on screener.payedlegacy.my are for reference and general information only. Prices and technical indicators are updated automatically from public data sources (Yahoo Finance) twice daily on weekdays; the market ticker and charts are displayed live by official TradingView widgets. It is not investment advice and should not be construed as such. Users are solely responsible for any investment decisions.",
                 alert_modal_title: "Smart Alert Settings",
-                alert_modal_sub: "This feature is in development and will be connected with webhooks API in future versions.",
+                alert_modal_sub: "Automated alerts are being wired to a Webhooks API for Telegram / WhatsApp notifications.",
                 calc_modal_title: "Position Size Calculator",
                 calc_modal_sub: "Calculate lot / unit buy size according to your capital risk limits.",
                 calc_capital: "Total Capital (RM / USD)",
@@ -660,18 +660,20 @@
             updateDataMeta();
         }
 
-        /* =================== 1. DATA LIVE (stocks.json) =================== */
+        /* ===================== 1. DATA LIVE (stocks.json) ===================== */
         function num(v) {
             if (v === null || v === undefined || v === '') return null;
             const n = Number(v);
             return isFinite(n) ? n : null;
         }
 
-        // Ubah rekod stocks.json -> rekod paparan (tolak terima medan lama/baharu)
+        // Peta rekod stocks.json -> rekod paparan (medan KLSE/US -> malaysia/america, divYield -> div)
         function adaptStock(s) {
-            const market = (s.market === 'KLSE') ? 'malaysia' : 'america';
+            const market = (s.market === 'KLSE' || s.market === 'malaysia') ? 'malaysia' : 'america';
             const price = num(s.price), ma20 = num(s.ma20), ma50 = num(s.ma50), ma200 = num(s.ma200);
-            const high52 = num(s.high52), price102 = (price !== null && high52) ? (price / high52 - 1) * 100 : null;
+            const high52 = num(s.high52);
+            const pct = (num(s.pctHigh52) !== null) ? num(s.pctHigh52)
+                      : ((price !== null && high52) ? (price / high52 - 1) * 100 : null);
             const macdState = s.macdState || '';
             const macdUp = (macdState === 'GOLDEN CROSS' || macdState === 'BULLISH');
             const patterns = Array.isArray(s.patterns) ? s.patterns
@@ -687,51 +689,77 @@
                 change: num(s.change),
                 rsi: num(s.rsi),
                 pe: num(s.pe),
+                div: num(s.divYield) || 0,
                 divYield: num(s.divYield) || 0,
                 trend: s.trend || 'NEUTRAL',
                 macdState: macdState,
-                ma50: ma50, ma200: ma200, ma20: ma20,
                 high52: high52,
-                pctHigh52: (num(s.pctHigh52) !== null) ? num(s.pctHigh52) : price102,
+                pctHigh52: pct,
                 volume: s.volume || '-',
                 sampleDate: s.sampleDate || '-',
                 patterns: patterns,
                 signal: s.signal || 'NEUTRAL',
-                // bendera preset — guna nilai pipeline; jika tiada, kira dari MA/MACD
-                momentum: (typeof s.ema7_21 === 'boolean') ? s.ema7_21 : macdUp,
-                golden: (typeof s.ema20_50 === 'boolean') ? s.ema20_50
+                // bendera preset — nilai pipeline jika ada; jika tidak, kira dari MA/MACD
+                ema7_21: (typeof s.ema7_21 === 'boolean') ? s.ema7_21 : macdUp,
+                ema20_50: (typeof s.ema20_50 === 'boolean') ? s.ema20_50
                     : (ma20 !== null && ma50 !== null && ma20 > ma50),
-                support: (typeof s.emaSupport === 'boolean') ? s.emaSupport
+                emaSupport: (typeof s.emaSupport === 'boolean') ? s.emaSupport
                     : (price !== null && ma50 !== null && ma200 !== null && price > ma50 && ma50 > ma200),
                 volSpike: (num(s.volumeRatio) || 0) >= 1.5,
-                nearHigh: (typeof s.high52w === 'boolean') ? s.high52w
+                high52w: (typeof s.high52w === 'boolean') ? s.high52w
                     : (price !== null && high52 ? price >= high52 * 0.97 : false),
+                ath: (typeof s.ath === 'boolean') ? s.ath : false,
                 tvSymbol: (market === 'malaysia') ? ('MYX:' + s.symbol) : s.symbol
             };
         }
 
-        async function loadLiveStocks() {
+        // Muat turun data terkini (cache-busting + no-store)
+        async function refreshLiveData() {
+            if (isFetching) return;
+            isFetching = true;
+            const btn = document.getElementById('btnRefresh');
+            const status = document.getElementById('refreshStatus');
             const errBox = document.getElementById('loadError');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i data-lucide="loader" class="w-3.5 h-3.5 animate-spin inline"></i> <span>' + T('Memuatkan...', 'Loading...') + '</span>';
+                if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+            }
+            if (status) status.innerText = T('Menyemak stocks.json…', 'Checking stocks.json…');
+
             try {
-                const res = await fetch('stocks.json?_=' + Date.now(), { cache: 'no-store' });
-                if (!res.ok) throw new Error('HTTP ' + res.status);
-                const payload = await res.json();
-                if (!payload || !Array.isArray(payload.stocks) || !payload.stocks.length) {
-                    throw new Error('stocks.json kosong atau tidak sah');
-                }
+                const response = await fetch('/stocks.json?t=' + Date.now(), { cache: 'no-store' });
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+                const payload = await response.json();
+                const arr = Array.isArray(payload) ? payload : (payload && payload.stocks);
+                if (!Array.isArray(arr) || !arr.length) throw new Error('stocks.json kosong/tidak sah');
+
                 DATA_META = payload.meta || null;
-                STOCKS = payload.stocks.map(adaptStock);
+                STOCKS = arr.map(adaptStock);
                 if (errBox) errBox.classList.add('hidden');
+                if (status) {
+                    status.innerText = T('Data dikemas kini pada ' + (DATA_META && DATA_META.generatedAtMYT ? DATA_META.generatedAtMYT : new Date().toLocaleTimeString('ms-MY')),
+                                         'Data refreshed at ' + (DATA_META && DATA_META.generatedAtMYT ? DATA_META.generatedAtMYT : new Date().toLocaleTimeString('en-GB')));
+                }
             } catch (err) {
                 console.error('[data-live] gagal memuatkan stocks.json:', err);
                 DATA_META = null;
                 STOCKS = [];
+                if (status) status.innerText = T('Gagal memuatkan data langsung.', 'Failed to load live data.');
                 if (errBox) {
                     errBox.classList.remove('hidden');
                     errBox.innerText = T('⚠ Data pasaran langsung tidak dapat dimuatkan. Sila muat semula halaman (Ctrl+F5). Tiada data lama dipaparkan.',
                                          '⚠ Live market data could not be loaded. Please refresh the page (Ctrl+F5). No stale data is displayed.');
                 }
+            } finally {
+                isFetching = false;
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i data-lucide="refresh-cw" class="w-3.5 h-3.5 inline"></i> <span>' + T('Muat Semula Data', 'Reload Data') + '</span>';
+                    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+                }
             }
+
             updateDataMeta();
             renderSectorOptions();
             applyFilters();
@@ -739,22 +767,25 @@
         }
 
         function updateDataMeta() {
-            const val = document.getElementById('lastUpdateValue');
-            const src = document.getElementById('dataSourceNote');
+            const el = document.getElementById('dataTimestampText');
+            const note = document.getElementById('dataSourceNote');
             const warn = document.getElementById('staleWarning');
-            if (!val) return;
+            if (!el) return;
 
             if (DATA_META && DATA_META.generatedAt) {
                 const sesi = T('sesi Bursa ' + (DATA_META.mySessionDate || '-') + ' / US ' + (DATA_META.usSessionDate || '-'),
                                'Bursa session ' + (DATA_META.mySessionDate || '-') + ' / US ' + (DATA_META.usSessionDate || '-'));
-                val.innerText = (DATA_META.generatedAtMYT || DATA_META.generatedAt) + ' • ' + sesi;
-                val.className = 'font-mono text-emerald-400';
-                if (src) {
-                    src.innerText = T('Sumber harga & penunjuk: ', 'Price & indicator source: ')
+                el.innerText = (DATA_META.generatedAtMYT || DATA_META.generatedAt) + ' • ' + sesi;
+                el.className = 'text-amber-300 font-mono';
+                if (note) {
+                    note.innerHTML = T('Sumber harga &amp; penunjuk: ', 'Price &amp; indicator source: ')
                         + (DATA_META.priceSource || 'Yahoo Finance')
-                        + T(' • ' + (DATA_META.symbolCount || STOCKS.length) + ' kaunter • senarai Syariah SC ' + (DATA_META.shariahListDate || '-') + ' • dikemas kini automatik 2× sehari (hari bekerja)',
-                            ' • ' + (DATA_META.symbolCount || STOCKS.length) + ' counters • SC Shariah list ' + (DATA_META.shariahListDate || '-') + ' • auto-updated twice daily (weekdays)')
-                        + T(' • ticker & carta: TradingView (langsung)', ' • ticker & charts: TradingView (live)');
+                        + T(' • senarai Syariah SC ' + (DATA_META.shariahListDate || '-') + ' (' + (DATA_META.shariahListCount || '-') + ' kod)'
+                            + ' • dijana automatik 2× sehari pada hari bekerja (halaman ini semak semula setiap 5 minit)'
+                            + ' • Carta &amp; Ticker: TradingView (langsung)',
+                            ' • SC Shariah list ' + (DATA_META.shariahListDate || '-') + ' (' + (DATA_META.shariahListCount || '-') + ' codes)'
+                            + ' • auto-generated twice daily on weekdays (this page re-checks every 5 minutes)'
+                            + ' • Charts &amp; ticker: TradingView (live)');
                 }
                 const age = Date.now() - new Date(DATA_META.generatedAt).getTime();
                 if (warn && isFinite(age) && age > 86400000) {
@@ -765,14 +796,14 @@
                     warn.classList.add('hidden');
                 }
             } else {
-                val.innerText = T('tiada data langsung dimuatkan', 'no live data loaded');
-                val.className = 'font-mono text-amber-400';
-                if (src) src.innerText = T('Sumber: stocks.json (gagal dimuatkan)', 'Source: stocks.json (failed to load)');
+                el.innerText = T('tiada data langsung dimuatkan', 'no live data loaded');
+                el.className = 'text-amber-500 font-mono';
+                if (note) note.innerHTML = T('Sumber: stocks.json (gagal dimuatkan).', 'Source: stocks.json (failed to load).');
                 if (warn) warn.classList.add('hidden');
             }
         }
 
-        /* =================== 2. TICKER & CARTA TRADINGVIEW =================== */
+        /* ===================== 2. TICKER & CARTA TRADINGVIEW ===================== */
         function buildTickerTape(force) {
             const box = document.getElementById('tvTickerTape');
             if (!box || !STOCKS.length) return;
@@ -801,10 +832,17 @@
             box.appendChild(sc);
         }
 
-        function openChart(symbol, market) {
-            const proName = (market === 'malaysia') ? ('MYX:' + symbol) : symbol;
-            const box = document.getElementById('tvChartBox');
-            box.innerHTML = '<div class="tradingview-widget-container__widget"></div>';
+        function openChartModal(tvSymbol, stockName) {
+            const proName = tvSymbol || stockName;
+            const titleEl = document.getElementById('modalChartTitle');
+            if (titleEl) {
+                titleEl.innerHTML = '<i data-lucide="line-chart" class="w-5 h-5 text-blue-500"></i> ' + stockName + ' — ' + T('Carta Langsung TradingView', 'TradingView Live Chart');
+            }
+            const link = document.getElementById('chartModalLink');
+            if (link) link.href = 'https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(proName);
+
+            const container = document.getElementById('tradingviewChartContainer');
+            container.innerHTML = '<div class="tradingview-widget-container__widget" style="height:100%"></div>';
             const sc = document.createElement('script');
             sc.type = 'text/javascript';
             sc.async = true;
@@ -814,7 +852,7 @@
                 symbol: proName,
                 interval: 'D',
                 timezone: 'Asia/Kuala_Lumpur',
-                theme: 'light',
+                theme: 'dark',
                 style: '1',
                 locale: currentLang === 'BM' ? 'ms' : 'en',
                 allow_symbol_change: true,
@@ -822,19 +860,19 @@
                 studies: ['RSI@tv-basicstudies'],
                 support_host: 'https://www.tradingview.com'
             });
-            box.appendChild(sc);
-            document.getElementById('chartModalTitle').innerText = symbol + ' — ' + T('Carta Langsung TradingView', 'TradingView Live Chart');
-            document.getElementById('chartModalLink').href = 'https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(proName);
+            container.appendChild(sc);
+
             openModal('chartModal');
+            if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
         }
 
-        /* =================== 3. TAPISAN & PRESET =================== */
+        /* ===================== 3. TAPISAN & PRESET ===================== */
         function switchMarket(market) {
             currentSelectedMarket = market;
             const btnMY = document.getElementById('btnMarketMY');
             const btnUS = document.getElementById('btnMarketUS');
             const on = "px-3.5 py-1.5 rounded-lg bg-blue-600 text-white shadow-sm transition flex items-center gap-1.5";
-            const off = "px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5";
+            const off = "px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1.5";
             if (btnMY && btnUS) {
                 btnMY.className = (market === 'malaysia') ? on : off;
                 btnUS.className = (market === 'malaysia') ? off : on;
@@ -843,41 +881,40 @@
             applyFilters();
         }
 
+        const PRESET_OFF = "preset-btn px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:border-blue-500 hover:text-blue-400 shadow-sm transition flex items-center gap-1";
+        const PRESET_ON = "preset-btn px-3 py-1.5 rounded-lg bg-blue-600 text-white border border-blue-600 shadow-sm transition flex items-center gap-1 font-bold";
+
         function applyPreset(presetKey) {
             activePreset = presetKey;
-            document.querySelectorAll('.preset-btn').forEach(btn => {
-                btn.className = "preset-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:border-blue-500 hover:text-blue-700 shadow-sm transition";
-            });
+            document.querySelectorAll('.preset-btn').forEach(btn => { btn.className = PRESET_OFF; });
             const activeBtn = document.getElementById('preset-' + presetKey);
-            if (activeBtn) {
-                activeBtn.className = "preset-btn px-3 py-1.5 rounded-lg bg-blue-600 text-white border border-blue-600 shadow-sm transition font-bold";
-            }
+            if (activeBtn) activeBtn.className = PRESET_ON;
             applyFilters();
         }
 
         const PRESET_RULES = {
-            momentum:    s => s.momentum,
-            golden:      s => s.golden,
-            dip:         s => (s.rsi !== null && s.rsi < 35),
-            support:     s => s.support,
-            high52:      s => s.nearHigh,
-            volume:      s => s.volSpike,
-            fundamental: s => (s.pe !== null && s.pe < 15 && s.divYield >= 3.5),
-            hybrid:      s => (s.syariah && (s.momentum || s.golden) && s.pe !== null && s.pe < 20)
+            ema7_21:     s => s.ema7_21 === true,
+            ema20_50:    s => s.ema20_50 === true,
+            oversold:    s => (s.rsi !== null && s.rsi < 35),
+            ema_support: s => s.emaSupport === true,
+            high52w:     s => s.high52w === true,
+            ath:         s => s.ath === true,
+            fundamental: s => (s.pe !== null && s.pe < 15 && s.div >= 3.5),
+            hybrid:      s => (s.syariah && (s.ema7_21 || s.ema20_50) && s.pe !== null && s.pe < 20)
         };
 
         function applyFilters() {
             const searchEl = document.getElementById('searchInput');
             const sectorEl = document.getElementById('sectorSelect');
             const syariahEl = document.getElementById('syariahOnlyToggle');
-            const searchVal = (searchEl ? searchEl.value : '').toUpperCase().trim();
+            const searchVal = (searchEl ? searchEl.value : '').toLowerCase().trim();
             const sectorVal = sectorEl ? sectorEl.value : 'all';
             const syariahOnly = syariahEl ? syariahEl.checked : false;
 
-            let filtered = STOCKS.filter(s => s.market === currentSelectedMarket);
+            let filtered = STOCKS.filter(stock => stock.market === currentSelectedMarket);
             if (searchVal) {
-                filtered = filtered.filter(s => String(s.symbol).toUpperCase().includes(searchVal)
-                                             || String(s.name).toUpperCase().includes(searchVal));
+                filtered = filtered.filter(s => String(s.symbol).toLowerCase().includes(searchVal)
+                                             || String(s.name).toLowerCase().includes(searchVal));
             }
             if (sectorVal !== 'all') filtered = filtered.filter(s => s.sector === sectorVal);
             if (syariahOnly) filtered = filtered.filter(s => s.syariah === true);
@@ -894,15 +931,14 @@
             const list = Array.from(new Set(STOCKS.filter(s => s.market === currentSelectedMarket).map(s => s.sector))).sort();
             sel.innerHTML = '<option value="all">' + T('Semua Sektor', 'All Sectors') + '</option>'
                 + list.map(x => '<option value="' + x + '">' + x + '</option>').join('');
-            if (list.indexOf(prev) !== -1 || prev === 'all') sel.value = prev;
-            else sel.value = 'all';
+            sel.value = (prev === 'all' || list.indexOf(prev) !== -1) ? prev : 'all';
         }
 
-        /* =================== 4. PAPARAN JADUAL =================== */
+        /* ===================== 4. PAPARAN JADUAL ===================== */
         function fmtPrice(s) {
             if (s.price === null || s.price === undefined) return '-';
-            const cur = (s.market === 'malaysia') ? 'RM ' : '$ ';
-            return cur + Number(s.price).toFixed(Math.abs(Number(s.price)) < 1 ? 3 : 2);
+            const cur = (s.market === 'malaysia') ? 'RM' : '$';
+            return cur + ' ' + Number(s.price).toFixed(Math.abs(Number(s.price)) < 1 ? 3 : 2);
         }
 
         function fmtNum(v, suffix) {
@@ -910,23 +946,16 @@
             return Number(v) + (suffix || '');
         }
 
-        function trendChip(t) {
-            const cls = (t === 'BULLISH KUAT' || t === 'BULLISH') ? 'bg-emerald-100 text-emerald-800'
-                      : (t === 'BEARISH' || t === 'LEMAH') ? 'bg-red-100 text-red-700'
-                      : 'bg-slate-100 text-slate-700';
-            return '<span class="inline-block text-[10px] font-bold px-2 py-0.5 rounded ' + cls + '">' + t + '</span>';
-        }
-
         const PATTERN_BULL = { 'Hammer': 1, 'Inverted Hammer': 1, 'Bullish Engulfing': 1, 'Bullish Marubozu': 1 };
         const PATTERN_BEAR = { 'Shooting Star': 1, 'Hanging Man': 1, 'Bearish Engulfing': 1, 'Bearish Marubozu': 1 };
 
         function patternCell(s) {
-            if (!s.patterns.length) return '<span class="text-slate-300">-</span>';
+            if (!s.patterns || !s.patterns.length) return '';
             const tone = s.patterns.map(p => PATTERN_BULL[p] ? 'b' : (PATTERN_BEAR[p] ? 'r' : null)).filter(Boolean)[0];
-            const cls = tone === 'b' ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                      : tone === 'r' ? 'bg-red-50 text-red-700 border-red-200'
-                      : 'bg-slate-50 text-slate-600 border-slate-200';
-            return '<span class="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-md border ' + cls + '">' + s.patterns.join(', ') + '</span>';
+            const cls = tone === 'b' ? 'bg-emerald-950 text-emerald-300 border border-emerald-800'
+                      : tone === 'r' ? 'bg-red-950 text-red-300 border border-red-800'
+                      : 'bg-slate-900 text-slate-300 border border-slate-800';
+            return '<span class="inline-block ' + cls + ' text-[9px] font-semibold px-1.5 py-0.2 rounded mr-1 mt-1">' + s.patterns.join(', ') + '</span>';
         }
 
         function renderStockTable(stocks) {
@@ -936,12 +965,13 @@
 
             if (!stocks.length) {
                 const msg = STOCKS.length
-                    ? [T('Tiada saham memenuhi kriteria ini.', 'No stocks match this criteria.'),
-                       T('Tukar preset atau sektor, atau padam carian teks.', 'Change preset or sector, or clear the text search.')]
+                    ? [T('Tiada Saham Memenuhi Kriteria Tapisan Ini.', 'No stocks match this screening criteria.'),
+                       T('Sila tukar preset atau padam carian teks untuk melihat keputusan lain.', 'Change preset or clear the text search to see other results.')]
                     : [T('Data pasaran belum dimuatkan.', 'Market data has not loaded yet.'),
                        T('Sila muat semula halaman (Ctrl+F5) atau klik "Muat Semula Data".', 'Please refresh the page (Ctrl+F5) or click "Reload Data".')];
-                tbody.innerHTML = '<tr><td colspan="10" class="p-8 text-center text-slate-400">'
-                    + '<p class="font-bold">' + msg[0] + '</p>'
+                tbody.innerHTML = '<tr><td colspan="9" class="p-8 text-center text-slate-500">'
+                    + '<i data-lucide="search-x" class="w-8 h-8 mx-auto mb-2 text-slate-600"></i>'
+                    + '<p class="font-bold text-slate-400">' + msg[0] + '</p>'
                     + '<p class="text-[11px] mt-1">' + msg[1] + '</p>'
                     + '</td></tr>';
                 if (counter) counter.innerText = T('0 padanan ditemui.', '0 matches found.');
@@ -950,49 +980,56 @@
             }
 
             tbody.innerHTML = stocks.map(s => `
-                <tr class="hover:bg-slate-50/80 transition border-b border-slate-100">
+                <tr class="hover:bg-slate-900/80 transition border-b border-slate-800/60">
                     <td class="p-3">
-                        <div class="font-extrabold text-slate-900 flex items-center gap-1.5">
+                        <div class="font-extrabold text-white flex items-center gap-1.5">
                             <span>${s.symbol}</span>
                             ${s.syariah
-                                ? '<span class="bg-emerald-100 text-emerald-800 text-[9px] px-1.5 py-0.5 rounded font-bold">🌙 Syariah</span>'
-                                : '<span class="text-slate-400 text-[9px]">' + T('Bukan Syariah', 'Non-Shariah') + '</span>'}
+                                ? '<span class="bg-emerald-950 text-emerald-400 border border-emerald-800 text-[9px] px-1.5 py-0.2 rounded font-bold">🌙 Syariah</span>'
+                                : '<span class="text-slate-600 text-[9px]">' + T('Bukan Syariah', 'Non-Shariah') + '</span>'}
                         </div>
                         <div class="text-[10px] text-slate-400 truncate max-w-[150px]">${s.name}</div>
                     </td>
-                    <td class="p-3 font-bold text-slate-900">${fmtPrice(s)}</td>
-                    <td class="p-3 font-semibold ${(s.change !== null && s.change >= 0) ? 'text-emerald-600' : 'text-red-600'}">
-                        ${s.change === null ? '-' : ((s.change >= 0 ? '+' : '') + s.change + '%')}
+                    <td class="p-3 font-bold text-slate-100">${fmtPrice(s)}</td>
+                    <td class="p-3 font-semibold ${(s.change !== null && s.change >= 0) ? 'text-emerald-400' : 'text-red-400'}">
+                        ${s.change === null ? '-' : ((s.change >= 0 ? '+' : '') + s.change.toFixed(2) + '%')}
                     </td>
                     <td class="p-3">
-                        <span class="font-bold px-2 py-0.5 rounded text-[11px] ${(s.rsi !== null && s.rsi < 35) ? 'bg-emerald-100 text-emerald-800' : ((s.rsi !== null && s.rsi > 65) ? 'bg-red-100 text-red-800' : 'bg-slate-100 text-slate-700')}">
+                        <span class="font-bold px-2 py-0.5 rounded text-[11px] ${(s.rsi !== null && s.rsi < 35) ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : ((s.rsi !== null && s.rsi > 65) ? 'bg-red-950 text-red-300 border border-red-800' : 'bg-slate-900 text-slate-300 border border-slate-800')}">
                             RSI ${fmtNum(s.rsi)}
                         </span>
                     </td>
                     <td class="p-3">
-                        ${trendChip(s.trend)}
-                        <div class="mt-1 space-y-0.5 text-[9px] text-slate-500 leading-snug">
-                            <span class="block">${s.momentum ? 'EMA7 &gt; EMA21' : 'EMA7 &lt; EMA21'} • ${s.golden ? 'Golden (EMA20&gt;50)' : 'EMA20 &lt; 50'}</span>
-                            <span class="block">Volum ${s.volume}${s.volSpike ? ' ⚡' : ''} • MACD ${s.macdState || '-'}</span>
+                        <div class="space-y-0.5 text-[10px]">
+                            ${s.ema7_21 ? '<span class="inline-block bg-amber-950 text-amber-300 border border-amber-800 px-1.5 py-0.2 rounded font-bold mr-1">EMA 7/21</span>' : ''}
+                            ${s.ema20_50 ? '<span class="inline-block bg-amber-950 text-amber-300 border border-amber-800 px-1.5 py-0.2 rounded font-bold mr-1">Golden Cross</span>' : ''}
+                            ${s.emaSupport ? '<span class="inline-block bg-blue-950 text-blue-300 border border-blue-800 px-1.5 py-0.2 rounded font-bold">Support 50/200</span>' : ''}
                         </div>
-                    </td>
-                    <td class="p-3">${patternCell(s)}</td>
-                    <td class="p-3 text-[11px]">
-                        <span class="font-bold ${s.nearHigh ? 'text-purple-700' : 'text-slate-600'}">${s.pctHigh52 === null ? '-' : (s.pctHigh52.toFixed(1) + '%')}</span>
-                        <span class="block text-[9px] text-slate-400">${T('dari puncak 52M', 'from 52W high')} (${fmtNum(s.high52)})</span>
-                    </td>
-                    <td class="p-3 text-[11px]">
-                        <div class="font-medium text-slate-700">P/E: <strong>${fmtNum(s.pe)}</strong></div>
-                        <div class="text-[10px] text-emerald-600 font-bold">Div: ${s.divYield > 0 ? s.divYield.toFixed(2) + '%' : '-'}</div>
+                        <div class="text-[9px] text-slate-500 mt-1">${s.trend}${s.macdState ? ' • MACD ' + s.macdState : ''} • Volum ${s.volume}${s.volSpike ? ' ⚡' : ''}</div>
+                        <div>${patternCell(s)}</div>
                     </td>
                     <td class="p-3">
-                        <span class="bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-lg font-bold text-[10px] inline-block">${s.signal}</span>
+                        <div class="space-y-0.5 text-[10px]">
+                            ${s.ath ? '<span class="inline-block bg-purple-950 text-purple-300 border border-purple-800 px-1.5 py-0.2 rounded font-bold">🏆 ATH (sejarah penuh)</span>'
+                                   : s.high52w ? '<span class="inline-block bg-purple-950 text-purple-300 border border-purple-800 px-1.5 py-0.2 rounded font-bold">🚀 52W High</span>'
+                                   : '<span class="text-slate-600">-</span>'}
+                        </div>
+                        <div class="text-[9px] text-slate-500 mt-1">${s.pctHigh52 === null ? '-' : (s.pctHigh52.toFixed(1) + '%')} ${T('dari puncak 52M', 'from 52W high')} (${fmtNum(s.high52)})</div>
+                    </td>
+                    <td class="p-3">
+                        <div class="text-[11px] font-medium text-slate-300">P/E: <strong>${fmtNum(s.pe)}</strong></div>
+                        <div class="text-[10px] text-emerald-400 font-bold">Div Yield: ${s.div > 0 ? s.div.toFixed(2) + '%' : '-'}</div>
+                    </td>
+                    <td class="p-3">
+                        <span class="bg-blue-950 text-blue-300 border border-blue-800 px-2 py-0.5 rounded-lg font-bold text-[10px] inline-block">
+                            ${s.signal}
+                        </span>
                     </td>
                     <td class="p-3 text-center">
-                        <button onclick="openChart('${s.symbol}','${s.market}')" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-[10px] transition shadow-sm">
+                        <button onclick="openChartModal('${s.tvSymbol}', '${s.symbol}')" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-[10px] transition shadow-sm">
                             <i data-lucide="line-chart" class="w-3 h-3"></i> ${T('Carta Live', 'Live Chart')}
                         </button>
-                        <a href="https://www.tradingview.com/chart/?symbol=${s.tvSymbol}" target="_blank" rel="noopener" class="mt-0.5 block text-[9px] text-slate-500 hover:text-blue-600 hover:underline">TradingView ↗</a>
+                        <a href="https://www.tradingview.com/chart/?symbol=${s.tvSymbol}" target="_blank" rel="noopener" class="mt-0.5 block text-[9px] text-slate-500 hover:text-blue-400 hover:underline">TradingView ↗</a>
                     </td>
                 </tr>
             `).join('');
@@ -1004,7 +1041,7 @@
             if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
         }
 
-        /* =================== 5. MODAL, QR, KALKULATOR =================== */
+        /* ===================== 5. MODAL, QR, KALKULATOR ===================== */
         function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
@@ -1062,7 +1099,7 @@
             document.getElementById('leadPhone').value = '';
         }
 
-        /* =================== 6. PELANCARAN =================== */
+        /* ===================== 6. PELANCARAN ===================== */
         window.addEventListener('DOMContentLoaded', () => {
             let saved = 'BM';
             try { saved = localStorage.getItem('screener_lang') || 'BM'; } catch (e) {}
@@ -1072,8 +1109,8 @@
 
             applyI18n();
             initDuitNowQr();
-            loadLiveStocks();                        // tarik stocks.json TERKINI
-            setInterval(loadLiveStocks, 300000);     // semak semula setiap 5 minit
+            refreshLiveData();                          // tarik stocks.json TERKINI
+            setInterval(refreshLiveData, 300000);       // semak semula setiap 5 minit
             if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
         });
     </script>

@@ -281,7 +281,7 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
     for attempt in range(retries):
         try:
             tk = yf.Ticker(ticker)
-            hist = tk.history(period="2y", interval="1d", auto_adjust=False)
+            hist = tk.history(period="max", interval="1d", auto_adjust=False)
             if hist is None or len(hist) < 30:
                 raise RuntimeError("sejarah harga tidak mencukupi")
             try:
@@ -350,7 +350,7 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
 
             hi52 = max(h[-252:]) if len(h) >= 252 else max(h)
             lo52 = min(l[-252:]) if len(l) >= 252 else min(l)
-            high_all = max(h)                      # puncak tertinggi dlm sejarah tersedia (2 tahun)
+            high_all = max(h)                      # puncak tertinggi sejarah penuh (ATH sebenar)
             high52w = bool(hi52 and price >= hi52 * 0.97)
             ath = bool(high_all and price >= high_all * 0.995)
             pct_high52 = round((price / hi52 - 1.0) * 100.0, 2) if hi52 else None
