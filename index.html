@@ -763,6 +763,7 @@ details>summary::-webkit-details-marker{display:none}
           <li><a href="https://www.moomoo.com/my" target="_blank" rel="noopener sponsored" class="hover:text-violet-300 transition">🎁 Moomoo MY (0Jzl2X)</a></li>
           <li><a href="https://payedlegacy.my" target="_blank" rel="noopener" class="hover:text-white transition" data-i18n="link_main">🏠 payedlegacy.my — hartanah</a></li>
           <li><a href="#metodologi" class="hover:text-white transition" data-i18n="link_method">📊 Cara data diperoleh</a></li>
+          <li><a href="#penafian" class="hover:text-gold-300 transition font-semibold" data-i18n="link_disclaimer">⚠️ Penafian dan had penggunaan</a></li>
         </ul>
       </div>
     </div>
@@ -1129,6 +1130,7 @@ const I18N = {
         "link_qr": "☕ Imbas QR DuitNow / Sumbangan",
         "link_main": "🏠 payedlegacy.my — hartanah",
         "link_method": "📊 Cara data diperoleh",
+        "link_disclaimer": "⚠️ Penafian dan had penggunaan",
         "disclaimer_title": "Penafian",
         "disclaimer_lead": "Laman ini BUKAN nasihat pelaburan, bukan cadangan beli atau jual, dan bukan janji keuntungan.",
         "disclaimer_body": "Semua maklumat, harga dan penunjuk di laman ini adalah untuk rujukan dan pembelajaran sahaja. Angka boleh lambat, tidak lengkap atau tidak tepat, dan boleh berubah tanpa notis. Carta dan pita harga dipaparkan oleh TradingView.",
@@ -1445,6 +1447,7 @@ const I18N = {
         "link_qr": "☕ Scan DuitNow QR / Donate",
         "link_main": "🏠 payedlegacy.my — property",
         "link_method": "📊 How we get the data",
+        "link_disclaimer": "⚠️ Disclaimer and terms of use",
         "disclaimer_title": "Disclaimer",
         "disclaimer_lead": "This site is NOT investment advice, not a buy or sell recommendation, and not a promise of profit.",
         "disclaimer_body": "All information, prices and indicators on this site are for reference and learning only. Figures may be delayed, incomplete or inaccurate, and can change without notice. Charts and the price tape are displayed by TradingView.",
@@ -2802,10 +2805,10 @@ function initDuitNowQr() {
     s.liveAt = st.at;
     var wasLive = !!(s.session);          /* lapisan pertama: jangan kilatkan seluruh jadual */
     var oldPrice = s.price;
-    if (lv.close !== null) s.price = lv.close;
+    if (lv.close !== null) s.price = Math.round(lv.close * 10000) / 10000;
     s.flash = (wasLive && oldPrice !== null && s.price !== null && s.price !== oldPrice)
       ? (s.price > oldPrice ? 'up' : 'down') : null;
-    if (lv.change !== null) s.change = lv.change;
+    if (lv.change !== null) s.change = Math.round(lv.change * 100) / 100;
     if (lv.volume !== null) { s.volumeRaw = lv.volume; s.volume = fmtVol(lv.volume); }
     if (lv.avgVol !== null) s.avgVolume = fmtVol(lv.avgVol);
     if (lv.volume !== null && lv.avgVol) s.volumeRatio = Math.round((lv.volume / lv.avgVol) * 100) / 100;
@@ -2818,9 +2821,9 @@ function initDuitNowQr() {
     if (lv.pe !== null) s.pe = Math.round(lv.pe * 100) / 100;
     if (lv.div !== null) s.div = Math.round(lv.div * 100) / 100;
     if (lv.mcap !== null) s.marketCap = lv.mcap;
-    if (lv.high52 !== null) s.high52 = lv.high52;
-    if (lv.low52 !== null) s.low52 = lv.low52;
-    if (lv.highAll !== null) s.highAll = lv.highAll;
+    if (lv.high52 !== null) s.high52 = Math.round(lv.high52 * 10000) / 10000;
+    if (lv.low52 !== null) s.low52 = Math.round(lv.low52 * 10000) / 10000;
+    if (lv.highAll !== null) s.highAll = Math.round(lv.highAll * 10000) / 10000;
     if (lv.pre !== null) s.preMarket = lv.pre;
     if (lv.preChg !== null) s.preMarketChange = lv.preChg;
 
