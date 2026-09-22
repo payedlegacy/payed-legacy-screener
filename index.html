@@ -259,6 +259,18 @@ body.pl-noscroll{overflow:hidden}
 .pl-skip{position:absolute;left:-9999px;top:0;z-index:200;background:#2563eb;color:#fff;padding:8px 14px;border-radius:0 0 10px 0;font-size:12px;font-weight:700}
 .pl-skip:focus{left:0}
 .hidden{display:none!important}
+/* Keterlihatan responsif: JANGAN guna utiliti Tailwind (hidden/md:block/sm:inline)
+   kerana .hidden di atas memakai !important dan akan MENEWASKAN utiliti itu —
+   itulah punca jadual screener tidak muncul pada skrin desktop. */
+.pl-desktop-only{display:none}
+.pl-mobile-only{display:block}
+.pl-v-sm{display:none}
+.pl-v-smflex{display:none}
+.pl-v-md{display:none}
+.pl-v-nav{display:none}
+@media (min-width:640px){.pl-v-sm{display:inline}.pl-v-smflex{display:flex}}
+@media (min-width:768px){.pl-v-md{display:inline}.pl-desktop-only{display:block}.pl-mobile-only{display:none}}
+@media (min-width:1024px){.pl-v-nav{display:flex}}
 :focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
 
 /* ---------- ticker ---------- */
@@ -315,7 +327,7 @@ details>summary::-webkit-details-marker{display:none}
         </span>
       </a>
 
-      <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold text-slate-300">
+      <nav class="pl-v-nav items-center gap-1 text-xs font-semibold text-slate-300">
         <a href="#ringkasan" class="px-3 py-1.5 rounded-lg hover:bg-white/5 hover:text-white transition" data-i18n="nav_summary">Ringkasan pasaran</a>
         <a href="#screener" class="px-3 py-1.5 rounded-lg hover:bg-white/5 hover:text-white transition" data-i18n="nav_screener">Screener</a>
         <a href="#metodologi" class="px-3 py-1.5 rounded-lg hover:bg-white/5 hover:text-white transition" data-i18n="nav_method">Cara data diperoleh</a>
@@ -325,13 +337,13 @@ details>summary::-webkit-details-marker{display:none}
       <div class="flex items-center gap-2 shrink-0">
         <button id="btnAlertsMgr" onclick="openAlertsMgr()" class="relative pl-btn" title="Amaran saya" data-i18n-title="alerts_mgr_title">
           <i data-lucide="bell" class="w-3.5 h-3.5 text-rose-300"></i>
-          <span class="hidden sm:inline" data-i18n="btn_my_alerts">Amaran</span>
+          <span class="pl-v-sm" data-i18n="btn_my_alerts">Amaran</span>
           <span id="alertBadge" class="hidden absolute -top-1.5 -right-1.5 min-w-[17px] h-[17px] px-1 grid place-items-center rounded-full bg-rose-500 text-[9px] font-extrabold text-white">0</span>
         </button>
 
         <button id="btnCalc" onclick="openCalc()" class="pl-btn" title="Kalkulator posisi" data-i18n-title="calc_title">
           <i data-lucide="calculator" class="w-3.5 h-3.5 text-brand-400"></i>
-          <span class="hidden sm:inline" data-i18n="btn_calc">Kalkulator</span>
+          <span class="pl-v-sm" data-i18n="btn_calc">Kalkulator</span>
         </button>
 
         <!-- language switch -->
@@ -342,7 +354,7 @@ details>summary::-webkit-details-marker{display:none}
 
         <button onclick="openSupport()" class="pl-btn pl-btn--gold">
           <i data-lucide="heart" class="w-3.5 h-3.5"></i>
-          <span class="hidden md:inline" data-i18n="btn_support">Sokong</span>
+          <span class="pl-v-md" data-i18n="btn_support">Sokong</span>
         </button>
       </div>
     </div>
@@ -351,7 +363,7 @@ details>summary::-webkit-details-marker{display:none}
   <!-- LIVE TICKER ROW -->
   <div class="border-t border-white/5 bg-ink-950/70">
     <div class="max-w-[1400px] mx-auto px-3 sm:px-5 flex items-center gap-3 h-[48px]">
-      <span class="hidden sm:flex items-center gap-1.5 text-[10px] font-extrabold tracking-widest text-gold-400 min-w-max">
+      <span class="pl-v-smflex items-center gap-1.5 text-[10px] font-extrabold tracking-widest text-gold-400 min-w-max">
         <i data-lucide="radio" class="w-3.5 h-3.5"></i><span data-i18n="live_market">PASARAN LIVE</span>
       </span>
       <div id="plTickerBox" class="flex-1 min-w-0">
@@ -573,7 +585,7 @@ details>summary::-webkit-details-marker{display:none}
       </div>
 
       <!-- table (desktop) -->
-      <div class="hidden md:block pl-tablewrap">
+      <div class="pl-desktop-only pl-tablewrap">
         <div style="overflow-x:auto;max-height:70vh">
           <table class="pl-table">
             <thead>
@@ -595,7 +607,7 @@ details>summary::-webkit-details-marker{display:none}
       </div>
 
       <!-- cards (mobile) -->
-      <div class="md:hidden" id="stockCardList"></div>
+      <div class="pl-mobile-only" id="stockCardList"></div>
 
       <details class="rounded-xl border border-white/10 bg-ink-950/40 p-3">
         <summary class="text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
