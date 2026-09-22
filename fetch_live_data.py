@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import re
 import sys
@@ -44,6 +45,64 @@ SC_LIST_PAGE = "https://www.sc.com.my/development/icm/shariah-compliant-securiti
 
 MONTHS_BM = {1: "Jan", 2: "Feb", 3: "Mac", 4: "Apr", 5: "Mei", 6: "Jun",
              7: "Jul", 8: "Ogo", 9: "Sep", 10: "Okt", 11: "Nov", 12: "Dis"}
+
+
+# --------------------------------------------------------------------------
+# Keselamatan JSON (PENTING)
+# --------------------------------------------------------------------------
+# Python menulis NaN / Infinity sebagai token mentah (`"price": NaN`) secara
+# lalai — itu BUKAN JSON sah dan JSON.parse() dalam pelayar akan GAGAL
+# sepenuhnya, menyebabkan laman memaparkan "data tidak dapat dimuatkan"
+# (semua kaunter hilang). Setiap angka mesti melalui safe_num() dan payload
+# mesti disaring sebelum ditulis.
+def safe_num(x, nd: int = 4):
+    """Angka bulat selamat; None / NaN / Infinity / bukan angka -> None."""
+    if isinstance(x, bool) or x is None:
+        return None
+    try:
+        v = float(x)
+    except (TypeError, ValueError):
+        return None
+    if not math.isfinite(v):
+        return None
+    return round(v, nd)
+
+
+def bersih_json(obj):
+    """Ganti semua nilai tidak terhingga (NaN/Infinity) dengan None, rekursif."""
+    if isinstance(obj, dict):
+        return {k: bersih_json(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [bersih_json(v) for v in obj]
+    if isinstance(obj, bool) or obj is None:
+        return obj
+    if isinstance(obj, float):
+        return obj if math.isfinite(obj) else None
+    return obj
+
+
+def _bukan_json_sah(token):
+    raise ValueError(f"token JSON tidak sah: {token}")
+
+
+def kira_nan(obj) -> int:
+    """Bilangan nilai bukan terhingga (NaN/Infinity) dalam struktur JSON."""
+    if isinstance(obj, dict):
+        return sum(kira_nan(v) for v in obj.values())
+    if isinstance(obj, (list, tuple)):
+        return sum(kira_nan(v) for v in obj)
+    if isinstance(obj, float) and not math.isfinite(obj):
+        return 1
+    return 0
+
+
+def sahkan_json(teks: str) -> bool:
+    """True kalau teks boleh dibaca oleh JSON.parse() pelayar (tiada NaN/Infinity)."""
+    try:
+        json.loads(teks, parse_constant=_bukan_json_sah)
+        return True
+    except ValueError:
+        return False
 
 
 # --------------------------------------------------------------------------
@@ -326,6 +385,20 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
             hist = tk.history(period="max", interval="1d", auto_adjust=False)
             if hist is None or len(hist) < 30:
                 raise RuntimeError("sejarah harga tidak mencukupi")
+            # Buang baris tanpa harga penutup: Yahoo kadang pulangkan baris sesi
+            # TERKINI dengan Open/High/Low/Volume tetapi Close = NaN (harga penutup
+            # belum diterbitkan). Tanpa ini, harga/penunjuk jadi NaN dan fail JSON
+            # yang ditulis TIDAK boleh dibaca pelayar (JSON.parse gagal).
+            # Tarikh sesi terkini tetap disimpan untuk paparan; penunjuk dikira
+            # daripada sesi penuh terakhir.
+            sesi_terkini = str(hist.index[-1].date()) if len(hist) else None
+            if "Close" in hist:
+                hist = hist[hist["Close"].notna()]
+            if hist is None or len(hist) < 30:
+                raise RuntimeError("sejarah harga tidak mencukupi selepas baris NaN dibuang")
+            hist = hist.ffill()
+            tarikh_penuh = str(hist.index[-1].date())
+            close_stale = bool(sesi_terkini and sesi_terkini != tarikh_penuh)
             try:
                 info = tk.info or {}
             except Exception:  # noqa: BLE001
@@ -339,7 +412,11 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
             divs = [float(x) for x in hist["Dividends"].tolist()] if "Dividends" in hist else []
 
             price = c[-1]
+            if not math.isfinite(price) or price <= 0:
+                raise RuntimeError(f"harga penutup tidak sah: {price}")
             prev = c[-2] if len(c) > 1 else price
+            if not math.isfinite(prev) or prev <= 0:
+                prev = price
             change = ((price - prev) / prev * 100.0) if prev else 0.0
 
             name = (info.get("longName") or info.get("shortName")
@@ -470,48 +547,48 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
                 "currency": info.get("currency") or ("MYR" if cfg["market"] == "KLSE" else "USD"),
                 "sector": sector,
                 # harga
-                "price": round(price, 4),
-                "prevClose": round(prev, 4),
-                "change": round(change, 2),
-                "open": round(o[-1], 4),
-                "dayHigh": round(h[-1], 4),
-                "dayLow": round(l[-1], 4),
-                "high52": round(hi52, 4),
-                "low52": round(lo52, 4),
-                "highAll": round(high_all, 4),
+                "price": safe_num(price, 4),
+                "prevClose": safe_num(prev, 4),
+                "change": safe_num(change, 2),
+                "open": safe_num(o[-1], 4),
+                "dayHigh": safe_num(h[-1], 4),
+                "dayLow": safe_num(l[-1], 4),
+                "high52": safe_num(hi52, 4),
+                "low52": safe_num(lo52, 4),
+                "highAll": safe_num(high_all, 4),
                 "high52w": high52w,
                 "ath": ath,
-                "pctHigh52": pct_high52,
+                "pctHigh52": safe_num(pct_high52, 2),
                 "volume": fmt_volume(v[-1]),
                 "avgVolume": fmt_volume(avg_vol),
-                "volumeRatio": round(vol_ratio, 2),
+                "volumeRatio": safe_num(vol_ratio, 2),
                 # teknikal
-                "rsi": round(rsi_val, 1) if rsi_val is not None else None,
-                "ma20": round(ma20, 4) if ma20 else None,
-                "ma50": round(ma50, 4) if ma50 else None,
-                "ma200": round(ma200, 4) if ma200 else None,
+                "rsi": safe_num(rsi_val, 1),
+                "ma20": safe_num(ma20, 4),
+                "ma50": safe_num(ma50, 4),
+                "ma200": safe_num(ma200, 4),
                 "trend": trend,
                 # EMA & bendera preset (dikira drpd sejarah harga sebenar)
-                "ema7": round(e7, 4) if e7 else None,
-                "ema21": round(e21, 4) if e21 else None,
-                "ema20": round(e20, 4) if e20 else None,
-                "ema50": round(e50, 4) if e50 else None,
-                "ema200": round(e200, 4) if e200 else None,
+                "ema7": safe_num(e7, 4),
+                "ema21": safe_num(e21, 4),
+                "ema20": safe_num(e20, 4),
+                "ema50": safe_num(e50, 4),
+                "ema200": safe_num(e200, 4),
                 "ema7_21": ema7_21,
                 "ema20_50": ema20_50,
                 "emaSupport": ema_support,
-                "macd": macd_vals.get("macd"),
-                "macdSignal": macd_vals.get("macdSignal"),
-                "macdHist": macd_vals.get("macdHist"),
+                "macd": safe_num(macd_vals.get("macd"), 4),
+                "macdSignal": safe_num(macd_vals.get("macdSignal"), 4),
+                "macdHist": safe_num(macd_vals.get("macdHist"), 4),
                 "macdState": state or None,
                 "patterns": pats,
                 "patternSummary": ", ".join(pats) if pats else "",
                 # fundamental
-                "pe": pe,
-                "divYield": div_yield,
-                "dividendTTM": round(div_ttm, 4),
-                "totalDebt": info.get("totalDebt"),
-                "marketCap": info.get("marketCap"),
+                "pe": safe_num(pe, 2),
+                "divYield": safe_num(div_yield, 2),
+                "dividendTTM": safe_num(div_ttm, 4),
+                "totalDebt": safe_num(info.get("totalDebt"), 2),
+                "marketCap": safe_num(info.get("marketCap"), 2),
                 # isyarat & kemas kini
                 "signal": signal,
                 # ---- Global Mega-Breakout & Volume Surge (global_breakout_momentum_scanner) ----
@@ -530,9 +607,11 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
                     "rsiHealthy": rsi_healthy,
                     "score": int(breakout_score),
                     "state": breakout_state,
-                    "volRatio": round(vol_ratio, 2),
+                    "volRatio": safe_num(vol_ratio, 2),
                 },
-                "sampleDate": str(hist.index[-1].date()),
+                "sampleDate": tarikh_penuh,
+                "sessionDate": sesi_terkini or tarikh_penuh,
+                "closeStale": close_stale,
                 "updatedAt": datetime.now(MYT).isoformat(timespec="seconds"),
             }
             return data
@@ -653,6 +732,17 @@ def main() -> int:
     order = {c["symbol"]: i for i, c in enumerate(watch)}
     out_stocks.sort(key=lambda s: order.get(s["symbol"], 999))
 
+    # Kaunter yang harga penutup sesi terkini belum diterbitkan oleh sumber data:
+    # penunjuk dikira daripada sesi penuh terakhir (harga di laman tetap dikemas
+    # kini secara langsung oleh suapan pasaran).
+    belum_tutup = [s["symbol"] for s in out_stocks if s.get("closeStale")]
+    if belum_tutup:
+        senarai = ", ".join(belum_tutup[:6]) + (", …" if len(belum_tutup) > 6 else "")
+        notes.append(
+            f"{len(belum_tutup)} kaunter ({senarai}): harga penutup sesi terkini belum "
+            "diterbitkan oleh sumber data, jadi penunjuk dikira daripada sesi penuh terakhir."
+        )
+
     # --- semakan silang ticker: harga sesi vs suapan pasaran awam ---
     symbol_check = []
     try:
@@ -666,7 +756,8 @@ def main() -> int:
         if not q or not price:
             continue
         dev = abs(q["close"] - price) / price * 100.0
-        if dev > 15.0:
+        ambang = 60.0 if s.get("closeStale") else 15.0
+        if dev > ambang:
             symbol_check.append({
                 "symbol": s["symbol"],
                 "tvSymbol": s.get("tvSymbol"),
@@ -695,8 +786,8 @@ def main() -> int:
             "symbolCount": len(out_stocks),
             "klseCount": len(klse),
             "usCount": len(us),
-            "mySessionDate": max([s.get("sampleDate", "") for s in klse], default=None),
-            "usSessionDate": max([s.get("sampleDate", "") for s in us], default=None),
+            "mySessionDate": max([(s.get("sessionDate") or s.get("sampleDate", "")) for s in klse], default=None),
+            "usSessionDate": max([(s.get("sessionDate") or s.get("sampleDate", "")) for s in us], default=None),
             "shariahSource": "Suruhanjaya Sekuriti Malaysia (SC)",
             "shariahListDate": sc_date,
             "shariahListCount": sc_count,
@@ -731,9 +822,21 @@ def main() -> int:
         "stocks": out_stocks,
     }
 
+    # --- saring nilai tidak terhingga + tulis JSON yang SAH (tiada NaN/Infinity) ---
+    jumlah_nan = kira_nan(payload)
+    if jumlah_nan:
+        notes.append(f"{jumlah_nan} nilai tidak sah (NaN/Infinity) dibuang sebelum fail ditulis")
+    payload = bersih_json(payload)
+    try:
+        teks = json.dumps(payload, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
+    except ValueError as exc:  # noqa: BLE001
+        print(f"[gagal] JSON mengandungi nilai tidak sah (NaN/Infinity): {exc}", file=sys.stderr)
+        return 2
+    if not sahkan_json(teks):
+        print("[gagal] stocks.json tidak lulus semakan JSON ketat — tidak ditulis.", file=sys.stderr)
+        return 2
     with open(args.out, "w", encoding="utf-8", newline="\n") as fh:
-        json.dump(payload, fh, ensure_ascii=False, indent=2)
-        fh.write("\n")
+        fh.write(teks)
 
     dur = (datetime.now(MYT) - started).total_seconds()
     print(f"[ok] {args.out} ditulis — {len(out_stocks)} simbol, gagal: {failed or 'tiada'} ({dur:.1f}s)")

@@ -71,8 +71,45 @@ dibuka (dan menyemak semula setiap 5 minit) lalu memetakan medan melalui `adaptS
 | `meta.generatedAtMYT`, `meta.mySessionDate`, `meta.usSessionDate` | panel "Data setakat" | + amaran amber jika data > 24 jam |
 | `meta.priceSource`, `meta.shariahListDate`, `meta.symbolCount` | nota sumber | Ditulis jujur (Yahoo Finance + TradingView) |
 
-Jika `stocks.json` gagal dimuatkan, halaman memaparkan **amaran merah dan jadual kosong** —
-ia TIDAK memaparkan harga lama. Kekalkan sifat ini semasa menyunting `index.html`.
+Jika `stocks.json` gagal dimuatkan, halaman memaparkan **amaran merah**. Sejak 22-09-2026
+halaman **mengekalkan senarai kaunter terakhir yang berjaya dimuatkan** (supaya pengguna
+tidak kehilangan senarai hanya kerana gangguan sambungan seketika) dan cuba semula secara
+automatik (5s, 10s, 20s … maksimum 60s). Jadual hanya dikosongkan jika TIADA data pernah
+berjaya dimuatkan.
+
+## Keselamatan JSON — nilai NaN/Infinity (DIPERBAIKI 22-09-2026)
+
+`json.dump()` Python menulis `NaN` / `Infinity` sebagai token mentah. Itu **bukan JSON sah**:
+`JSON.parse()` dalam pelayar gagal untuk SELURUH fail, jadi laman memaparkan "data tidak
+boleh dimuatkan" dan semua kaunter hilang (ini berlaku pada fail 22-09-2026 08:27 — 234 token
+NaN kerana harga penutup 15 kaunter US belum diterbitkan oleh Yahoo).
+
+Peraturan sekarang (jangan langgar):
+
+1. Setiap angka melalui `safe_num()` — `NaN`/`Infinity`/bukan angka menjadi `null`.
+2. `bersih_json()` menyaring seluruh payload secara rekursif sebelum ditulis.
+3. Fail ditulis dengan `json.dumps(..., allow_nan=False)` dan disahkan semula dengan
+   `sahkan_json()` (parse ketat). Skrip **keluar dengan kod 2 dan TIDAK menulis fail** jika
+   masih ada nilai tidak sah — jadi JSON rosak tidak boleh sampai ke laman.
+4. Baris sejarah tanpa `Close` (Yahoo kadang pulangkan baris sesi terkini dengan
+   Open/High/Low/Volume tetapi Close kosong) DIBUANG sebelum penunjuk dikira.
+   `sampleDate` = sesi penuh terakhir; `sessionDate` = sesi terkini yang wujud;
+   `closeStale: true` menandakan kedua-duanya berbeza. Nilai ini dipaparkan di laman
+   ("harga penutup sesi terkini belum diterbitkan …").
+5. Sisi pelayar juga berjaga-jaga: `parseJsonSelamat()` + `bersihTokenJson()` membersihkan
+   token NaN/Infinity daripada teks sebelum parse (kalis-fail lama/sumber pihak ketiga).
+
+Menguji semula: muat turun fail data, kemudian pastikan tiada token NaN dan JSON boleh
+dibaca selepas `NaN` digantikan `null`.
+
+## Sumber data sisi pelayar (3 sumber, sejak 22-09-2026)
+
+`index.html` mengambil TIGA sumber serentak (`Promise.all`) dan memilih `meta.generatedAt`
+terbaharu: (1) `stocks.json` dari laman sendiri, (2) cabang `data` melalui GitHub raw,
+(3) cermin jsDelivr. Setiap satu ada had masa 9 saat (`DATA_TIMEOUT_MS`) supaya satu sumber
+yang tergantung tidak menahan seluruh halaman. Ini penting kerana rangkaian korporat
+kadang menyekat `raw.githubusercontent.com` (`net::ERR_EMPTY_RESPONSE`) — sumber dari laman
+sendiri mestilah sentiasa boleh dibaca.
 
 Ticker pasaran dan carta dibina secara dinamik daripada senarai kaunter `stocks.json`
 menggunakan widget rasmi TradingView (`embed-widget-ticker-tape.js`,

@@ -272,6 +272,28 @@ details>summary{cursor:pointer;list-style:none}
 details>summary::-webkit-details-marker{display:none}
 @media (max-width:767px){ #plTickerBox{display:none} html{scroll-padding-top:90px} }
 @media print{ header,footer,#plToasts,.pl-drawer,.pl-backdrop,.pl-modal{display:none!important} body{background:#fff;color:#000} }
+
+/* ---------- penafian (ditonjolkan) ---------- */
+.pl-disclaimer{position:relative;margin:0 0 6px;padding:18px 18px 14px 22px;border-radius:16px;
+  border:1.5px solid rgba(251,191,36,.55);background:linear-gradient(135deg,rgba(251,191,36,.13),rgba(2,6,14,.55) 55%);
+  box-shadow:0 18px 44px -30px rgba(251,191,36,.55)}
+.pl-disclaimer::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:4px;border-radius:4px;
+  background:linear-gradient(180deg,var(--gold),rgba(251,191,36,.12))}
+.pl-disclaimer__head{display:flex;align-items:center;gap:9px;color:var(--gold);font-weight:800;
+  font-size:17px;letter-spacing:.03em;text-transform:uppercase;margin:0 0 9px}
+.pl-disclaimer__lead{margin:0 0 9px;color:#fde68a;font-weight:700;font-size:14px;line-height:1.6}
+.pl-disclaimer p{margin:0 0 9px;color:#cbd5e1;font-size:13px;line-height:1.65}
+.pl-disclaimer ul{margin:8px 0 0;padding-left:20px;color:#cbd5e1;font-size:13px;line-height:1.65}
+.pl-disclaimer li{margin:4px 0}
+.pl-disclaimer li::marker{color:var(--gold)}
+.pl-disclaimer__note{margin:11px 0 0;padding-top:9px;border-top:1px dashed rgba(251,191,36,.3);
+  color:#94a3b8;font-size:11.5px;line-height:1.6}
+.pl-mini-disclaim{display:flex;gap:9px;align-items:flex-start;padding:11px 13px;border-radius:12px;
+  border:1px solid rgba(251,191,36,.42);background:rgba(251,191,36,.09);color:#fcd34d;
+  font-size:12px;font-weight:600;line-height:1.6}
+.pl-mini-disclaim i{color:var(--gold)}
+@media (max-width:640px){.pl-disclaimer{padding:15px 14px 12px 18px}.pl-disclaimer__head{font-size:15px}
+  .pl-disclaimer p,.pl-disclaimer ul{font-size:12.5px}}
 </style>
 </head>
 <body class="pl-glass text-slate-100 min-h-screen flex flex-col">
@@ -589,6 +611,12 @@ details>summary::-webkit-details-marker{display:none}
           <p><span class="pl-tag pl-tag--teal">🌙 Syariah</span> <span data-i18n="legend_syariah">Tersenarai dalam senarai sekuriti patuh Syariah Suruhanjaya Sekuriti Malaysia.</span></p>
         </div>
       </details>
+
+      <!-- penafian ringkas: supaya pembaca nampak AMARAN tanpa perlu skrol ke footer -->
+      <p class="pl-mini-disclaim" id="penafianRingkas">
+        <i data-lucide="shield-alert" class="w-4 h-4 shrink-0"></i>
+        <span data-i18n="disclaimer_short">Ini bukan nasihat pelaburan. Semua angka hanya untuk rujukan — buat kajian sendiri dan tanggung risiko anda sendiri.</span>
+      </p>
     </section>
 
     <!-- ============ ADSENSE BOTTOM ============ -->
@@ -741,13 +769,22 @@ details>summary::-webkit-details-marker{display:none}
 
     <div class="pl-divider"></div>
 
-    <div class="space-y-2 text-[10px] leading-relaxed text-slate-500">
-      <p class="font-bold text-slate-300 flex items-center gap-1.5">
-        <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-gold-500"></i><span data-i18n="disclaimer_title">Penafian</span>
-      </p>
-      <p data-i18n="disclaimer_body">Semua maklumat di laman ini untuk rujukan dan pembelajaran, bukan nasihat pelaburan. Harga dan penunjuk boleh berubah, dan carta dipaparkan oleh TradingView. Sebarang keputusan beli atau jual adalah tanggungjawab anda sendiri, jadi sila buat kajian sendiri sebelum melabur.</p>
-      <p>&copy; 2026 payedlegacy.my. Hak cipta terpelihara. <span data-i18n="footer_built">Angka pasaran dikemas kini automatik, carta oleh TradingView.</span></p>
-    </div>
+    <section id="penafian" class="pl-disclaimer">
+      <div class="pl-disclaimer__head">
+        <i data-lucide="shield-alert" class="w-5 h-5"></i><span data-i18n="disclaimer_title">Penafian</span>
+      </div>
+      <p class="pl-disclaimer__lead" data-i18n="disclaimer_lead">Laman ini BUKAN nasihat pelaburan, bukan cadangan beli atau jual, dan bukan janji keuntungan.</p>
+      <p data-i18n="disclaimer_body">Semua maklumat, harga dan penunjuk di laman ini adalah untuk rujukan dan pembelajaran sahaja. Angka boleh lambat, tidak lengkap atau tidak tepat, dan boleh berubah tanpa notis. Carta dan pita harga dipaparkan oleh TradingView.</p>
+      <ul>
+        <li data-i18n="disclaimer_l1">Setiap keputusan beli atau jual adalah tanggungjawab anda sendiri. Sila buat kajian sendiri (DYOR) dan rujuk penasihat berlesen jika perlu.</li>
+        <li data-i18n="disclaimer_l2">Kami tidak menerima sebarang bayaran daripada mana-mana syarikat atau kaunter yang dipaparkan, dan tiada jaminan hasil atau keuntungan.</li>
+        <li data-i18n="disclaimer_l3">Pelaburan saham melibatkan risiko kerugian modal. Nilai dan pulangan boleh naik atau turun, dan prestasi lalu bukan penunjuk prestasi masa depan.</li>
+        <li data-i18n="disclaimer_l4">Sebahagian pautan di laman ini ialah pautan rujukan (affiliate) — kami mungkin menerima ganjaran kecil tanpa sebarang kos tambahan kepada anda.</li>
+        <li data-i18n="disclaimer_l5">Data pasaran dipaparkan sebagaimana adanya (as is) dan kami tidak bertanggungjawab atas sebarang kerugian yang timbul daripada penggunaan laman ini.</li>
+      </ul>
+      <p class="pl-disclaimer__note" data-i18n="disclaimer_note">Dengan menggunakan laman ini, anda bersetuju dengan penafian ini. Jika anda tidak bersetuju, sila berhenti menggunakan laman ini.</p>
+      <p class="pl-disclaimer__note">&copy; 2026 payedlegacy.my. Hak cipta terpelihara. <span data-i18n="footer_built">Angka pasaran dikemas kini automatik, carta oleh TradingView.</span></p>
+    </section>
   </div>
 </footer>
 
@@ -883,6 +920,19 @@ const DATA_URL = 'stocks.json';
    oleh workflow "Kemas Kini Intraday". Dibaca dari GitHub raw (CORS dibenarkan) supaya
    data segar 15 minit TANPA mencetuskan deploy Vercel setiap kali. */
 const DATA_URL_FRESH = 'https://raw.githubusercontent.com/payedlegacy/payed-legacy-screener/data/stocks.json';
+/* Cermin tambahan: sebahagian rangkaian/korporat menyekat GitHub raw (ERR_EMPTY_RESPONSE),
+   jadi kita cuba beberapa sumber serentak dan pilih yang PALING BAHARU. */
+const DATA_URL_MIRROR = 'https://cdn.jsdelivr.net/gh/payedlegacy/payed-legacy-screener@data/stocks.json';
+const DATA_SOURCES = [DATA_URL, DATA_URL_FRESH, DATA_URL_MIRROR];
+const DATA_LABEL = {};
+DATA_LABEL[DATA_URL] = 'site';
+DATA_LABEL[DATA_URL_FRESH] = 'intraday';
+DATA_LABEL[DATA_URL_MIRROR] = 'mirror';
+/* Had masa setiap sumber: satu sumber yang tergantung TIDAK boleh menahan seluruh halaman. */
+const DATA_TIMEOUT_MS = 9000;
+const DATA_MAX_RETRY = 6;
+let dataRetryCount = 0;
+let dataRetryTimer = null;
 const LS_LANG = 'screener_lang';
 const LS_WATCH = 'screener_watchlist';
 const LS_ALERTS = 'screener_alerts';
@@ -1080,7 +1130,18 @@ const I18N = {
         "link_main": "🏠 payedlegacy.my — hartanah",
         "link_method": "📊 Cara data diperoleh",
         "disclaimer_title": "Penafian",
-        "disclaimer_body": "Semua maklumat di laman ini untuk rujukan dan pembelajaran, bukan nasihat pelaburan. Harga dan penunjuk boleh berubah, dan carta dipaparkan oleh TradingView. Sebarang keputusan beli atau jual adalah tanggungjawab anda sendiri, jadi sila buat kajian sendiri sebelum melabur.",
+        "disclaimer_lead": "Laman ini BUKAN nasihat pelaburan, bukan cadangan beli atau jual, dan bukan janji keuntungan.",
+        "disclaimer_body": "Semua maklumat, harga dan penunjuk di laman ini adalah untuk rujukan dan pembelajaran sahaja. Angka boleh lambat, tidak lengkap atau tidak tepat, dan boleh berubah tanpa notis. Carta dan pita harga dipaparkan oleh TradingView.",
+        "disclaimer_l1": "Setiap keputusan beli atau jual adalah tanggungjawab anda sendiri. Sila buat kajian sendiri (DYOR) dan rujuk penasihat berlesen jika perlu.",
+        "disclaimer_l2": "Kami tidak menerima sebarang bayaran daripada mana-mana syarikat atau kaunter yang dipaparkan, dan tiada jaminan hasil atau keuntungan.",
+        "disclaimer_l3": "Pelaburan saham melibatkan risiko kerugian modal. Nilai dan pulangan boleh naik atau turun, dan prestasi lalu bukan penunjuk prestasi masa depan.",
+        "disclaimer_l4": "Sebahagian pautan di laman ini ialah pautan rujukan (affiliate) — kami mungkin menerima ganjaran kecil tanpa sebarang kos tambahan kepada anda.",
+        "disclaimer_l5": "Data pasaran dipaparkan sebagaimana adanya (as is) dan kami tidak bertanggungjawab atas sebarang kerugian yang timbul daripada penggunaan laman ini.",
+        "disclaimer_note": "Dengan menggunakan laman ini, anda bersetuju dengan penafian ini. Jika anda tidak bersetuju, sila berhenti menggunakan laman ini.",
+        "disclaimer_short": "Ini bukan nasihat pelaburan. Semua angka hanya untuk rujukan — buat kajian sendiri dan tanggung risiko anda sendiri.",
+        "err_auto_retry": "Laman akan cuba memuatkan semula secara automatik dalam {n} saat.",
+        "err_keep_old": "Sambungan terganggu semasa mengemas kini. Paparan ini masih menunjukkan data terakhir yang berjaya dimuatkan — tekan butang muat semula untuk cuba sekarang. Cubaan automatik dalam {n} saat.",
+        "close_pending": "{n} kaunter: harga penutup sesi terkini belum diterbitkan, jadi penunjuk dikira daripada sesi penuh terakhir. Harga di atas dikemas kini secara langsung.",
         "footer_built": "Angka pasaran dikemas kini automatik, carta oleh TradingView.",
         "drawer_kicker": "Analisis kaunter",
         "drawer_price": "Harga & sesi",
@@ -1176,7 +1237,7 @@ const I18N = {
         "toast_lead_err": "Sila isi nama dan nombor WhatsApp yang sah.",
         "err_live": "Data pasaran tidak dapat dimuatkan buat masa ini. Periksa sambungan internet anda, kemudian tekan \"Cuba lagi\". Angka lama tidak ditunjukkan supaya anda tidak tersalah baca.",
         "stale_warn": "Data ini sudah berumur lebih {h} jam dan mungkin belum dikemas kini. Elok jangan bergantung pada angka ini. Tekan \"Muat semula\" atau tunggu kemas kini seterusnya.",
-        "src_note": "Harga dan penunjuk: {src}. Senarai Syariah: Suruhanjaya Sekuriti Malaysia ({date}, {count} kaunter). Dikemas kini dua kali sehari pada hari bekerja, dan halaman ini menyemak semula setiap 5 minit. Carta dan ticker oleh TradingView.",
+        "src_note": "Harga dan penunjuk: {src}. Senarai Syariah: Suruhanjaya Sekuriti Malaysia ({date}, {count} kaunter). Salinan data penuh dijana semula setiap 15 minit semasa waktu dagangan, dan halaman ini menyemak semula setiap 5 minit. Carta dan ticker oleh TradingView.",
         "src_note_nodata": "Data pasaran tidak dapat dimuatkan.",
         "checking": "Sedang menyemak data...",
         "loading": "Sedang memuatkan...",
@@ -1385,7 +1446,18 @@ const I18N = {
         "link_main": "🏠 payedlegacy.my — property",
         "link_method": "📊 How we get the data",
         "disclaimer_title": "Disclaimer",
-        "disclaimer_body": "Everything on this site is for reference and learning, not investment advice. Prices and indicators change, and charts are displayed by TradingView. Any buy or sell decision is your own responsibility, so please do your own research before investing.",
+        "disclaimer_lead": "This site is NOT investment advice, not a buy or sell recommendation, and not a promise of profit.",
+        "disclaimer_body": "All information, prices and indicators on this site are for reference and learning only. Figures may be delayed, incomplete or inaccurate, and can change without notice. Charts and the price tape are displayed by TradingView.",
+        "disclaimer_l1": "Every buy or sell decision is your own responsibility. Please do your own research (DYOR) and consult a licensed adviser if needed.",
+        "disclaimer_l2": "We receive no payment from any company or counter shown, and no result or profit is guaranteed.",
+        "disclaimer_l3": "Stock investing carries the risk of losing capital. Values and returns can rise or fall, and past performance is not a guide to future performance.",
+        "disclaimer_l4": "Some links on this site are referral (affiliate) links — we may receive a small reward at no extra cost to you.",
+        "disclaimer_l5": "Market data is provided \"as is\" and we are not liable for any loss arising from the use of this site.",
+        "disclaimer_note": "By using this site you agree to this disclaimer. If you do not agree, please stop using this site.",
+        "disclaimer_short": "This is not investment advice. All figures are for reference only — do your own research and take responsibility for your own risk.",
+        "err_auto_retry": "The page will try to load again automatically in {n} seconds.",
+        "err_keep_old": "The connection dropped while refreshing. This view still shows the last data that loaded successfully — press reload to try now. Automatic retry in {n} seconds.",
+        "close_pending": "{n} counters: the latest session close has not been published yet, so indicators are calculated from the last completed session. Prices above refresh live.",
         "footer_built": "Market data refreshes automatically, charts by TradingView.",
         "drawer_kicker": "Counter analysis",
         "drawer_price": "Price & session",
@@ -1481,7 +1553,7 @@ const I18N = {
         "toast_lead_err": "Please enter a valid name and WhatsApp number.",
         "err_live": "Market data cannot be loaded right now. Check your internet connection, then press \"Try again\". Old numbers are hidden so you do not read them by mistake.",
         "stale_warn": "This data is more than {h} hours old and may not be current. Better not to rely on it. Press \"Reload\" or wait for the next update.",
-        "src_note": "Prices and indicators: {src}. Shariah list: Securities Commission Malaysia ({date}, {count} counters). Refreshed twice a day on weekdays, and this page re-checks every 5 minutes. Charts and ticker by TradingView.",
+        "src_note": "Prices and indicators: {src}. Shariah list: Securities Commission Malaysia ({date}, {count} counters). The full data copy is regenerated every 15 minutes during trading hours, and this page re-checks every 5 minutes. Charts and ticker by TradingView.",
         "src_note_nodata": "Market data cannot be loaded.",
         "checking": "Checking the data...",
         "loading": "Loading...",
@@ -1575,6 +1647,7 @@ function adaptStock(s) {
     high52: high52, low52: low52, highAll: highAll, pctHigh52: pct, position: position,
     volume: s.volume || '-', avgVolume: s.avgVolume || '-', volumeRatio: num(s.volumeRatio),
     sampleDate: s.sampleDate || '-', patterns: patterns, signal: s.signal || 'NEUTRAL',
+    closeStale: !!s.closeStale,
     ema7_21: (typeof s.ema7_21 === 'boolean') ? s.ema7_21 : macdUp,
     ema20_50: (typeof s.ema20_50 === 'boolean') ? s.ema20_50 : (ma20 !== null && ma50 !== null && ma20 > ma50),
     emaSupport: (typeof s.emaSupport === 'boolean') ? s.emaSupport : (price !== null && ma50 !== null && ma200 !== null && price > ma50 && ma50 > ma200),
@@ -1645,15 +1718,62 @@ function closeDrawer() {
 }
 
 /* ------------------------------ data load ------------------------------ */
+/* Sesetengah fail data mengandungi token NaN/Infinity — itu BUKAN JSON sah dan
+   JSON.parse() akan gagal untuk SELURUH fail (laman nampak "tiada data").
+   Bersihkan token itu dahulu supaya satu nilai rosak tidak mematikan semua kaunter.
+   Nota: guna kaedah teks (bukan nombor) supaya nilai kosong kekal null, TIDAK jadi 0. */
+function bersihTokenJson(teks) {
+  var out = "", dalamTeks = false, escape = false;
+  for (var i = 0; i < teks.length; i++) {
+    var ch = teks.charAt(i);
+    if (dalamTeks) {
+      out += ch;
+      if (escape) { escape = false; }
+      else if (ch === "\\") { escape = true; }
+      else if (ch === '"') { dalamTeks = false; }
+      continue;
+    }
+    if (ch === '"') { dalamTeks = true; out += ch; continue; }
+    if (ch === "N" && teks.substr(i, 3) === "NaN") { out += "null"; i += 2; continue; }
+    if (ch === "I" && teks.substr(i, 8) === "Infinity") { out += "null"; i += 7; continue; }
+    if (ch === "-" && teks.substr(i, 9) === "-Infinity") { out += "null"; i += 8; continue; }
+    out += ch;
+  }
+  return out;
+}
+function parseJsonSelamat(teks) {
+  try { return JSON.parse(teks); }
+  catch (e) {
+    var payload = JSON.parse(bersihTokenJson(teks));
+    console.warn("[screener] fail data mengandungi nilai tidak sah (NaN/Infinity) — dibersihkan automatik");
+    return payload;
+  }
+}
+/* Cuba semula automatik bila SEMUA sumber gagal (rangkaian/proksi lambat atau putus).
+   Kelewatan berganda 5s, 10s, 20s … maksimum 60s, maksimum DATA_MAX_RETRY kali. */
+function jadualCubaanSemula() {
+  if (dataRetryTimer || dataRetryCount >= DATA_MAX_RETRY) return 0;
+  dataRetryCount++;
+  var nanti = Math.min(60000, 5000 * Math.pow(2, dataRetryCount - 1));
+  dataRetryTimer = setTimeout(function () { dataRetryTimer = null; loadData(true); }, nanti);
+  return nanti;
+}
+
 /* Ambil satu sumber data; pulangkan {payload, arr, ts} atau null kalau gagal.
    `ts` = masa janaan data, untuk memilih sumber yang PALING BAHARU antara
    salinan intraday (cabang data) dan fail yang di-deploy bersama laman. */
 async function ambilSumber(url) {
   try {
     const sambung = (url.indexOf('?') === -1) ? '?t=' : '&t=';
-    const res = await fetch(url + sambung + Date.now(), { cache: 'no-store' });
+    const ac = (typeof AbortController === 'function') ? new AbortController() : null;
+    const timer = ac ? setTimeout(function () { try { ac.abort(); } catch (e) {} }, DATA_TIMEOUT_MS) : null;
+    let res;
+    try {
+      res = await fetch(url + sambung + Date.now(), ac ? { cache: 'no-store', signal: ac.signal } : { cache: 'no-store' });
+    } finally { if (timer) clearTimeout(timer); }
     if (!res.ok) return null;
-    const payload = await res.json();
+    const teks = await res.text();
+    const payload = parseJsonSelamat(teks);
     const arr = Array.isArray(payload) ? payload : (payload && payload.stocks);
     if (!Array.isArray(arr) || !arr.length) return null;
     const meta = Array.isArray(payload) ? null : (payload && payload.meta);
@@ -1674,23 +1794,34 @@ async function loadData(isManual) {
   try {
     /* dua sumber: salinan intraday (15 minit semasa waktu dagangan) + fail laman;
        ambil yang paling baharu — kalau salah satu tidak dapat dihubungi, yang lain tetap jalan */
-    const sumber = await Promise.all([ambilSumber(DATA_URL_FRESH), ambilSumber(DATA_URL)]);
+    const sumber = await Promise.all(DATA_SOURCES.map(function (u) { return ambilSumber(u); }));
     const sah = sumber.filter(Boolean).sort((a, b) => b.ts - a.ts);
     if (!sah.length) throw new Error('semua sumber data gagal');
     const payload = sah[0].payload;
     const arr = sah[0].arr;
     DATA_META = payload.meta || null;
-    if (DATA_META) DATA_META.__sumber = (sah[0].url === DATA_URL_FRESH) ? 'intraday' : 'site';
+    if (DATA_META) DATA_META.__sumber = DATA_LABEL[sah[0].url] || 'site';
     STOCKS = arr.map(adaptStock);
     errBox.classList.add('hidden');
     $('btnRetry').classList.add('hidden');
+    dataRetryCount = 0;
     if (status) status.textContent = t('refreshed_at', { t: fmtStamp((DATA_META && DATA_META.generatedAtMYT) || new Date().toLocaleTimeString()) });
   } catch (err) {
-    console.error('[screener] gagal memuatkan stocks.json:', err);
-    DATA_META = null; STOCKS = [];
-    if (status) status.textContent = t('load_fail');
-    errBox.classList.remove('hidden');
-    errBox.textContent = t('err_live');
+    console.error('[screener] gagal memuatkan data pasaran:', err);
+    const nanti = jadualCubaanSemula();
+    const saat = nanti ? Math.round(nanti / 1000) : 0;
+    if (STOCKS.length) {
+      /* Pernah berjaya memuatkan data: KEKALKAN senarai kaunter yang ada (jangan
+         kosongkan halaman), tetapi beri amaran jelas + cuba semula automatik. */
+      if (status) status.textContent = t('load_fail');
+      errBox.classList.remove('hidden');
+      errBox.textContent = saat ? t('err_keep_old', { n: saat }) : t('err_keep_old', { n: 60 });
+    } else {
+      DATA_META = null; STOCKS = [];
+      if (status) status.textContent = t('load_fail');
+      errBox.classList.remove('hidden');
+      errBox.textContent = t('err_live') + (saat ? ' ' + t('err_auto_retry', { n: saat }) : '');
+    }
     $('btnRetry').classList.remove('hidden');
   } finally {
     isFetching = false;
@@ -1725,6 +1856,8 @@ function updateStatus() {
         b.symbol + ' (' + (b.market === 'KLSE' ? 'MY' : 'US') + ' ' +
         ((b.change >= 0 ? '+' : '') + Number(b.change).toFixed(2)) + '%)').join(', ');
     }
+    const belumTutup = STOCKS.filter(function (s) { return s.closeStale; }).length;
+    if (belumTutup) noteTxt += ' · ' + t('close_pending', { n: belumTutup });
     note.textContent = noteTxt;
     const age = Date.now() - new Date(DATA_META.generatedAt).getTime();
     if (isFinite(age) && age > 86400000) {
@@ -2485,10 +2618,12 @@ window.addEventListener('DOMContentLoaded', () => {
   renderPresets(); renderSectorOptions(); renderWatchList(); renderAlertsList(); renderCounter([]);
   loadData(false);
   setInterval(() => loadData(false), REFRESH_MS);
+  /* rangkaian pulih -> cuba segera (jangan tunggu 5 minit) */
+  window.addEventListener('online', () => { dataRetryCount = 0; loadData(false); });
   document.addEventListener('visibilitychange', () => {
-    if (!document.hidden && DATA_META && DATA_META.generatedAt) {
-      if (Date.now() - new Date(DATA_META.generatedAt).getTime() > REFRESH_MS) loadData(false);
-    }
+    if (document.hidden) return;
+    if (!DATA_META || !DATA_META.generatedAt) { loadData(false); return; }
+    if (Date.now() - new Date(DATA_META.generatedAt).getTime() > REFRESH_MS) loadData(false);
   });
 });
 function initDuitNowQr() {
