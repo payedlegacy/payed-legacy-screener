@@ -1,48 +1,663 @@
 {
-  "_nota": "Watchlist rasmi screener.payedlegacy.my — enjin Global Mega-Breakout & Volume Surge (id: global_breakout_momentum_scanner). Tambah/buang kaunter di sini sahaja; pipeline (fetch_live_data.py) akan menarik data automatik. PENTING: kaunter Bursa Malaysia guna KOD ANGKA Yahoo Finance (cth 1155.KL = Maybank) — kod huruf seperti MAYBANK.KL TIDAK berfungsi dan akan dilangkau oleh pipeline. 'sector' ialah label tetap untuk penapis di index.html (Technology, Property, Finance, Utilities, Healthcare, Energy, Consumer, Plantation, Industrials, Telco). 'bursaCode' hanya untuk kaunter Bursa Malaysia (rujukan senarai Syariah SC).",
-  "updated": "2026-09-21",
+  "_nota": "Watchlist screener.payedlegacy.my — dipilih SEMULA secara automatik setiap minggu oleh discover_watchlist.py (enjin Global Mega-Breakout & Volume Surge). Kaunter besar dalam 'anchors' dikekalkan; selebihnya ialah calon terbaik minggu ini. PENTING: kaunter Bursa Malaysia guna KOD ANGKA Yahoo Finance (cth 5398.KL = Gamuda). 'sector' ialah label untuk penapis di index.html. 'bursaCode' untuk padanan senarai Syariah SC.",
+  "updated": "2026-09-27",
+  "generatedBy": "discover_watchlist.py (mingguan)",
+  "generatedAtMYT": "27 Sep 2026, 02:35 PM (MYT)",
+  "anchors": {
+    "KLSE": [
+      "MAYBANK",
+      "TENAGA",
+      "CIMB",
+      "PBBANK",
+      "GAMUDA",
+      "SUNWAY",
+      "IHH",
+      "MAXIS",
+      "MISC",
+      "NESTLE",
+      "IOICORP",
+      "KLK",
+      "RHBBANK",
+      "HLBANK"
+    ],
+    "US": [
+      "NVDA",
+      "AAPL",
+      "TSLA",
+      "MSFT",
+      "GOOGL",
+      "AMZN",
+      "META",
+      "AMD"
+    ]
+  },
+  "ringkasan": {
+    "KLSE": {
+      "calon": 144,
+      "dipilih": 55,
+      "anchors": 14
+    },
+    "US": {
+      "calon": 250,
+      "dipilih": 25,
+      "anchors": 8
+    }
+  },
   "stocks": [
-    { "symbol": "GAMUDA",    "ticker": "5398.KL", "tvSymbol": "MYX:GAMUDA", "bursaCode": "5398", "market": "KLSE", "sector": "Property" },
-    { "symbol": "ECA",       "ticker": "0267.KL", "tvSymbol": "MYX:ECA", "bursaCode": "0267", "market": "KLSE", "sector": "Technology" },
-    { "symbol": "MAYBANK",   "ticker": "1155.KL", "tvSymbol": "MYX:MAYBANK", "bursaCode": "1155", "market": "KLSE", "sector": "Finance" },
-    { "symbol": "MYEG",      "ticker": "0138.KL", "tvSymbol": "MYX:ZETRIX", "bursaCode": "0138", "market": "KLSE", "sector": "Technology", "notaNama": "Syarikat kini Zetrix AI Bhd — nama diambil automatik dari sumber data." },
-    { "symbol": "TENAGA",    "ticker": "5347.KL", "tvSymbol": "MYX:TENAGA", "bursaCode": "5347", "market": "KLSE", "sector": "Utilities" },
-    { "symbol": "CIMB",      "ticker": "1023.KL", "tvSymbol": "MYX:CIMB", "bursaCode": "1023", "market": "KLSE", "sector": "Finance" },
-    { "symbol": "PBBANK",    "ticker": "1295.KL", "tvSymbol": "MYX:PBBANK", "bursaCode": "1295", "market": "KLSE", "sector": "Finance" },
-    { "symbol": "SUNWAY",    "ticker": "5211.KL", "tvSymbol": "MYX:SUNWAY", "bursaCode": "5211", "market": "KLSE", "sector": "Property" },
-    { "symbol": "INARI",     "ticker": "0166.KL", "tvSymbol": "MYX:INARI", "bursaCode": "0166", "market": "KLSE", "sector": "Technology" },
-    { "symbol": "SIME",      "ticker": "4197.KL", "tvSymbol": "MYX:SIME", "bursaCode": "4197", "market": "KLSE", "sector": "Industrials" },
-    { "symbol": "TOPGLOV",   "ticker": "7113.KL", "tvSymbol": "MYX:TOPGLOV", "bursaCode": "7113", "market": "KLSE", "sector": "Healthcare" },
-    { "symbol": "CDB",       "ticker": "6947.KL", "tvSymbol": "MYX:CDB", "bursaCode": "6947", "market": "KLSE", "sector": "Telco" },
-    { "symbol": "SDGUTHRIE", "ticker": "5285.KL", "tvSymbol": "MYX:SDG", "bursaCode": "5285", "market": "KLSE", "sector": "Plantation" },
-    { "symbol": "PETCHEM",   "ticker": "5183.KL", "tvSymbol": "MYX:PCHEM", "bursaCode": "5183", "market": "KLSE", "sector": "Energy" },
-    { "symbol": "MRDIY",     "ticker": "5296.KL", "tvSymbol": "MYX:MRDIY", "bursaCode": "5296", "market": "KLSE", "sector": "Consumer" },
-    { "symbol": "MISC",      "ticker": "3816.KL", "tvSymbol": "MYX:MISC", "bursaCode": "3816", "market": "KLSE", "sector": "Energy" },
-    { "symbol": "YTLPOWR",   "ticker": "6742.KL", "tvSymbol": "MYX:YTLPOWR", "bursaCode": "6742", "market": "KLSE", "sector": "Utilities" },
-    { "symbol": "MAXIS",     "ticker": "6012.KL", "tvSymbol": "MYX:MAXIS", "bursaCode": "6012", "market": "KLSE", "sector": "Telco" },
-    { "symbol": "IHH",       "ticker": "5225.KL", "tvSymbol": "MYX:IHH", "bursaCode": "5225", "market": "KLSE", "sector": "Healthcare" },
-    { "symbol": "RHBBANK",   "ticker": "1066.KL", "tvSymbol": "MYX:RHBBANK", "bursaCode": "1066", "market": "KLSE", "sector": "Finance" },
-    { "symbol": "HLBANK",    "ticker": "5819.KL", "tvSymbol": "MYX:HLBANK", "bursaCode": "5819", "market": "KLSE", "sector": "Finance" },
-    { "symbol": "NESTLE",    "ticker": "4707.KL", "tvSymbol": "MYX:NESTLE", "bursaCode": "4707", "market": "KLSE", "sector": "Consumer" },
-    { "symbol": "IOICORP",   "ticker": "1961.KL", "tvSymbol": "MYX:IOICORP", "bursaCode": "1961", "market": "KLSE", "sector": "Plantation" },
-    { "symbol": "KLK",       "ticker": "2445.KL", "tvSymbol": "MYX:KLK", "bursaCode": "2445", "market": "KLSE", "sector": "Plantation" },
-    { "symbol": "GENTING",   "ticker": "3182.KL", "tvSymbol": "MYX:GENTING", "bursaCode": "3182", "market": "KLSE", "sector": "Consumer" },
-    { "symbol": "GENM",      "ticker": "4715.KL", "tvSymbol": "MYX:GENM", "bursaCode": "4715", "market": "KLSE", "sector": "Consumer" },
-
-    { "symbol": "NVDA",  "ticker": "NVDA",  "tvSymbol": "NASDAQ:NVDA", "market": "US", "sector": "Technology" },
-    { "symbol": "AAPL",  "ticker": "AAPL",  "tvSymbol": "NASDAQ:AAPL", "market": "US", "sector": "Technology" },
-    { "symbol": "TSLA",  "ticker": "TSLA",  "tvSymbol": "NASDAQ:TSLA", "market": "US", "sector": "Consumer" },
-    { "symbol": "MSFT",  "ticker": "MSFT",  "tvSymbol": "NASDAQ:MSFT", "market": "US", "sector": "Technology" },
-    { "symbol": "AMZN",  "ticker": "AMZN",  "tvSymbol": "NASDAQ:AMZN", "market": "US", "sector": "Consumer" },
-    { "symbol": "GOOGL", "ticker": "GOOGL", "tvSymbol": "NASDAQ:GOOGL", "market": "US", "sector": "Technology" },
-    { "symbol": "META",  "ticker": "META",  "tvSymbol": "NASDAQ:META", "market": "US", "sector": "Technology" },
-    { "symbol": "AMD",   "ticker": "AMD",   "tvSymbol": "NASDAQ:AMD", "market": "US", "sector": "Technology" },
-    { "symbol": "NFLX",  "ticker": "NFLX",  "tvSymbol": "NASDAQ:NFLX", "market": "US", "sector": "Technology" },
-    { "symbol": "PLTR",  "ticker": "PLTR",  "tvSymbol": "NASDAQ:PLTR", "market": "US", "sector": "Technology" },
-    { "symbol": "COIN",  "ticker": "COIN",  "tvSymbol": "NASDAQ:COIN", "market": "US", "sector": "Finance" },
-    { "symbol": "MARA",  "ticker": "MARA",  "tvSymbol": "NASDAQ:MARA", "market": "US", "sector": "Technology" },
-    { "symbol": "INTC",  "ticker": "INTC",  "tvSymbol": "NASDAQ:INTC", "market": "US", "sector": "Technology" },
-    { "symbol": "ARM",   "ticker": "ARM",   "tvSymbol": "NASDAQ:ARM", "market": "US", "sector": "Technology" },
-    { "symbol": "SMCI",  "ticker": "SMCI",  "tvSymbol": "NASDAQ:SMCI", "market": "US", "sector": "Technology" }
+    {
+      "symbol": "MAYBANK",
+      "ticker": "1155.KL",
+      "tvSymbol": "MYX:MAYBANK",
+      "bursaCode": "1155",
+      "market": "KLSE",
+      "sector": "Finance"
+    },
+    {
+      "symbol": "TENAGA",
+      "ticker": "5347.KL",
+      "tvSymbol": "MYX:TENAGA",
+      "bursaCode": "5347",
+      "market": "KLSE",
+      "sector": "Utilities"
+    },
+    {
+      "symbol": "CIMB",
+      "ticker": "1023.KL",
+      "tvSymbol": "MYX:CIMB",
+      "bursaCode": "1023",
+      "market": "KLSE",
+      "sector": "Finance"
+    },
+    {
+      "symbol": "PBBANK",
+      "ticker": "1295.KL",
+      "tvSymbol": "MYX:PBBANK",
+      "bursaCode": "1295",
+      "market": "KLSE",
+      "sector": "Finance"
+    },
+    {
+      "symbol": "GAMUDA",
+      "ticker": "5398.KL",
+      "tvSymbol": "MYX:GAMUDA",
+      "bursaCode": "5398",
+      "market": "KLSE",
+      "sector": "Property"
+    },
+    {
+      "symbol": "SUNWAY",
+      "ticker": "5211.KL",
+      "tvSymbol": "MYX:SUNWAY",
+      "bursaCode": "5211",
+      "market": "KLSE",
+      "sector": "Property"
+    },
+    {
+      "symbol": "IHH",
+      "ticker": "5225.KL",
+      "tvSymbol": "MYX:IHH",
+      "bursaCode": "5225",
+      "market": "KLSE",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "MAXIS",
+      "ticker": "6012.KL",
+      "tvSymbol": "MYX:MAXIS",
+      "bursaCode": "6012",
+      "market": "KLSE",
+      "sector": "Telco"
+    },
+    {
+      "symbol": "MISC",
+      "ticker": "3816.KL",
+      "tvSymbol": "MYX:MISC",
+      "bursaCode": "3816",
+      "market": "KLSE",
+      "sector": "Energy"
+    },
+    {
+      "symbol": "NESTLE",
+      "ticker": "4707.KL",
+      "tvSymbol": "MYX:NESTLE",
+      "bursaCode": "4707",
+      "market": "KLSE",
+      "sector": "Consumer"
+    },
+    {
+      "symbol": "IOICORP",
+      "ticker": "1961.KL",
+      "tvSymbol": "MYX:IOICORP",
+      "bursaCode": "1961",
+      "market": "KLSE",
+      "sector": "Plantation"
+    },
+    {
+      "symbol": "KLK",
+      "ticker": "2445.KL",
+      "tvSymbol": "MYX:KLK",
+      "bursaCode": "2445",
+      "market": "KLSE",
+      "sector": "Plantation"
+    },
+    {
+      "symbol": "RHBBANK",
+      "ticker": "1066.KL",
+      "tvSymbol": "MYX:RHBBANK",
+      "bursaCode": "1066",
+      "market": "KLSE",
+      "sector": "Finance"
+    },
+    {
+      "symbol": "HLBANK",
+      "ticker": "5819.KL",
+      "tvSymbol": "MYX:HLBANK",
+      "bursaCode": "5819",
+      "market": "KLSE",
+      "sector": "Finance"
+    },
+    {
+      "symbol": "EITA",
+      "ticker": "5208.KL",
+      "tvSymbol": "MYX:EITA",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "5208"
+    },
+    {
+      "symbol": "VERDANT",
+      "ticker": "0373.KL",
+      "tvSymbol": "MYX:VERDANT",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "0373"
+    },
+    {
+      "symbol": "CHINHIN",
+      "ticker": "5273.KL",
+      "tvSymbol": "MYX:CHINHIN",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "5273"
+    },
+    {
+      "symbol": "CHGP",
+      "ticker": "7187.KL",
+      "tvSymbol": "MYX:CHGP",
+      "market": "KLSE",
+      "sector": "Consumer",
+      "bursaCode": "7187"
+    },
+    {
+      "symbol": "MALAKOF",
+      "ticker": "5264.KL",
+      "tvSymbol": "MYX:MALAKOF",
+      "market": "KLSE",
+      "sector": "Energy",
+      "bursaCode": "5264"
+    },
+    {
+      "symbol": "VANTNRG",
+      "ticker": "5218.KL",
+      "tvSymbol": "MYX:VANTNRG",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "5218"
+    },
+    {
+      "symbol": "SAG",
+      "ticker": "0360.KL",
+      "tvSymbol": "MYX:SAG",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "0360"
+    },
+    {
+      "symbol": "SCGBHD",
+      "ticker": "0225.KL",
+      "tvSymbol": "MYX:SCGBHD",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "0225"
+    },
+    {
+      "symbol": "MCLEAN",
+      "ticker": "0167.KL",
+      "tvSymbol": "MYX:MCLEAN",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "0167"
+    },
+    {
+      "symbol": "CYPARK",
+      "ticker": "5184.KL",
+      "tvSymbol": "MYX:CYPARK",
+      "market": "KLSE",
+      "sector": "Energy",
+      "bursaCode": "5184"
+    },
+    {
+      "symbol": "SUNLOGY",
+      "ticker": "0345.KL",
+      "tvSymbol": "MYX:SUNLOGY",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "0345"
+    },
+    {
+      "symbol": "PEKAT",
+      "ticker": "0233.KL",
+      "tvSymbol": "MYX:PEKAT",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "0233"
+    },
+    {
+      "symbol": "SSB8",
+      "ticker": "0045.KL",
+      "tvSymbol": "MYX:SSB8",
+      "market": "KLSE",
+      "sector": "Technology",
+      "bursaCode": "0045"
+    },
+    {
+      "symbol": "VLB",
+      "ticker": "0273.KL",
+      "tvSymbol": "MYX:VLB",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "0273"
+    },
+    {
+      "symbol": "HEXIND",
+      "ticker": "0161.KL",
+      "tvSymbol": "MYX:HEXIND",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "0161"
+    },
+    {
+      "symbol": "INFOM",
+      "ticker": "0265.KL",
+      "tvSymbol": "MYX:INFOM",
+      "market": "KLSE",
+      "sector": "Technology",
+      "bursaCode": "0265"
+    },
+    {
+      "symbol": "SAMAIDEN",
+      "ticker": "0223.KL",
+      "tvSymbol": "MYX:SAMAIDEN",
+      "market": "KLSE",
+      "sector": "Technology",
+      "bursaCode": "0223"
+    },
+    {
+      "symbol": "THMY",
+      "ticker": "0375.KL",
+      "tvSymbol": "MYX:THMY",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "0375"
+    },
+    {
+      "symbol": "SWKPLNT",
+      "ticker": "5135.KL",
+      "tvSymbol": "MYX:SWKPLNT",
+      "market": "KLSE",
+      "sector": "Lain-lain",
+      "bursaCode": "5135"
+    },
+    {
+      "symbol": "PANTECH",
+      "ticker": "5125.KL",
+      "tvSymbol": "MYX:PANTECH",
+      "market": "KLSE",
+      "sector": "Energy",
+      "bursaCode": "5125"
+    },
+    {
+      "symbol": "ELRIDGE",
+      "ticker": "0318.KL",
+      "tvSymbol": "MYX:ELRIDGE",
+      "market": "KLSE",
+      "sector": "Lain-lain",
+      "bursaCode": "0318"
+    },
+    {
+      "symbol": "CHB",
+      "ticker": "0291.KL",
+      "tvSymbol": "MYX:CHB",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "0291"
+    },
+    {
+      "symbol": "NHB",
+      "ticker": "5614.KL",
+      "tvSymbol": "MYX:NHB",
+      "market": "KLSE",
+      "sector": "Energy",
+      "bursaCode": "5614"
+    },
+    {
+      "symbol": "AVANGAAD",
+      "ticker": "5259.KL",
+      "tvSymbol": "MYX:AVANGAAD",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "5259"
+    },
+    {
+      "symbol": "IJM",
+      "ticker": "3336.KL",
+      "tvSymbol": "MYX:IJM",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "3336"
+    },
+    {
+      "symbol": "SUNZEN",
+      "ticker": "0148.KL",
+      "tvSymbol": "MYX:SUNZEN",
+      "market": "KLSE",
+      "sector": "Technology",
+      "bursaCode": "0148"
+    },
+    {
+      "symbol": "MAGMA",
+      "ticker": "7243.KL",
+      "tvSymbol": "MYX:MAGMA",
+      "market": "KLSE",
+      "sector": "Finance",
+      "bursaCode": "7243"
+    },
+    {
+      "symbol": "SJC",
+      "ticker": "9431.KL",
+      "tvSymbol": "MYX:SJC",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "9431"
+    },
+    {
+      "symbol": "HIAPTEK",
+      "ticker": "5072.KL",
+      "tvSymbol": "MYX:HIAPTEK",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "5072"
+    },
+    {
+      "symbol": "SORENTO",
+      "ticker": "0326.KL",
+      "tvSymbol": "MYX:SORENTO",
+      "market": "KLSE",
+      "sector": "Finance",
+      "bursaCode": "0326"
+    },
+    {
+      "symbol": "UUE",
+      "ticker": "0310.KL",
+      "tvSymbol": "MYX:UUE",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "0310"
+    },
+    {
+      "symbol": "LAYHONG",
+      "ticker": "9385.KL",
+      "tvSymbol": "MYX:LAYHONG",
+      "market": "KLSE",
+      "sector": "Lain-lain",
+      "bursaCode": "9385"
+    },
+    {
+      "symbol": "SUNVIEW",
+      "ticker": "0262.KL",
+      "tvSymbol": "MYX:SUNVIEW",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "0262"
+    },
+    {
+      "symbol": "MSM",
+      "ticker": "5202.KL",
+      "tvSymbol": "MYX:MSM",
+      "market": "KLSE",
+      "sector": "Lain-lain",
+      "bursaCode": "5202"
+    },
+    {
+      "symbol": "HEXRTL",
+      "ticker": "7202.KL",
+      "tvSymbol": "MYX:HEXRTL",
+      "market": "KLSE",
+      "sector": "Consumer",
+      "bursaCode": "7202"
+    },
+    {
+      "symbol": "PECCA",
+      "ticker": "5271.KL",
+      "tvSymbol": "MYX:PECCA",
+      "market": "KLSE",
+      "sector": "Lain-lain",
+      "bursaCode": "5271"
+    },
+    {
+      "symbol": "NATGATE",
+      "ticker": "0270.KL",
+      "tvSymbol": "MYX:NATGATE",
+      "market": "KLSE",
+      "sector": "Technology",
+      "bursaCode": "0270"
+    },
+    {
+      "symbol": "NAIM",
+      "ticker": "5073.KL",
+      "tvSymbol": "MYX:NAIM",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "5073"
+    },
+    {
+      "symbol": "GENERGY",
+      "ticker": "5343.KL",
+      "tvSymbol": "MYX:GENERGY",
+      "market": "KLSE",
+      "sector": "Lain-lain",
+      "bursaCode": "5343"
+    },
+    {
+      "symbol": "SLVEST",
+      "ticker": "0215.KL",
+      "tvSymbol": "MYX:SLVEST",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "0215"
+    },
+    {
+      "symbol": "JTGROUP",
+      "ticker": "0292.KL",
+      "tvSymbol": "MYX:JTGROUP",
+      "market": "KLSE",
+      "sector": "Industrials",
+      "bursaCode": "0292"
+    },
+    {
+      "symbol": "NVDA",
+      "ticker": "NVDA",
+      "tvSymbol": "NASDAQ:NVDA",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "AAPL",
+      "ticker": "AAPL",
+      "tvSymbol": "NASDAQ:AAPL",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "TSLA",
+      "ticker": "TSLA",
+      "tvSymbol": "NASDAQ:TSLA",
+      "market": "US",
+      "sector": "Consumer"
+    },
+    {
+      "symbol": "MSFT",
+      "ticker": "MSFT",
+      "tvSymbol": "NASDAQ:MSFT",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "GOOGL",
+      "ticker": "GOOGL",
+      "tvSymbol": "NASDAQ:GOOGL",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "AMZN",
+      "ticker": "AMZN",
+      "tvSymbol": "NASDAQ:AMZN",
+      "market": "US",
+      "sector": "Consumer"
+    },
+    {
+      "symbol": "META",
+      "ticker": "META",
+      "tvSymbol": "NASDAQ:META",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "AMD",
+      "ticker": "AMD",
+      "tvSymbol": "NASDAQ:AMD",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "AKAM",
+      "ticker": "AKAM",
+      "tvSymbol": "NASDAQ:AKAM",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "CM",
+      "ticker": "CM",
+      "tvSymbol": "NYSE:CM",
+      "market": "US",
+      "sector": "Finance"
+    },
+    {
+      "symbol": "CDNA",
+      "ticker": "CDNA",
+      "tvSymbol": "NASDAQ:CDNA",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "PPLI",
+      "ticker": "PPLI",
+      "tvSymbol": "NASDAQ:PPLI",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "DDOG",
+      "ticker": "DDOG",
+      "tvSymbol": "NASDAQ:DDOG",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "PEB",
+      "ticker": "PEB",
+      "tvSymbol": "NYSE:PEB",
+      "market": "US",
+      "sector": "Finance"
+    },
+    {
+      "symbol": "WTTR",
+      "ticker": "WTTR",
+      "tvSymbol": "NYSE:WTTR",
+      "market": "US",
+      "sector": "Energy"
+    },
+    {
+      "symbol": "RGEN",
+      "ticker": "RGEN",
+      "tvSymbol": "NASDAQ:RGEN",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "HUM",
+      "ticker": "HUM",
+      "tvSymbol": "NYSE:HUM",
+      "market": "US",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "MXL",
+      "ticker": "MXL",
+      "tvSymbol": "NASDAQ:MXL",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "NEOG",
+      "ticker": "NEOG",
+      "tvSymbol": "NASDAQ:NEOG",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "VTRS",
+      "ticker": "VTRS",
+      "tvSymbol": "NASDAQ:VTRS",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "BNS",
+      "ticker": "BNS",
+      "tvSymbol": "NYSE:BNS",
+      "market": "US",
+      "sector": "Finance"
+    },
+    {
+      "symbol": "TXG",
+      "ticker": "TXG",
+      "tvSymbol": "NASDAQ:TXG",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "HAFN",
+      "ticker": "HAFN",
+      "tvSymbol": "NYSE:HAFN",
+      "market": "US",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "COHU",
+      "ticker": "COHU",
+      "tvSymbol": "NASDAQ:COHU",
+      "market": "US",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "PGEN",
+      "ticker": "PGEN",
+      "tvSymbol": "NASDAQ:PGEN",
+      "market": "US",
+      "sector": "Technology"
+    }
   ]
 }
