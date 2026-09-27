@@ -2,7 +2,7 @@
   "_nota": "Watchlist screener.payedlegacy.my — dipilih SEMULA secara automatik setiap minggu oleh discover_watchlist.py (enjin Global Mega-Breakout & Volume Surge). Kaunter besar dalam 'anchors' dikekalkan; selebihnya ialah calon terbaik minggu ini. PENTING: kaunter Bursa Malaysia guna KOD ANGKA Yahoo Finance (cth 5398.KL = Gamuda). 'sector' ialah label untuk penapis di index.html. 'bursaCode' untuk padanan senarai Syariah SC.",
   "updated": "2026-09-27",
   "generatedBy": "discover_watchlist.py (mingguan)",
-  "generatedAtMYT": "27 Sep 2026, 02:35 PM (MYT)",
+  "generatedAtMYT": "27 Sep 2026, 03:44 PM (MYT)",
   "anchors": {
     "KLSE": [
       "MAYBANK",
