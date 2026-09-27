@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generatedAt": "2026-09-27T14:37:59+08:00",
-    "generatedAtMYT": "27 Sep 2026, 2:37 PM (MYT)",
-    "generatedAtUTC": "2026-09-27T06:37:59+00:00",
+    "generatedAt": "2026-09-27T15:45:17+08:00",
+    "generatedAtMYT": "27 Sep 2026, 3:45 PM (MYT)",
+    "generatedAtUTC": "2026-09-27T07:45:17+00:00",
     "symbolCount": 80,
     "klseCount": 55,
     "usCount": 25,
@@ -156,7 +156,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:50+08:00",
+      "updatedAt": "2026-09-27T15:45:10+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -231,7 +231,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:50+08:00",
+      "updatedAt": "2026-09-27T15:45:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -306,7 +306,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:50+08:00",
+      "updatedAt": "2026-09-27T15:45:10+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -379,7 +379,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:50+08:00",
+      "updatedAt": "2026-09-27T15:45:10+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -426,7 +426,7 @@
       "macdState": "BEARISH",
       "patterns": [],
       "patternSummary": "",
-      "pe": 27.11,
+      "pe": 28.71,
       "divYield": 2.05,
       "dividendTTM": 0.1,
       "totalDebt": 13000886272.0,
@@ -452,7 +452,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:50+08:00",
+      "updatedAt": "2026-09-27T15:45:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -525,7 +525,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:50+08:00",
+      "updatedAt": "2026-09-27T15:45:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -598,7 +598,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:50+08:00",
+      "updatedAt": "2026-09-27T15:45:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -673,7 +673,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:51+08:00",
+      "updatedAt": "2026-09-27T15:45:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -746,7 +746,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:51+08:00",
+      "updatedAt": "2026-09-27T15:45:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -821,7 +821,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:51+08:00",
+      "updatedAt": "2026-09-27T15:45:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -894,7 +894,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:51+08:00",
+      "updatedAt": "2026-09-27T15:45:10+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -969,7 +969,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:51+08:00",
+      "updatedAt": "2026-09-27T15:45:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1042,7 +1042,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:51+08:00",
+      "updatedAt": "2026-09-27T15:45:10+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1089,7 +1089,7 @@
       "macdState": "BEARISH",
       "patterns": [],
       "patternSummary": "",
-      "pe": 10.57,
+      "pe": 10.52,
       "divYield": 4.24,
       "dividendTTM": 0.98,
       "totalDebt": 16040604672.0,
@@ -1115,7 +1115,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:51+08:00",
+      "updatedAt": "2026-09-27T15:45:10+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1188,7 +1188,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:51+08:00",
+      "updatedAt": "2026-09-27T15:45:10+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1263,7 +1263,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:51+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1338,7 +1338,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:51+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1413,7 +1413,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:51+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1486,7 +1486,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:52+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1561,7 +1561,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:52+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1634,7 +1634,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:51+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1710,7 +1710,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:52+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1785,7 +1785,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:52+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1860,7 +1860,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:52+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -1935,7 +1935,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:52+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -2008,7 +2008,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:52+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -2083,7 +2083,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:52+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -2158,7 +2158,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:52+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -2231,7 +2231,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:52+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -2304,7 +2304,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:52+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -2351,7 +2351,7 @@
       "macdState": "BULLISH",
       "patterns": [],
       "patternSummary": "",
-      "pe": 35.75,
+      "pe": 40.86,
       "divYield": 0.84,
       "dividendTTM": 0.024,
       "totalDebt": 313905984.0,
@@ -2377,7 +2377,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:52+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -2450,7 +2450,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:52+08:00",
+      "updatedAt": "2026-09-27T15:45:11+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -2523,7 +2523,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:53+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -2598,7 +2598,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:53+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -2671,7 +2671,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:52+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -2744,7 +2744,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:53+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -2817,7 +2817,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:53+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -2892,7 +2892,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:53+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -2965,7 +2965,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:53+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -3040,7 +3040,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:53+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -3115,7 +3115,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:53+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -3188,7 +3188,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:53+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -3263,7 +3263,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:53+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -3338,7 +3338,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:53+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -3411,7 +3411,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:53+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -3486,7 +3486,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:54+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -3561,7 +3561,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:53+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -3636,7 +3636,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:54+08:00",
+      "updatedAt": "2026-09-27T15:45:12+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -3709,7 +3709,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:54+08:00",
+      "updatedAt": "2026-09-27T15:45:13+08:00",
       "shariah": false,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -3784,7 +3784,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:54+08:00",
+      "updatedAt": "2026-09-27T15:45:13+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -3859,7 +3859,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:54+08:00",
+      "updatedAt": "2026-09-27T15:45:13+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -3934,7 +3934,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:54+08:00",
+      "updatedAt": "2026-09-27T15:45:13+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -4009,7 +4009,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:54+08:00",
+      "updatedAt": "2026-09-27T15:45:13+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -4082,7 +4082,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:54+08:00",
+      "updatedAt": "2026-09-27T15:45:13+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -4155,7 +4155,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:54+08:00",
+      "updatedAt": "2026-09-27T15:45:13+08:00",
       "shariah": true,
       "shariahSource": "SC — Senarai Sekuriti Patuh Syariah (2026-05-29)",
       "shariahListDate": "2026-05-29"
@@ -4230,7 +4230,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:54+08:00",
+      "updatedAt": "2026-09-27T15:45:13+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -4303,7 +4303,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:55+08:00",
+      "updatedAt": "2026-09-27T15:45:13+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -4378,7 +4378,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:55+08:00",
+      "updatedAt": "2026-09-27T15:45:13+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -4425,7 +4425,7 @@
       "macdState": "BEARISH",
       "patterns": [],
       "patternSummary": "",
-      "pe": 28.72,
+      "pe": 28.74,
       "divYield": 0.71,
       "dividendTTM": 3.64,
       "totalDebt": 128812998656.0,
@@ -4451,7 +4451,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:55+08:00",
+      "updatedAt": "2026-09-27T15:45:13+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -4524,7 +4524,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:55+08:00",
+      "updatedAt": "2026-09-27T15:45:13+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -4597,7 +4597,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:55+08:00",
+      "updatedAt": "2026-09-27T15:45:13+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -4670,7 +4670,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:55+08:00",
+      "updatedAt": "2026-09-27T15:45:13+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -4717,7 +4717,7 @@
       "macdState": "BULLISH",
       "patterns": [],
       "patternSummary": "",
-      "pe": 161.7,
+      "pe": 161.29,
       "divYield": 0.0,
       "dividendTTM": 0.0,
       "totalDebt": 4276000000.0,
@@ -4743,7 +4743,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:55+08:00",
+      "updatedAt": "2026-09-27T15:45:14+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -4816,7 +4816,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:55+08:00",
+      "updatedAt": "2026-09-27T15:45:14+08:00",
       "shariah": false,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -4889,7 +4889,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:55+08:00",
+      "updatedAt": "2026-09-27T15:45:14+08:00",
       "shariah": false,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -4962,7 +4962,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:55+08:00",
+      "updatedAt": "2026-09-27T15:45:14+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -5035,7 +5035,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:55+08:00",
+      "updatedAt": "2026-09-27T15:45:14+08:00",
       "shariah": false,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -5110,7 +5110,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:55+08:00",
+      "updatedAt": "2026-09-27T15:45:14+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -5161,7 +5161,7 @@
       "divYield": 0.22,
       "dividendTTM": 0.04,
       "totalDebt": 2461483008.0,
-      "marketCap": 2071362944.0,
+      "marketCap": 2078562944.0,
       "signal": "NEUTRAL",
       "scannerId": "global_breakout_momentum_scanner",
       "tvSymbol": "NYSE:PEB",
@@ -5183,7 +5183,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:56+08:00",
+      "updatedAt": "2026-09-27T15:45:14+08:00",
       "shariah": false,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -5256,7 +5256,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:56+08:00",
+      "updatedAt": "2026-09-27T15:45:14+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -5331,7 +5331,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:56+08:00",
+      "updatedAt": "2026-09-27T15:45:14+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -5404,7 +5404,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:56+08:00",
+      "updatedAt": "2026-09-27T15:45:14+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -5477,7 +5477,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:56+08:00",
+      "updatedAt": "2026-09-27T15:45:14+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -5550,7 +5550,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:56+08:00",
+      "updatedAt": "2026-09-27T15:45:14+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -5623,7 +5623,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:56+08:00",
+      "updatedAt": "2026-09-27T15:45:15+08:00",
       "shariah": false,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -5676,7 +5676,7 @@
       "divYield": 1.71,
       "dividendTTM": 1.595,
       "totalDebt": 344388009984.0,
-      "marketCap": 113747075072.0,
+      "marketCap": 113936228352.0,
       "signal": "NEUTRAL",
       "scannerId": "global_breakout_momentum_scanner",
       "tvSymbol": "NYSE:BNS",
@@ -5698,7 +5698,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:56+08:00",
+      "updatedAt": "2026-09-27T15:45:14+08:00",
       "shariah": false,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -5745,7 +5745,7 @@
       "macdState": "BULLISH",
       "patterns": [],
       "patternSummary": "",
-      "pe": 421.53,
+      "pe": 779.18,
       "divYield": 0.0,
       "dividendTTM": 0.0,
       "totalDebt": 78796000.0,
@@ -5771,7 +5771,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:56+08:00",
+      "updatedAt": "2026-09-27T15:45:14+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -5844,7 +5844,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:56+08:00",
+      "updatedAt": "2026-09-27T15:45:15+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -5917,7 +5917,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:57+08:00",
+      "updatedAt": "2026-09-27T15:45:15+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
@@ -5968,7 +5968,7 @@
       "divYield": 0.0,
       "dividendTTM": 0.0,
       "totalDebt": 98345000.0,
-      "marketCap": 2762960128.0,
+      "marketCap": 2774772992.0,
       "signal": "NEUTRAL",
       "scannerId": "global_breakout_momentum_scanner",
       "tvSymbol": "NASDAQ:PGEN",
@@ -5990,7 +5990,7 @@
       "sampleDate": "2026-09-25",
       "sessionDate": "2026-09-25",
       "closeStale": false,
-      "updatedAt": "2026-09-27T14:37:57+08:00",
+      "updatedAt": "2026-09-27T15:45:15+08:00",
       "shariah": true,
       "shariahSource": "Heuristik AAOIFI (anggaran)",
       "shariahListDate": "2026-05-29"
