@@ -309,6 +309,13 @@ details>summary::-webkit-details-marker{display:none}
 .pl-mini-disclaim i{color:var(--gold)}
 @media (max-width:640px){.pl-disclaimer{padding:15px 14px 12px 18px}.pl-disclaimer__head{font-size:15px}
   .pl-disclaimer p,.pl-disclaimer ul{font-size:12.5px}}
+/* PENTING (audit 27-09-2026): unit iklan AdSense memasukkan iframe lebih lebar
+   daripada skrin telefon (1190px) -> halaman boleh ditolak ke tepi pada telefon.
+   Hadkan kepada lebar bekas supaya susun atur kekal kemas. */
+ins.adsbygoogle{display:block !important;width:100% !important;max-width:100% !important;overflow:hidden !important}
+ins.adsbygoogle iframe,ins.adsbygoogle > div,ins.adsbygoogle div[id^="aswift_"],ins.adsbygoogle ins{
+  max-width:100% !important;width:100% !important}
+@media (max-width:640px){body{overflow-x:hidden}}
 </style>
 </head>
 <body class="pl-glass text-slate-100 min-h-screen flex flex-col">
