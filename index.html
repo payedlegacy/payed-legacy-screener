@@ -316,6 +316,9 @@ ins.adsbygoogle{display:block !important;width:100% !important;max-width:100% !i
 ins.adsbygoogle iframe,ins.adsbygoogle > div,ins.adsbygoogle div[id^="aswift_"],ins.adsbygoogle ins{
   max-width:100% !important;width:100% !important}
 @media (max-width:640px){body{overflow-x:hidden}}
+/* Slot iklan yang tidak diisi Google: jangan tinggalkan panel kosong besar */
+ins.adsbygoogle[data-ad-status="unfilled"]{display:none !important}
+div:has(> ins.adsbygoogle[data-ad-status="unfilled"]){display:none !important}
 </style>
 </head>
 <body class="pl-glass text-slate-100 min-h-screen flex flex-col">
