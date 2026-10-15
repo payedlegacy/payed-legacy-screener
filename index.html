@@ -319,6 +319,22 @@ ins.adsbygoogle iframe,ins.adsbygoogle > div,ins.adsbygoogle div[id^="aswift_"],
 /* Slot iklan yang tidak diisi Google: jangan tinggalkan panel kosong besar */
 ins.adsbygoogle[data-ad-status="unfilled"]{display:none !important}
 div:has(> ins.adsbygoogle[data-ad-status="unfilled"]){display:none !important}
+
+  /* ================= PEMBETULAN 15-10-2026 ================= 
+     .pl-backdrop (position:fixed z-index:70 + backdrop-filter:blur(8px)) ialah ANAK .pl-modal
+     (z-index:80) dan kotak modal hanya Tailwind z-10 -> backdrop dilukis DI ATAS kandungan.
+     Kesannya: modal (QR DuitNow, kalkulator, alert) kelihatan gelap & kabur / imej QR seolah tidak keluar.
+     Scope kepada anak langsung .pl-modal sahaja supaya drawer (backdrop di bawah <body>) tidak terjejas. */
+  .pl-modal > .pl-modal-box { position: relative; z-index: 75; }
+  .pl-modal > .pl-backdrop { z-index: 60; }
+
+  /* ---- PUNCA UTAMA 15-10-2026: <body class="pl-glass"> membawa backdrop-filter:blur(14px).
+     Menurut spec CSS, backdrop-filter (seperti filter/transform) mencipta CONTAINING BLOCK bagi
+     keturunan position:fixed -> SEMUA modal & drawer (QR DuitNow, kalkulator, alert, drawer saham)
+     tidak lagi melekat pada skrin; ia diletak relatif kepada kotak body (setinggi dokumen) dan
+     bergerak bila halaman diskrol (gambar QR 'tidak keluar'/tersorok).
+     Latar rgba dikekalkan; hanya backdrop-filter dinyahaktifkan pada body. */
+  body.pl-glass { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 </style>
 </head>
 <body class="pl-glass text-slate-100 min-h-screen flex flex-col">
@@ -926,7 +942,7 @@ div:has(> ins.adsbygoogle[data-ad-status="unfilled"]){display:none !important}
     <h3 id="supportTitle" class="text-base font-extrabold text-white" data-i18n="qr_title">QR DuitNow</h3>
     <p class="text-[11px] text-slate-400 leading-relaxed" data-i18n="qr_sub">Imbas QR DuitNow ini menggunakan mana-mana aplikasi perbankan Malaysia atau TNG eWallet untuk menyokong penyenggaraan alat percuma ini. Sumbangan adalah sukarela.</p>
     <div class="inline-block rounded-xl border border-white/10 bg-ink-950/60 p-3">
-      <img id="duitnowQrImg" src="assets/duitnow-qr.png" alt="QR DuitNow — Mohamad Farid Bin Mat (Malaysia National QR)" class="w-52 h-52 mx-auto rounded-lg bg-white object-contain" loading="lazy">
+      <img id="duitnowQrImg" src="assets/duitnow-qr.png" alt="QR DuitNow — Mohamad Farid Bin Mat (Malaysia National QR)" class="w-full max-w-[300px] h-auto mx-auto rounded-lg bg-white object-contain" loading="lazy">
       <p class="mt-2 text-[11px] font-bold text-slate-300" data-i18n="qr_payee">Mohamad Farid Bin Mat · Malaysia National QR (BSN)</p>
       <p id="duitnowQrNotice" class="hidden mt-1 text-[10px] font-semibold text-rose-300" data-i18n="qr_err">Imej QR tidak dapat dimuatkan. Sila muat semula halaman.</p>
       <a href="assets/duitnow-qr.png" target="_blank" rel="noopener" class="mt-1 inline-block text-[10px] font-semibold text-brand-400 hover:underline" data-i18n="qr_open">Buka imej penuh</a>
