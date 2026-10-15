@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panduan Saham &amp; Penggunaan Screener | Payed Legacy</title>
+<meta name="description" content="Panduan Bahasa Melayu untuk pelabur: cara guna screener saham ini, asas analisis teknikal (EMA, RSI, MACD, volum) dan maksud saham patuh Syariah.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#04070f">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://screener.payedlegacy.my/panduan.html">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payed Legacy Screener">
+<meta property="og:locale" content="ms_MY">
+<meta property="og:title" content="Panduan Saham &amp; Penggunaan Screener | Payed Legacy">
+<meta property="og:description" content="Panduan Bahasa Melayu untuk pelabur: cara guna screener saham ini, asas analisis teknikal (EMA, RSI, MACD, volum) dan maksud saham patuh Syariah.">
+<meta property="og:url" content="https://screener.payedlegacy.my/panduan.html">
+<meta property="og:image" content="https://screener.payedlegacy.my/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Panduan Saham &amp; Penggunaan Screener | Payed Legacy">
+<meta name="twitter:description" content="Panduan Bahasa Melayu untuk pelabur: cara guna screener saham ini, asas analisis teknikal (EMA, RSI, MACD, volum) dan maksud saham patuh Syariah.">
+<meta name="twitter:image" content="https://screener.payedlegacy.my/assets/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: {
+        ink: { 950: '#04070f', 900: '#070d1a', 850: '#0a1220', 800: '#0d1728', 700: '#132039' },
+        brand: { 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb' },
+        gold: { 300: '#fcd34d', 400: '#fbbf24', 500: '#f59e0b' }
+      },
+      fontFamily: { sans: ['Inter', 'Segoe UI', 'system-ui', 'sans-serif'] }
+    } }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #04070f; font-family: 'Inter','Segoe UI',system-ui,sans-serif; }
+  .dokumen h2 { font-size: 1.15rem; font-weight: 800; color: #ffffff; margin-top: 2.3rem; margin-bottom: .7rem; }
+  .dokumen h3 { font-size: 1rem; font-weight: 700; color: #e2e8f0; margin-top: 1.6rem; margin-bottom: .45rem; }
+  .dokumen p, .dokumen li, .dokumen td, .dokumen th { line-height: 1.85; }
+  .dokumen ul { list-style: disc; padding-left: 1.35rem; margin-bottom: 1rem; }
+  .dokumen ol { list-style: decimal; padding-left: 1.35rem; margin-bottom: 1rem; }
+  .dokumen a { color: #60a5fa; text-decoration: underline; }
+  .dokumen strong { color: #ffffff; }
+  .dokumen table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: .9rem; }
+  .dokumen th, .dokumen td { border: 1px solid rgba(255,255,255,.09); padding: .55rem .65rem; text-align: left; }
+  .dokumen th { background: rgba(255,255,255,.05); color: #f8fafc; font-weight: 700; }
+  .jadual-skrol { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .nota { background: rgba(59,130,246,.08); border-left: 4px solid #3b82f6; padding: .9rem 1rem; border-radius: .5rem; margin: 1.2rem 0; }
+  .amaran { background: rgba(251,191,36,.08); border-left: 4px solid #fbbf24; padding: .9rem 1rem; border-radius: .5rem; margin: 1.2rem 0; }
+  ins.adsbygoogle { display: block !important; width: 100% !important; max-width: 100% !important; overflow: hidden !important; }
+  ins.adsbygoogle iframe, ins.adsbygoogle > div, ins.adsbygoogle div[id^="aswift_"] { max-width: 100% !important; width: 100% !important; }
+  ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
+  div:has(> ins.adsbygoogle[data-ad-status="unfilled"]) { display: none !important; }
+  @media (max-width: 700px) {
+    body { overflow-x: hidden; }
+    .dokumen table { font-size: .78rem; }
+    .dokumen th, .dokumen td { padding: .35rem .4rem; word-break: break-word; }
+  }
+</style>
+<!-- Google AdSense (Auto Ads + unit manual) -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9978987699948390" crossorigin="anonymous"></script>
+
+</head>
+<body class="text-slate-300 font-sans antialiased">
+
+<header class="sticky top-0 z-50 backdrop-blur bg-ink-950/85 border-b border-white/5">
+  <div class="max-w-[1100px] mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+    <a href="/" class="flex items-center gap-2 group">
+      <span class="grid place-items-center w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-cyan-400 text-ink-950 font-black text-sm">PL</span>
+      <span>
+        <span class="block text-sm font-bold text-white leading-tight">Screener Saham</span>
+        <span class="block text-[10px] text-slate-400 leading-tight">screener.payedlegacy.my</span>
+      </span>
+    </a>
+    <nav class="flex flex-wrap items-center gap-1 text-xs font-semibold">
+      <a href="/" class="px-3 py-1.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition">Screener</a>
+      <a href="panduan.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition">Panduan</a>
+      <a href="tentang-kami.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition">Tentang</a>
+      <a href="hubungi-kami.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white transition">Hubungi</a>
+    </nav>
+  </div>
+</header>
+
+<section class="border-b border-white/5 bg-gradient-to-b from-ink-900 to-ink-950">
+  <div class="max-w-[900px] mx-auto px-4 py-10 sm:py-14 text-center">
+    <h1 class="text-2xl sm:text-4xl font-black text-white tracking-tight">PANDUAN SAHAM &amp; SCREENER</h1>
+    <p class="mt-3 text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">Tiga panduan praktikal untuk membantu anda menggunakan screener ini dengan lebih berkesan — ditulis dalam Bahasa Melayu yang mudah.</p>
+    
+  </div>
+</section>
+
+<main class="max-w-[900px] mx-auto px-4 py-10">
+  <article class="bg-ink-850/60 border border-white/5 rounded-2xl p-5 sm:p-8 dokumen text-slate-300 text-sm sm:text-[15px]">
+      <p>Screener hanya berguna jika anda tahu apa yang sedang dicari. Tiga panduan di bawah disusun mengikut turutan yang paling praktikal: mula dengan <strong>cara menggunakan alat ini</strong>, kemudian fahami <strong>penunjuk yang dipaparkan</strong>, dan akhirnya faham <strong>status Syariah</strong> bagi kaunter yang anda pilih.</p>
+
+      <div class="grid md:grid-cols-3 gap-5 my-8">
+
+        <a href="panduan-cara-guna-screener.html" class="block bg-ink-900/70 border border-white/10 rounded-2xl p-5 hover:border-brand-500 transition">
+          <p class="text-[10px] font-bold tracking-widest text-brand-400 uppercase">Penggunaan</p>
+          <h2 class="text-base font-bold text-white mt-2" style="margin-top:.5rem">Cara Guna Screener</h2>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">Langkah demi langkah: pilih pasaran, gunakan preset, baca lajur penunjuk, tanda kaunter, set alert dan kira saiz posisi.</p>
+          <p class="text-xs font-bold text-brand-400 mt-3">Baca panduan &rarr;</p>
+        </a>
+
+        <a href="panduan-asas-analisis-teknikal.html" class="block bg-ink-900/70 border border-white/10 rounded-2xl p-5 hover:border-brand-500 transition">
+          <p class="text-[10px] font-bold tracking-widest text-brand-400 uppercase">Asas Penunjuk</p>
+          <h2 class="text-base font-bold text-white mt-2" style="margin-top:.5rem">Asas Analisis Teknikal</h2>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">Maksud sebenar EMA, RSI, MACD, volum relatif dan pecahan 52 minggu — serta cara menggunakannya tanpa terperangkap.</p>
+          <p class="text-xs font-bold text-brand-400 mt-3">Baca panduan &rarr;</p>
+        </a>
+
+        <a href="panduan-saham-patuh-syariah.html" class="block bg-ink-900/70 border border-white/10 rounded-2xl p-5 hover:border-brand-500 transition">
+          <p class="text-[10px] font-bold tracking-widest text-brand-400 uppercase">Skrin Syariah</p>
+          <h2 class="text-base font-bold text-white mt-2" style="margin-top:.5rem">Saham Patuh Syariah</h2>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">Apa maksud label Syariah, bagaimana penapisan dibuat, mengapa status boleh berubah, dan apa yang perlu anda semak sendiri.</p>
+          <p class="text-xs font-bold text-brand-400 mt-3">Baca panduan &rarr;</p>
+        </a>
+
+      </div>
+
+      <h2>Perkara Penting Sebelum Membaca</h2>
+      <div class="amaran">
+        <p>Ketiga-tiga panduan ini bersifat <strong>pendidikan</strong>. Ia menerangkan <em>apa maksud angka</em> dan <em>bagaimana sesuatu alat berfungsi</em> — bukan apa yang perlu anda beli atau jual. Tiada penunjuk boleh meramal harga dengan pasti, dan tiada tapisan boleh menghapuskan risiko. Sila rujuk <a href="terma-penafian.html">Terma &amp; Penafian</a> kami.</p>
+      </div>
+
+      <h2>Cadangan Turutan Pembelajaran</h2>
+      <ol>
+        <li><strong>Minggu pertama</strong> — baca <a href="panduan-cara-guna-screener.html">Cara Guna Screener</a> dan biasakan diri dengan tab, penapis dan carta. Jangan buat sebarang urus niaga;</li>
+        <li><strong>Minggu kedua</strong> — baca <a href="panduan-asas-analisis-teknikal.html">Asas Analisis Teknikal</a> dan cuba kenal pasti tiga kaunter yang memenuhi satu kriteria sahaja (contohnya volum relatif tinggi);</li>
+        <li><strong>Selepas itu</strong> — mula menggunakan kalkulator saiz posisi supaya setiap urus niaga ada had risiko yang jelas sebelum anda mempertimbangkan urus niaga sebenar.</li>
+      </ol>
+
+      <h2>Mahu Berbincang?</h2>
+      <p>Jika ada istilah yang masih tidak jelas, hantar pertanyaan melalui halaman <a href="hubungi-kami.html">Hubungi Kami</a> — soalan yang sering berulang akan kami jadikan panduan baharu.</p>
+  </article>
+
+  <div class="mt-8 bg-ink-900/60 border border-white/5 rounded-2xl p-4 text-center">
+    <p class="text-[10px] uppercase tracking-widest text-slate-500 mb-2">Iklan / Sponsored</p>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9978987699948390" data-ad-slot="5488827446" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</main>
+
+<footer class="mt-10 border-t border-white/5 bg-ink-950/70">
+  <div class="max-w-[1100px] mx-auto px-4 py-9 grid md:grid-cols-3 gap-7 text-xs">
+    <div class="space-y-2">
+      <p class="font-bold text-white text-sm">screener.payedlegacy.my</p>
+      <p class="text-slate-400 leading-relaxed">Screener saham percuma untuk pelabur Bursa Malaysia dan pasaran US. Bukan nasihat pelaburan — rujuk <a href="terma-penafian.html" class="text-brand-400 hover:underline">Terma &amp; Penafian</a>.</p>
+    </div>
+    <div class="space-y-2">
+      <p class="font-bold text-white uppercase tracking-wider">Pautan</p>
+      <ul class="space-y-1.5 text-slate-400">
+        <li><a href="/" class="hover:text-white transition">Screener Saham</a></li>
+        <li><a href="panduan.html" class="hover:text-white transition">Panduan Penggunaan</a></li>
+        <li><a href="tentang-kami.html" class="hover:text-white transition">Tentang Kami</a></li>
+        <li><a href="hubungi-kami.html" class="hover:text-white transition">Hubungi Kami</a></li>
+      </ul>
+    </div>
+    <div class="space-y-2">
+      <p class="font-bold text-white uppercase tracking-wider">Polisi</p>
+      <ul class="space-y-1.5 text-slate-400">
+        <li><a href="polisi-privasi.html" class="hover:text-white transition">Polisi Privasi</a></li>
+        <li><a href="terma-penafian.html" class="hover:text-white transition">Terma Penggunaan &amp; Penafian</a></li>
+        <li><a href="mailto:payedlegacy@gmail.com" class="hover:text-white transition">payedlegacy@gmail.com</a></li>
+        <li><a href="https://wa.me/60129966769" target="_blank" rel="noopener" class="hover:text-white transition">WhatsApp: +6012-996 6769</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="text-center pb-8 text-[11px] text-slate-500 max-w-[1100px] mx-auto px-4">
+    &copy; 2026 Payed Legacy Screener &middot; Powered by ERA Realtor Sdn Bhd &middot; Data pasaran daripada sumber awam (Yahoo Finance, TradingView) untuk rujukan sahaja.
+  </div>
+</footer>
+
+</body>
+</html>
