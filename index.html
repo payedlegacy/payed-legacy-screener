@@ -51,6 +51,7 @@
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <!-- Google AdSense -->
+<meta name="google-adsense-account" content="ca-pub-9978987699948390">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9978987699948390" crossorigin="anonymous"></script>
 
 <script>
@@ -2958,13 +2959,35 @@ function buildTickerTape(force) {
   box.appendChild(sc);
 }
 
-/* ------------------------------ ads ------------------------------ */
+/* ------------------------------ ads ------------------------------
+   Permintaan iklan dihantar HANYA apabila slot memasuki skrin dan lebarnya sudah
+   muktamad (flex + Tailwind siap). Sebelum ini push dibuat awal di DOMContentLoaded
+   dan Google mengukur lebar yang salah (470px) — kurang peluang diisi.
+   Setiap <ins> di-push sekali sahaja (AdSense tidak membenarkan push berulang). */
 function initAds() {
-  const ins = document.querySelectorAll('ins.adsbygoogle');
-  ins.forEach(el => {
-    if (el.getAttribute('data-adsbygoogle-status')) return;
+  const all = Array.prototype.slice.call(document.querySelectorAll('ins.adsbygoogle'));
+  if (!all.length) return;
+  function minta(el) {
+    if (!el || el.getAttribute('data-adsbygoogle-status')) return;
+    const w = el.getBoundingClientRect().width;
+    if (!w) return;
     try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
-  });
+  }
+  if (!('IntersectionObserver' in window)) {
+    setTimeout(function () { all.forEach(minta); }, 700);
+    return;
+  }
+  const io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      io.unobserve(en.target);
+      /* dua bingkai + jeda kecil: biar susun atur siap sebelum Google mengukur */
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { setTimeout(function () { minta(en.target); }, 150); });
+      });
+    });
+  }, { rootMargin: '300px 0px', threshold: 0.01 });
+  all.forEach(function (el) { io.observe(el); });
 }
 
 /* ------------------------------ language ------------------------------ */
