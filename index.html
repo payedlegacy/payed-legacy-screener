@@ -335,6 +335,54 @@ div:has(> ins.adsbygoogle[data-ad-status="unfilled"]){display:none !important}
      bergerak bila halaman diskrol (gambar QR 'tidak keluar'/tersorok).
      Latar rgba dikekalkan; hanya backdrop-filter dinyahaktifkan pada body. */
   body.pl-glass { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+
+  /* ================= TAMBAHAN 20-10-2026 =================
+     1) lencana amaran volum nipis  2) kumpulan preset mengikut kategori
+     3) slot iklan berstruktur (AdSense + banner afiliasi broker) */
+  .pl-tag--warn{background:linear-gradient(135deg,rgba(251,146,60,.22),rgba(248,113,113,.16));
+    color:#fdba74;border-color:rgba(251,146,60,.55)}
+  .pl-tag--warn:hover{color:#fed7aa;border-color:rgba(251,146,60,.8)}
+  .pl-illiquid{box-shadow:0 0 0 1px rgba(251,146,60,.18) inset}
+
+  .pl-preset-group{display:flex;flex-direction:column;gap:7px;padding:8px 10px;border-radius:12px;
+    border:1px solid var(--line);border-left:3px solid var(--line-2);background:rgba(4,7,15,.32)}
+  .pl-preset-group__label{display:flex;align-items:center;gap:6px;margin:0;font-size:9px;font-weight:800;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+  .pl-preset-group--all{border-left-color:#64748b}
+  .pl-preset-group--teknikal{border-left-color:#3b82f6;background:linear-gradient(90deg,rgba(59,130,246,.10),rgba(4,7,15,.32) 45%)}
+  .pl-preset-group--teknikal .pl-preset-group__label{color:#93c5fd}
+  .pl-preset-group--fundamental{border-left-color:#fbbf24;background:linear-gradient(90deg,rgba(251,191,36,.10),rgba(4,7,15,.32) 45%)}
+  .pl-preset-group--fundamental .pl-preset-group__label{color:#fcd34d}
+  .pl-preset-group--syariah{border-left-color:#2dd4bf;background:linear-gradient(90deg,rgba(45,212,191,.10),rgba(4,7,15,.32) 45%)}
+  .pl-preset-group--syariah .pl-preset-group__label{color:#5eead4}
+  .pl-preset-on{box-shadow:0 0 0 1px rgba(255,255,255,.24) inset,0 10px 24px -14px rgba(59,130,246,.9)}
+  .pl-preset-hint{margin:0;font-size:10px;line-height:1.55;color:var(--dim)}
+
+  .pl-ad-slot{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    background:linear-gradient(180deg,rgba(15,26,44,.92),rgba(8,14,26,.94));
+    box-shadow:0 16px 40px -28px rgba(2,6,23,.95)}
+  .pl-ad-slot__head{display:flex;align-items:center;justify-content:space-between;gap:8px;
+    padding:6px 12px;border-bottom:1px dashed var(--line)}
+  .pl-ad-slot__label{font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+  .pl-ad-slot__note{font-size:9px;color:var(--dim)}
+  /* flex (bukan grid): bila AdSense tidak mengisi slot, unit itu disembunyikan oleh
+     peraturan div:has(...unfilled) dan banner afiliasi mengisi seluruh baris. */
+  .pl-ad-slot__body{display:flex;flex-direction:column;align-items:stretch}
+  .pl-ad-slot__unit{flex:1 1 auto;min-width:0;padding:8px 10px;text-align:center}
+  @media (min-width:900px){.pl-ad-slot__body--split{flex-direction:row}}
+  .pl-ad-aff{display:flex;align-items:center;gap:10px;padding:11px 12px;text-decoration:none;
+    flex:1 1 340px;min-width:0;
+    border-left:1px solid var(--line);background:linear-gradient(135deg,rgba(59,130,246,.16),rgba(34,211,238,.07));
+    transition:background .15s ease}
+  .pl-ad-aff:hover{background:linear-gradient(135deg,rgba(59,130,246,.28),rgba(34,211,238,.12))}
+  .pl-ad-aff__logo{display:grid;place-items:center;flex:0 0 auto;width:34px;height:34px;border-radius:10px;
+    background:linear-gradient(135deg,#2563eb,#22d3ee);color:#04121f;font-weight:900;font-size:12px}
+  .pl-ad-aff__text{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .pl-ad-aff__title{font-size:12px;font-weight:800;color:#fff;line-height:1.3}
+  .pl-ad-aff__sub{font-size:10px;color:#9fb0c9;line-height:1.45}
+  .pl-ad-aff__cta{flex:0 0 auto;padding:5px 10px;border-radius:8px;background:#fff;color:#0b1322;font-size:10px;font-weight:800}
+  .pl-ad-slot__img{display:block;width:100%;height:auto;border-radius:10px}
+  @media (max-width:899px){.pl-ad-aff{border-left:0;border-top:1px solid var(--line)}}
 </style>
 </head>
 <body class="pl-glass text-slate-100 min-h-screen flex flex-col">
@@ -460,11 +508,36 @@ div:has(> ins.adsbygoogle[data-ad-status="unfilled"]){display:none !important}
 
   <div class="max-w-[1400px] mx-auto px-3 sm:px-5 space-y-6 pb-10">
 
-    <!-- ============ ADSENSE TOP ============ -->
-    <div class="pl-card p-3 text-center" id="adTop">
-      <p class="text-[10px] text-slate-500 mb-1.5 font-semibold tracking-widest uppercase" data-i18n="ads_label">Iklan</p>
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9978987699948390" data-ad-slot="5488827446" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    </div>
+    <!-- ============ SLOT IKLAN (ATAS) ============
+         STRUKTUR: .pl-ad-slot > .pl-ad-slot__head + .pl-ad-slot__body
+           - SLOT A = unit Google AdSense (auto)
+           - SLOT B = banner/gambar pautan afiliasi broker (Moomoo / Rakuten Trade)
+         CARA TUKAR BANNER AFILIASI:
+           1. Letak imej 1200x300 (nisbah 4:1) dalam folder assets/, cth assets/moomoo-banner.png
+           2. Ganti blok <a class="pl-ad-aff"> di bawah dengan:
+              <a class="pl-ad-aff" href="PAUTAN_AFILIASI" target="_blank" rel="sponsored noopener">
+                <img class="pl-ad-slot__img" src="assets/moomoo-banner.png" alt="Moomoo Malaysia" loading="lazy">
+              </a>
+           3. Atau tampal iframe broker di dalam .pl-ad-slot__unit (ganti <ins> AdSense). -->
+    <aside class="pl-ad-slot" id="adTop" aria-label="Iklan">
+      <div class="pl-ad-slot__head">
+        <span class="pl-ad-slot__label" data-i18n="ads_label">Iklan</span>
+        <span class="pl-ad-slot__note" data-i18n="ads_note">Rakan broker (pautan afiliasi)</span>
+      </div>
+      <div class="pl-ad-slot__body pl-ad-slot__body--split">
+        <div class="pl-ad-slot__unit">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9978987699948390" data-ad-slot="5488827446" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        </div>
+        <a class="pl-ad-aff" href="https://j.moomoo.com/0Jzl2X" target="_blank" rel="sponsored noopener" title="Buka akaun Moomoo Malaysia (pautan afiliasi)" data-i18n-title="ads_aff_title">
+          <span class="pl-ad-aff__logo" aria-hidden="true">M+</span>
+          <span class="pl-ad-aff__text">
+            <span class="pl-ad-aff__title" data-i18n="ads_aff_t">Moomoo Malaysia — akaun percuma</span>
+            <span class="pl-ad-aff__sub" data-i18n="ads_aff_s">Daftar melalui pautan rujukan ini. Komisen rakan membantu menampung kos data dan hosting.</span>
+          </span>
+          <span class="pl-ad-aff__cta" data-i18n="ads_aff_cta">Daftar</span>
+        </a>
+      </div>
+    </aside>
 
     <!-- ============ DATA STATUS ============ -->
     <section class="pl-card p-4">
@@ -563,8 +636,9 @@ div:has(> ins.adsbygoogle[data-ad-status="unfilled"]){display:none !important}
             <i data-lucide="eraser" class="w-3 h-3"></i><span data-i18n="btn_reset">Buang semua tapisan</span>
           </button>
         </div>
-        <div id="presetBar" class="flex flex-wrap gap-2 text-[11px] font-semibold"></div>
-        <p id="presetCriteria" class="pl-crit"></p>
+        <p class="pl-preset-hint" data-i18n="preset_multi_hint">Boleh pilih lebih daripada satu tapisan — semua syarat yang dipilih mesti dipenuhi (gabungan DAN).</p>
+        <div id="presetBar" class="space-y-2 text-[11px] font-semibold"></div>
+        <p id="presetCriteria" class="pl-crit" aria-live="polite"></p>
       </div>
 
       <!-- filters -->
@@ -604,6 +678,9 @@ div:has(> ins.adsbygoogle[data-ad-status="unfilled"]){display:none !important}
           <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i><span class="pl-mono" id="matchCounter">—</span>
         </span>
         <div class="flex items-center gap-2">
+          <button onclick="copyTickers()" id="btnCopyTicker" class="pl-btn pl-btn--sm" title="Salin semua ticker hasil saringan (format TradingView)" data-i18n-title="btn_copy_ticker_title">
+            <i data-lucide="clipboard-copy" class="w-3 h-3 text-cyan-300"></i><span data-i18n="btn_copy_ticker">Salin Ticker</span>
+          </button>
           <button onclick="exportCsv()" class="pl-btn pl-btn--sm">
             <i data-lucide="download" class="w-3 h-3"></i><span data-i18n="btn_csv">Muat turun CSV</span>
           </button>
@@ -650,6 +727,7 @@ div:has(> ins.adsbygoogle[data-ad-status="unfilled"]){display:none !important}
           <p><span class="pl-tag pl-tag--ok">RSI &lt; 35</span> <span data-i18n="legend_rsi">RSI bawah 35 bermakna harga sudah terlebih jual, manakala RSI atas 65 terlebih beli.</span></p>
           <p><span class="pl-tag pl-tag--violet">ATH / 52M High</span> <span data-i18n="legend_ath">Harga hampir atau sudah melepasi paras tertinggi sejarah atau 52 minggu.</span></p>
           <p><span class="pl-tag pl-tag--teal">🌙 Syariah</span> <span data-i18n="legend_syariah">Tersenarai dalam senarai sekuriti patuh Syariah Suruhanjaya Sekuriti Malaysia.</span></p>
+          <p><span class="pl-tag pl-tag--warn">⚠️ Volum Nipis</span> <span data-i18n="legend_illiquid">Volum harian bawah 100,000 unit atau nilai dagangan bawah RM100,000 (US: USD25,000). Kaunter begini mudah tersangkut: sukar dijual pada harga yang dipaparkan.</span></p>
           <p><span class="pl-tag pl-tag--up">🐂 Bullish</span> <span data-i18n="legend_bullish">Harga di atas EMA 21, EMA 7 di atas EMA 21 dan MACD histogram positif. Kaunter dalam trend naik sebenar, bukan sekadar memantul sekejap.</span></p>
         </div>
       </details>
@@ -661,11 +739,27 @@ div:has(> ins.adsbygoogle[data-ad-status="unfilled"]){display:none !important}
       </p>
     </section>
 
-    <!-- ============ ADSENSE BOTTOM ============ -->
-    <div class="pl-card p-3 text-center">
-      <p class="text-[10px] text-slate-500 mb-1.5 font-semibold tracking-widest uppercase" data-i18n="ads_label2">Iklan</p>
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9978987699948390" data-ad-slot="5488827446" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    </div>
+    <!-- ============ SLOT IKLAN (BAWAH) ============
+         Sama seperti slot atas: ganti .pl-ad-aff dengan imej/iframe broker bila kreatif sedia. -->
+    <aside class="pl-ad-slot" id="adBottom" aria-label="Iklan">
+      <div class="pl-ad-slot__head">
+        <span class="pl-ad-slot__label" data-i18n="ads_label2">Iklan</span>
+        <span class="pl-ad-slot__note" data-i18n="ads_note">Rakan broker (pautan afiliasi)</span>
+      </div>
+      <div class="pl-ad-slot__body pl-ad-slot__body--split">
+        <div class="pl-ad-slot__unit">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9978987699948390" data-ad-slot="5488827446" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        </div>
+        <a class="pl-ad-aff" href="https://j.moomoo.com/0Jzl2X" target="_blank" rel="sponsored noopener" title="Buka akaun Moomoo Malaysia (pautan afiliasi)" data-i18n-title="ads_aff_title">
+          <span class="pl-ad-aff__logo" aria-hidden="true">M+</span>
+          <span class="pl-ad-aff__text">
+            <span class="pl-ad-aff__title" data-i18n="ads_aff_t">Moomoo Malaysia — akaun percuma</span>
+            <span class="pl-ad-aff__sub" data-i18n="ads_aff_s">Daftar melalui pautan rujukan ini. Komisen rakan membantu menampung kos data dan hosting.</span>
+          </span>
+          <span class="pl-ad-aff__cta" data-i18n="ads_aff_cta">Daftar</span>
+        </a>
+      </div>
+    </aside>
 
     <!-- ============ METHODOLOGY ============ -->
     <section id="metodologi" class="pl-card p-5 space-y-3">
@@ -984,6 +1078,9 @@ let dataRetryTimer = null;
 const LS_LANG = 'screener_lang';
 const LS_WATCH = 'screener_watchlist';
 const LS_ALERTS = 'screener_alerts';
+const LS_PRESETS = 'screener_presets';        /* pilihan preset berbilang (disimpan) */
+const LS_CACHE = 'screener_data_cache_v2';    /* cache data 80 kaunter */
+const CACHE_TTL_MS = 12 * 60 * 1000;          /* 12 minit (lingkungan 10-15 minit) */
 const LS_ROTATOR = 'lead_rotator_turn';
 const REFRESH_MS = 300000;
 const WHATSAPP_NUMBERS = ['60129966769', '60128010795'];
@@ -992,7 +1089,8 @@ let STOCKS = [];
 let DATA_META = null;
 let lastFiltered = [];
 let currentMarket = 'malaysia';
-let activePreset = 'all';
+let activePreset = 'all';      /* alias keserasian: preset pertama yang dipilih */
+let activePresets = [];        /* gabungan preset berbilang (logik DAN) */
 let sortKey = 'change';
 let sortDir = -1;
 let currentLang = 'ms';
@@ -1079,6 +1177,29 @@ const I18N = {
         "chk_watch": "Senarai pantau",
         "chk_volspike": "Volum melonjak",
         "btn_csv": "Muat turun CSV",
+        "btn_copy_ticker": "Salin Ticker",
+        "btn_copy_ticker_title": "Salin semua ticker hasil saringan dalam format TradingView",
+        "toast_copy_ok": "{n} ticker berjaya disalin ke clipboard!",
+        "toast_copy_fail": "Clipboard disekat. Salin manual (Ctrl+C) teks di bawah:",
+        "toast_copy_fail2": "Clipboard tidak dibenarkan oleh pelayar. Salin manual.",
+        "badge_illiquid": "\u26A0\uFE0F Volum Nipis",
+        "badge_illiquid_short": "\u26A0\uFE0F Nipis",
+        "illiquid_value": "nilai",
+        "illiquid_title": "Volum {v} dan nilai dagangan {t} — di bawah paras likuiditi",
+        "illiquid_drawer": "\u26A0\uFE0F Volum nipis, sukar keluar masuk",
+        "legend_illiquid": "Volum harian bawah 100,000 unit atau nilai dagangan bawah RM100,000 (US: USD25,000). Kaunter begini mudah tersangkut: sukar dijual pada harga yang dipaparkan.",
+        "preset_multi_hint": "Boleh pilih lebih daripada satu tapisan — semua syarat yang dipilih mesti dipenuhi (gabungan DAN).",
+        "preset_cat_all": "Semua kaunter",
+        "preset_cat_teknikal": "Teknikal",
+        "preset_cat_fundamental": "Fundamental",
+        "preset_cat_syariah": "Syariah",
+        "preset_combined": "Gabungan {n} tapisan: {list}",
+        "ads_note": "Rakan broker (pautan afiliasi)",
+        "ads_aff_t": "Moomoo Malaysia — akaun percuma",
+        "ads_aff_s": "Daftar melalui pautan rujukan ini. Komisen rakan membantu menampung kos data dan hosting.",
+        "ads_aff_cta": "Daftar",
+        "ads_aff_title": "Buka akaun Moomoo Malaysia (pautan afiliasi)",
+        "cache_hit": "Data cache setempat ({n} min) — panggilan API dikurangkan.",
         "tbl_symbol": "Simbol dan syarikat",
         "tbl_price": "Harga",
         "tbl_change": "Perubahan",
@@ -1400,6 +1521,29 @@ const I18N = {
         "chk_watch": "My watchlist",
         "chk_volspike": "Volume surge",
         "btn_csv": "Download CSV",
+        "btn_copy_ticker": "Copy Tickers",
+        "btn_copy_ticker_title": "Copy every ticker in the current results (TradingView format)",
+        "toast_copy_ok": "{n} tickers copied to clipboard!",
+        "toast_copy_fail": "Clipboard blocked. Copy the text below manually (Ctrl+C):",
+        "toast_copy_fail2": "The browser blocked clipboard access. Please copy manually.",
+        "badge_illiquid": "\u26A0\uFE0F Thin Volume",
+        "badge_illiquid_short": "\u26A0\uFE0F Thin",
+        "illiquid_value": "value",
+        "illiquid_title": "Volume {v} and turnover {t} — below the liquidity floor",
+        "illiquid_drawer": "\u26A0\uFE0F Thin volume, hard to exit",
+        "legend_illiquid": "Daily volume under 100,000 units or turnover under RM100,000 (US: USD25,000). These counters get stuck easily — hard to sell at the quoted price.",
+        "preset_multi_hint": "You can pick more than one filter — every selected rule must pass (AND logic).",
+        "preset_cat_all": "All counters",
+        "preset_cat_teknikal": "Technical",
+        "preset_cat_fundamental": "Fundamental",
+        "preset_cat_syariah": "Shariah",
+        "preset_combined": "{n} filters combined: {list}",
+        "ads_note": "Broker partner (affiliate link)",
+        "ads_aff_t": "Moomoo Malaysia — free account",
+        "ads_aff_s": "Sign up through this referral link. Partner commission helps cover data and hosting costs.",
+        "ads_aff_cta": "Sign up",
+        "ads_aff_title": "Open a Moomoo Malaysia account (affiliate link)",
+        "cache_hit": "Served from local cache ({n} min old) — fewer API calls.",
         "tbl_symbol": "Ticker and company",
         "tbl_price": "Price",
         "tbl_change": "Change",
@@ -1678,6 +1822,60 @@ function fmtCompact(v, s) {
   if (Math.abs(n) >= 1e6) return p + (n / 1e6).toFixed(2) + 'M';
   return p + n.toLocaleString();
 }
+/* ---- volum mentah, likuiditi & ticker TradingView (tambahan 20-10-2026) ---- */
+/* "6.1M" / "624.7K" / "1.2B" / "1,234" -> nombor. */
+function parseVolNum(v) {
+  if (typeof v === 'number') return isFinite(v) ? v : null;
+  if (v === null || v === undefined) return null;
+  const m = String(v).replace(/,/g, '').trim().match(/^(-?\d+(?:\.\d+)?)\s*([KMB]?)$/i);
+  if (!m) return null;
+  const n = parseFloat(m[1]);
+  const suf = (m[2] || '').toUpperCase();
+  const k = suf === 'K' ? 1e3 : suf === 'B' ? 1e9 : suf === 'M' ? 1e6 : 1;
+  return isFinite(n) ? n * k : null;
+}
+function fmtCount(v) {
+  const n = num(v); if (n === null) return t('lbl_none');
+  if (Math.abs(n) >= 1e9) return (n / 1e9).toFixed(1) + 'B';
+  if (Math.abs(n) >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+  if (Math.abs(n) >= 1e3) return (n / 1e3).toFixed(1) + 'K';
+  return String(Math.round(n));
+}
+/* Ambang likuiditi. Bursa: 100,000 unit (1,000 lot) ATAU RM100,000 nilai dagangan.
+   US: unit sama, nilai ditukar pada kadar ~USD/MYR 4.0 -> USD25,000. */
+function liqThreshold(s) {
+  return (s && s.market === 'malaysia')
+    ? { vol: 100000, val: 100000 }
+    : { vol: 100000, val: 25000 };
+}
+function liqInfo(s) {
+  const th = liqThreshold(s);
+  const v = (s && typeof s.volumeRaw === 'number' && isFinite(s.volumeRaw)) ? s.volumeRaw : parseVolNum(s && s.volume);
+  const p = num(s && s.price);
+  const turnover = (v === null || p === null) ? null : v * p;
+  const thinVol = (v !== null && v < th.vol);
+  const thinVal = (turnover !== null && turnover < th.val);
+  return { vol: v, turnover: turnover, thinVol: thinVol, thinVal: thinVal, illiquid: (thinVol || thinVal), threshold: th };
+}
+function illiquidBadge(s, short) {
+  const q = liqInfo(s);
+  if (!q.illiquid) return '';
+  const why = [];
+  if (q.thinVol) why.push(t('lbl_vol') + ' ' + fmtCount(q.vol));
+  if (q.thinVal) why.push(t('illiquid_value') + ' ' + fmtCompact(q.turnover, s));
+  const title = t('illiquid_title', { v: fmtCount(q.vol), t: fmtCompact(q.turnover, s), why: why.join(' · ') });
+  return '<span class="pl-tag pl-tag--warn pl-illiquid" title="' + esc(title) + '">' +
+    esc(short ? t('badge_illiquid_short') : t('badge_illiquid')) + '</span>';
+}
+/* Ticker TradingView: Bursa -> MYX:CODE, US -> simbol sahaja (AVTR, EOG, SU). */
+function tvTickerOf(s) {
+  const tv = String((s && s.tvSymbol) || '').trim();
+  const base = (tv.indexOf(':') !== -1) ? tv.split(':').pop() : (tv || (s && s.symbol) || '');
+  const code = String(base).trim().toUpperCase();
+  if (!code) return '';
+  return (s && s.market === 'malaysia') ? ('MYX:' + code) : code;
+}
+
 function readLS(key, fallback) { try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch (e) { return fallback; } }
 function writeLS(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} }
 
@@ -1721,6 +1919,7 @@ function adaptStock(s) {
     ma20: ma20, ma50: ma50, ma200: ma200, ema7: num(s.ema7), ema21: num(s.ema21), ema50: num(s.ema50), ema200: num(s.ema200),
     high52: high52, low52: low52, highAll: highAll, pctHigh52: pct, position: position,
     volume: s.volume || '-', avgVolume: s.avgVolume || '-', volumeRatio: num(s.volumeRatio),
+    volumeRaw: parseVolNum(s.volume),
     sampleDate: s.sampleDate || '-', patterns: patterns, signal: s.signal || 'NEUTRAL',
     closeStale: !!s.closeStale,
     ema7_21: (typeof s.ema7_21 === 'boolean') ? s.ema7_21 : macdUp,
@@ -1860,6 +2059,31 @@ async function ambilSumber(url) {
   }
 }
 
+/* ---------------- cache data setempat (kurangkan panggilan API & re-render) ----------------
+   Data 80 kaunter (~160 KB) disimpan 12 minit. Panggilan 5-minit akan guna cache dahulu;
+   butang "Muat semula" (isManual) sentiasa memaksa tarikan baharu. */
+function bacaCache() {
+  try {
+    const teks = localStorage.getItem(LS_CACHE);
+    if (!teks) return null;
+    const o = JSON.parse(teks);
+    if (!o || !o.ts || !o.payload) return null;
+    const umur = Date.now() - o.ts;
+    if (!(umur >= 0) || umur > CACHE_TTL_MS) return null;
+    const arr = Array.isArray(o.payload) ? o.payload : (o.payload && o.payload.stocks);
+    if (!Array.isArray(arr) || !arr.length) return null;
+    return { payload: o.payload, arr: arr, url: o.url || 'cache', umur: umur };
+  } catch (e) { return null; }
+}
+function simpanCache(payload, url) {
+  try {
+    localStorage.setItem(LS_CACHE, JSON.stringify({ ts: Date.now(), url: url, payload: payload }));
+  } catch (e) {
+    /* kuota penuh / mod peribadi: buang cache lama, jangan ganggu paparan */
+    try { localStorage.removeItem(LS_CACHE); } catch (e2) {}
+  }
+}
+
 async function loadData(isManual) {
   if (isFetching) return;
   isFetching = true;
@@ -1868,6 +2092,24 @@ async function loadData(isManual) {
   if (status) status.textContent = t('checking');
   if (isManual) errBox.classList.add('hidden');
   try {
+    /* 0) cache setempat: elak tarikan API berulang dalam tempoh 12 minit */
+    if (!isManual) {
+      const c = bacaCache();
+      if (c) {
+        DATA_META = (Array.isArray(c.payload) ? null : (c.payload.meta || null));
+        if (DATA_META) {
+          DATA_META.__sumber = c.url;
+          DATA_META.__cache = true;
+          DATA_META.__cacheAgeMin = Math.round(c.umur / 60000);
+        }
+        STOCKS = c.arr.map(adaptStock);
+        errBox.classList.add('hidden');
+        $('btnRetry').classList.add('hidden');
+        dataRetryCount = 0;
+        if (status) status.textContent = t('cache_hit', { n: Math.max(1, Math.round(c.umur / 60000)) });
+        return;
+      }
+    }
     /* dua sumber: salinan intraday (15 minit semasa waktu dagangan) + fail laman;
        ambil yang paling baharu — kalau salah satu tidak dapat dihubungi, yang lain tetap jalan */
     const sumber = await Promise.all(DATA_SOURCES.map(function (u) { return ambilSumber(u); }));
@@ -1878,6 +2120,7 @@ async function loadData(isManual) {
     DATA_META = payload.meta || null;
     if (DATA_META) DATA_META.__sumber = DATA_LABEL[sah[0].url] || 'site';
     STOCKS = arr.map(adaptStock);
+    simpanCache(payload, sah[0].url);
     errBox.classList.add('hidden');
     $('btnRetry').classList.add('hidden');
     dataRetryCount = 0;
@@ -2040,27 +2283,80 @@ const PRESETS = {
   hybrid:   s => (s.syariah === true && s.ma50 !== null && s.price !== null && s.price > s.ma50 && s.rsi !== null && s.rsi < 70)
 };
 
+/* ---- preset berbilang + kategori visual (tambahan 20-10-2026) ----
+   Setiap tag preset dikelaskan; pilihan berganda digabung dengan logik DAN
+   (cth "Syariah dan trend naik" + "Volum melonjak" = kedua-dua syarat mesti lulus). */
+const PRESET_CATEGORY = {
+  all: 'all',
+  momentum: 'teknikal', golden: 'teknikal', bullish: 'teknikal', breakout: 'teknikal',
+  dip: 'teknikal', sihat: 'teknikal', puncak: 'teknikal', volum: 'teknikal',
+  dividen: 'fundamental', nilai: 'fundamental',
+  hybrid: 'syariah'
+};
+const PRESET_GROUPS = ['all', 'teknikal', 'fundamental', 'syariah'];
+const PRESET_GROUP_TAG = {
+  all: 'pl-tag--mute', teknikal: 'pl-tag--info',
+  fundamental: 'pl-tag--gold', syariah: 'pl-tag--teal'
+};
+
 function presetCount(market, key) {
   if (!STOCKS.length) return null;
   return STOCKS.filter(s => s.market === market).filter(PRESETS[key]).length;
 }
+function presetActive(k) { return activePresets.indexOf(k) !== -1; }
+/* Gabungan DAN: semua preset terpilih mesti lulus. Senarai kosong = semua kaunter. */
+function presetFilter(s) {
+  for (let i = 0; i < activePresets.length; i++) {
+    const f = PRESETS[activePresets[i]];
+    if (f && !f(s)) return false;
+  }
+  return true;
+}
+function simpanPresets() {
+  activePreset = activePresets.length ? activePresets[0] : 'all';
+  writeLS(LS_PRESETS, activePresets);
+}
 function renderPresets() {
   const bar = $('presetBar'); if (!bar) return;
-  bar.innerHTML = PRESET_KEYS.map(k => {
-    const n = presetCount(currentMarket, k);
-    const on = (k === activePreset);
-    const zero = (n === 0);
-    return '<button onclick="applyPreset(\'' + k + '\')" class="pl-btn ' + (on ? 'pl-btn--pri' : '') + (zero && !on ? ' pl-btn--dim' : '') + '" ' +
-      'aria-pressed="' + on + '" title="' + esc(zero ? t('preset_zero') : t('crit_' + k)) + '">' +
-      '<span>' + esc(t('preset_' + k)) + '</span>' +
-      (n === null ? '' : '<span class="pl-tag ' + (zero ? 'pl-tag--mute' : (on ? 'pl-tag--mute' : 'pl-tag--info')) + '">' + n + '</span>') + '</button>';
+  bar.innerHTML = PRESET_GROUPS.map(cat => {
+    const keys = PRESET_KEYS.filter(k => (PRESET_CATEGORY[k] || 'teknikal') === cat);
+    if (!keys.length) return '';
+    const btns = keys.map(k => {
+      const n = presetCount(currentMarket, k);
+      const on = presetActive(k);
+      const zero = (n === 0);
+      return '<button type="button" onclick="applyPreset(\'' + k + '\')" aria-pressed="' + on + '" ' +
+        'class="pl-btn ' + (on ? 'pl-btn--pri pl-preset-on' : '') + (zero && !on ? ' pl-btn--dim' : '') + '" ' +
+        'title="' + esc(zero ? t('preset_zero') : t('crit_' + k)) + '">' +
+        '<span>' + esc(t('preset_' + k)) + '</span>' +
+        (n === null ? '' : '<span class="pl-tag ' + (on ? 'pl-tag--mute' : (PRESET_GROUP_TAG[cat] || 'pl-tag--mute')) + '">' + n + '</span>') +
+        (on && k !== 'all' ? '<span aria-hidden="true">\u2713</span>' : '') + '</button>';
+    }).join('');
+    return '<div class="pl-preset-group pl-preset-group--' + cat + '">' +
+      '<p class="pl-preset-group__label"><span>' + esc(t('preset_cat_' + cat)) + '</span></p>' +
+      '<div class="flex flex-wrap gap-2">' + btns + '</div></div>';
   }).join('');
   const crit = $('presetCriteria');
-  if (crit) crit.textContent = t('criteria_label') + ' ' + t('crit_' + activePreset);
+  if (crit) {
+    if (!activePresets.length) crit.textContent = t('criteria_label') + ' ' + t('crit_all');
+    else if (activePresets.length === 1) crit.textContent = t('criteria_label') + ' ' + t('crit_' + activePresets[0]);
+    else crit.textContent = t('preset_combined', { n: activePresets.length, list: activePresets.map(k => t('preset_' + k)).join(' + ') }) +
+      ' — ' + activePresets.map(k => t('crit_' + k)).join(' ');
+  }
 }
-function applyPreset(k) { activePreset = k; renderPresets(); applyFilters(); }
+/* Tekan tag: tambah/buang daripada gabungan. "Semua" mengosongkan pilihan. */
+function applyPreset(k) {
+  if (!k || k === 'all') activePresets = [];
+  else {
+    const i = activePresets.indexOf(k);
+    if (i === -1) activePresets.push(k); else activePresets.splice(i, 1);
+  }
+  simpanPresets();
+  renderPresets(); applyFilters();
+}
 function resetFilters() {
-  activePreset = 'all';
+  activePresets = []; activePreset = 'all';
+  try { localStorage.removeItem(LS_PRESETS); } catch (e) {}
   $('searchInput').value = '';
   if ($('syariahOnlyToggle')) $('syariahOnlyToggle').checked = false;
   if ($('watchOnlyToggle')) $('watchOnlyToggle').checked = false;
@@ -2105,7 +2401,7 @@ function applyFilters() {
   if (syariahOnly) rows = rows.filter(s => s.syariah);
   if (watchOnly) rows = rows.filter(s => isWatched(s.symbol));
   if (volOnly) rows = rows.filter(s => s.volSpike);
-  rows = rows.filter(PRESETS[activePreset] || PRESETS.all);
+  rows = rows.filter(presetFilter);
 
   lastFiltered = sortRows(rows);
   renderTable(lastFiltered);
@@ -2205,7 +2501,7 @@ function actionBtns(s) {
 
 function activeFilterLabels() {
   const out = [];
-  if (activePreset !== 'all') out.push(t('preset_' + activePreset));
+  activePresets.forEach(k => out.push(t('preset_' + k)));
   const q = $('searchInput') ? $('searchInput').value.trim() : '';
   if (q) out.push(t('lbl_search') + ': ' + q);
   const sec = $('sectorSelect') ? $('sectorSelect').value : 'all';
@@ -2224,10 +2520,10 @@ function emptyState() {
   }
   const active = activeFilterLabels();
   const other = (currentMarket === 'malaysia') ? 'america' : 'malaysia';
-  const otherN = presetCount(other, activePreset);
+  const otherN = STOCKS.filter(s => s.market === other).filter(presetFilter).length;
   const otherLabel = (other === 'malaysia') ? t('mkt_my_label') : t('mkt_us_label');
   let hint = '';
-  if (activePreset !== 'all' && otherN) hint = '<p class="mt-2 pl-sub">' + esc(t('empty_other', { n: otherN, other: otherLabel })) + '</p>';
+  if (activePresets.length && otherN) hint = '<p class="mt-2 pl-sub">' + esc(t('empty_other', { n: otherN, other: otherLabel })) + '</p>';
   return '<div class="p-8 text-center">' +
     '<p class="text-sm font-bold text-slate-300">' + esc(t('empty_match_t')) + '</p>' +
     '<p class="mt-1 pl-sub">' + esc(t('empty_match_s')) + '</p>' +
@@ -2257,7 +2553,7 @@ function renderTable(rows) {
       '<td><div class="pl-sub">' + esc(t('lbl_pe')) + ' <span class="pl-strong pl-mono">' + fmtNum(s.pe, 2) + '</span></div>' +
         '<div class="pl-sub">' + esc(t('lbl_div')) + ' <span class="pl-pos pl-mono">' + (s.div !== null ? s.div.toFixed(2) + '%' : t('lbl_none')) + '</span></div>' +
         '<div class="pl-sub pl-mono">' + fmtCompact(s.marketCap, s) + '</div></td>' +
-      '<td><span class="pl-tag pl-tag--info">' + esc(s.signal) + '</span></td>' +
+      '<td><div class="flex flex-wrap items-center gap-1"><span class="pl-tag pl-tag--info">' + esc(s.signal) + '</span>' + illiquidBadge(s) + '</div></td>' +
       '<td><div class="flex flex-wrap gap-1 justify-end" style="max-width:150px">' + actionBtns(s) + '</div></td>' +
       '</tr>';
   }).join('');
@@ -2283,7 +2579,7 @@ function renderCards(rows) {
         '<div class="pl-kv"><span>' + esc(t('lbl_vol')) + '</span><span class="pl-mono">' + esc(s.volume) + '</span></div>' +
       '</div>' +
       '<div class="mt-2">' + rangeCell(s) + '</div>' +
-      '<div class="flex flex-wrap gap-1 mt-2">' + tagList(s) + patternTags(s) + '</div>' +
+      '<div class="flex flex-wrap gap-1 mt-2">' + illiquidBadge(s, true) + tagList(s) + patternTags(s) + '</div>' +
       '<div class="flex items-center gap-1.5 mt-3">' + actionBtns(s) + '</div>' +
       '</article>';
   }).join('');
@@ -2296,7 +2592,9 @@ function kv(label, value, cls) {
 function renderDrawer() {
   const s = drawerStock; if (!s) return;
   $('drawerTitle').textContent = s.symbol + ' · ' + fmtPrice(s);
-  $('drawerSub').textContent = s.name + ' • ' + s.sector + ' • ' + (s.syariah ? t('badge_syariah') : t('badge_nonsyariah'));
+  const liq = liqInfo(s);
+  $('drawerSub').textContent = s.name + ' • ' + s.sector + ' • ' + (s.syariah ? t('badge_syariah') : t('badge_nonsyariah')) +
+    (liq.illiquid ? ' • ' + t('illiquid_drawer') : '');
   const up = num(s.change) !== null && s.change >= 0;
   const maRows = [
     [t('dr_ma20'), s.ma20], [t('dr_ma50'), s.ma50], [t('dr_ma200'), s.ma200],
@@ -2581,6 +2879,48 @@ function exportCsv() {
   setTimeout(() => URL.revokeObjectURL(url), 1500);
   toast(t('toast_csv', { n: rows.length }), 'ok');
 }
+/* ---- Salin ticker TradingView ke clipboard (tambahan 20-10-2026) ----
+   Bursa Malaysia -> MYX:CODE, US -> simbol sahaja. Guna hasil saringan semasa. */
+function copyTextKeClipboard(teks) {
+  return new Promise(function (resolve, reject) {
+    var legacy = function () {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = teks;
+        ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+        document.body.appendChild(ta);
+        ta.select();
+        ta.setSelectionRange(0, ta.value.length);
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+        ta.remove();
+        ok ? resolve() : reject(new Error('execCommand copy gagal'));
+      } catch (e) { reject(e); }
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(teks).then(resolve, legacy);
+    } else legacy();
+  });
+}
+function copyTickers() {
+  const rows = lastFiltered.length ? lastFiltered : STOCKS.filter(s => s.market === currentMarket);
+  if (!rows.length) { toast(t('toast_no_rows'), 'warn'); return; }
+  const seen = {}, out = [];
+  rows.forEach(function (s) {
+    const tk = tvTickerOf(s);
+    if (tk && !seen[tk]) { seen[tk] = 1; out.push(tk); }
+  });
+  if (!out.length) { toast(t('toast_no_rows'), 'warn'); return; }
+  const teks = out.join(',');
+  copyTextKeClipboard(teks).then(function () {
+    toast(t('toast_copy_ok', { n: out.length }), 'ok');
+  }).catch(function () {
+    try { window.prompt(t('toast_copy_fail'), teks); } catch (e) {}
+    toast(t('toast_copy_fail2'), 'err');
+  });
+}
+
 function handleLeadSubmit(e) {
   e.preventDefault();
   const name = ($('leadName').value || '').trim();
@@ -2692,6 +3032,12 @@ window.addEventListener('DOMContentLoaded', () => {
   if (!Array.isArray(watchlist)) watchlist = [];
   if (!Array.isArray(alerts)) alerts = [];
   alerts.forEach(a => { if (typeof a.value === 'string') a.value = num(a.value); });
+  /* pulihkan gabungan preset yang disimpan (abaikan kunci yang tidak wujud lagi) */
+  const simpanPreset = readLS(LS_PRESETS, []);
+  if (Array.isArray(simpanPreset)) {
+    activePresets = simpanPreset.filter(function (k) { return k && k !== 'all' && !!PRESETS[k]; });
+  }
+  activePreset = activePresets.length ? activePresets[0] : 'all';
 
   applyI18n();
   initIconsAndEvents();
