@@ -366,11 +366,19 @@ div:has(> ins.adsbygoogle[data-ad-status="unfilled"]){display:none !important}
     padding:6px 12px;border-bottom:1px dashed var(--line)}
   .pl-ad-slot__label{font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
   .pl-ad-slot__note{font-size:9px;color:var(--dim)}
-  /* flex (bukan grid): bila AdSense tidak mengisi slot, unit itu disembunyikan oleh
-     peraturan div:has(...unfilled) dan banner afiliasi mengisi seluruh baris. */
+  /* flex (bukan grid): unit iklan diutamakan (≈1000px) dan banner afiliasi 340px.
+     Bila AdSense TIDAK mengisi (Google set data-ad-status="unfilled"), unit disembunyikan
+     dan banner afiliasi mengisi seluruh baris — tiada ruang kosong. */
   .pl-ad-slot__body{display:flex;flex-direction:column;align-items:stretch}
   .pl-ad-slot__unit{flex:1 1 auto;min-width:0;padding:8px 10px;text-align:center}
-  @media (min-width:900px){.pl-ad-slot__body--split{flex-direction:row}}
+  @media (min-width:900px){
+    .pl-ad-slot__body--split{flex-direction:row}
+    /* selektor dua kelas: menang atas .pl-ad-aff/.pl-ad-slot__unit asas tanpa bergantung pada urutan */
+    .pl-ad-slot__body--split .pl-ad-slot__unit{flex:3 1 0}
+    .pl-ad-slot__body--split .pl-ad-aff{flex:0 1 340px}
+    .pl-ad-slot__body--split:not(:has(ins.adsbygoogle[data-ad-status="filled"])) .pl-ad-slot__unit{display:none}
+    .pl-ad-slot__body--split:not(:has(ins.adsbygoogle[data-ad-status="filled"])) .pl-ad-aff{flex:1 1 100%}
+  }
   .pl-ad-aff{display:flex;align-items:center;gap:10px;padding:11px 12px;text-decoration:none;
     flex:1 1 340px;min-width:0;
     border-left:1px solid var(--line);background:linear-gradient(135deg,rgba(59,130,246,.16),rgba(34,211,238,.07));
