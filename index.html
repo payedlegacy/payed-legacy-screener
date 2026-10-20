@@ -376,8 +376,10 @@ div:has(> ins.adsbygoogle[data-ad-status="unfilled"]){display:none !important}
     /* selektor dua kelas: menang atas .pl-ad-aff/.pl-ad-slot__unit asas tanpa bergantung pada urutan */
     .pl-ad-slot__body--split .pl-ad-slot__unit{flex:3 1 0}
     .pl-ad-slot__body--split .pl-ad-aff{flex:0 1 340px}
-    .pl-ad-slot__body--split:not(:has(ins.adsbygoogle[data-ad-status="filled"])) .pl-ad-slot__unit{display:none}
-    .pl-ad-slot__body--split:not(:has(ins.adsbygoogle[data-ad-status="filled"])) .pl-ad-aff{flex:1 1 100%}
+    /* PENTING: jangan sembunyikan unit sebelum Google menjawab — unit tersembunyi tidak
+       akan mencetuskan permintaan iklan. Hanya selepas data-ad-status="unfilled"
+       (peraturan global div:has(...) sudah menyembunyikan unit) banner dijadikan penuh. */
+    .pl-ad-slot__body--split:has(ins.adsbygoogle[data-ad-status="unfilled"]) .pl-ad-aff{flex:1 1 100%}
   }
   .pl-ad-aff{display:flex;align-items:center;gap:10px;padding:11px 12px;text-decoration:none;
     flex:1 1 340px;min-width:0;
@@ -2968,34 +2970,42 @@ function buildTickerTape(force) {
 }
 
 /* ------------------------------ ads ------------------------------
-   Permintaan iklan dihantar HANYA apabila slot memasuki skrin dan lebarnya sudah
-   muktamad (flex + Tailwind siap). Sebelum ini push dibuat awal di DOMContentLoaded
-   dan Google mengukur lebar yang salah (470px) — kurang peluang diisi.
+   Permintaan iklan dihantar apabila SLOT memasuki skrin dan susun atur sudah siap
+   (Google mengukur lebar sebenar, bukan 470px seperti dahulu).
+   PENTING: perhatikan bekas .pl-ad-slot, BUKAN <ins> — <ins> kosong mempunyai
+   tinggi 0px, jadi IntersectionObserver tidak akan pernah mencetuskan permintaan.
    Setiap <ins> di-push sekali sahaja (AdSense tidak membenarkan push berulang). */
 function initAds() {
   const all = Array.prototype.slice.call(document.querySelectorAll('ins.adsbygoogle'));
   if (!all.length) return;
   function minta(el) {
     if (!el || el.getAttribute('data-adsbygoogle-status')) return;
-    const w = el.getBoundingClientRect().width;
-    if (!w) return;
+    if (!el.getBoundingClientRect().width) { setTimeout(function () { minta(el); }, 500); return; }
     try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
   }
+  /* kumpulkan ins mengikut bekas slot (atau ibu bapa jika bukan slot berstruktur) */
+  const groups = new Map();
+  all.forEach(function (el) {
+    const box = (el.closest && el.closest('.pl-ad-slot')) || el.parentElement || el;
+    if (!groups.has(box)) groups.set(box, []);
+    groups.get(box).push(el);
+  });
+  function mintaBekas(box) { (groups.get(box) || []).forEach(minta); }
   if (!('IntersectionObserver' in window)) {
-    setTimeout(function () { all.forEach(minta); }, 700);
+    setTimeout(function () { all.forEach(minta); }, 800);
     return;
   }
   const io = new IntersectionObserver(function (entries) {
     entries.forEach(function (en) {
       if (!en.isIntersecting) return;
       io.unobserve(en.target);
-      /* dua bingkai + jeda kecil: biar susun atur siap sebelum Google mengukur */
+      /* dua bingkai + jeda kecil: biar flex/Tailwind siap sebelum Google mengukur */
       requestAnimationFrame(function () {
-        requestAnimationFrame(function () { setTimeout(function () { minta(en.target); }, 150); });
+        requestAnimationFrame(function () { setTimeout(function () { mintaBekas(en.target); }, 150); });
       });
     });
-  }, { rootMargin: '300px 0px', threshold: 0.01 });
-  all.forEach(function (el) { io.observe(el); });
+  }, { rootMargin: '300px 0px', threshold: 0 });
+  groups.forEach(function (_, box) { io.observe(box); });
 }
 
 /* ------------------------------ language ------------------------------ */
