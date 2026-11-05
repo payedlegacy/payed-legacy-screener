@@ -764,6 +764,9 @@ div:has(> ins.adsbygoogle[data-ad-status="unfilled"]){display:none !important}
           <p><span class="pl-tag pl-tag--gold">Golden Cross</span> <span data-i18n="legend_gc">EMA 20 melepasi EMA 50, tanda trend sederhana mula naik.</span></p>
           <p><span class="pl-tag pl-tag--info">Support 50/200</span> <span data-i18n="legend_sup">Harga di atas EMA 50 dan EMA 50 di atas EMA 200. Susunan ini biasanya lebih stabil.</span></p>
           <p><span class="pl-tag pl-tag--ok">RSI &lt; 35</span> <span data-i18n="legend_rsi">RSI bawah 35 bermakna harga sudah terlebih jual, manakala RSI atas 65 terlebih beli.</span></p>
+          <p><span class="pl-tag pl-tag--ok">🟢 Buy on Dip</span> <span data-i18n="legend_dip">Harga 3% ke bawah dari tinggi 20 hari, RSI 34-48 dan bar terakhir hijau. Beli pada sokongan, bukan semasa jatuh bebas.</span></p>
+          <p><span class="pl-tag pl-tag--warn">🔪 Tangkapan Pisau</span> <span data-i18n="legend_knife">RSI bawah 25 dan harga jatuh tajam. Amaran risiko tinggi — bukan isyarat beli.</span></p>
+          <p><span class="pl-tag pl-tag--violet">🕯️ Heikin Ashi</span> <span data-i18n="legend_ha">Bar hijau pertama selepas siri merah: tanda awal perubahan arah, bukan jaminan trend.</span></p>
           <p><span class="pl-tag pl-tag--violet">ATH / 52M High</span> <span data-i18n="legend_ath">Harga hampir atau sudah melepasi paras tertinggi sejarah atau 52 minggu.</span></p>
           <p><span class="pl-tag pl-tag--teal">🌙 Syariah</span> <span data-i18n="legend_syariah">Tersenarai dalam senarai sekuriti patuh Syariah Suruhanjaya Sekuriti Malaysia.</span></p>
           <p><span class="pl-tag pl-tag--warn">⚠️ Volum Nipis</span> <span data-i18n="legend_illiquid">Volum harian bawah 100,000 unit atau nilai dagangan bawah RM100,000 (US: USD25,000). Kaunter begini mudah tersangkut: sukar dijual pada harga yang dipaparkan.</span></p>
@@ -1140,7 +1143,7 @@ let isFetching = false;
 let lastFocus = null;
 let drawerStock = null;
 
-const PRESET_KEYS = ['all', 'bullish', 'breakout', 'momentum', 'golden', 'dip', 'sihat', 'puncak', 'dividen', 'nilai', 'volum', 'hybrid'];
+const PRESET_KEYS = ['all', 'bullish', 'breakout', 'momentum', 'golden', 'dip', 'knife', 'ha', 'sihat', 'puncak', 'dividen', 'nilai', 'volum', 'hybrid'];
 const COLS = 9;
 
 /* ------------------------------ i18n ------------------------------ */
@@ -1253,6 +1256,9 @@ const I18N = {
         "legend_gc": "EMA 20 melepasi EMA 50, tanda trend sederhana mula naik.",
         "legend_sup": "Harga di atas EMA 50 dan EMA 50 di atas EMA 200. Susunan ini biasanya lebih stabil.",
         "legend_rsi": "RSI bawah 35 bermakna harga sudah terlebih jual, manakala RSI atas 65 terlebih beli.",
+        "legend_dip": "Harga 3% ke bawah dari tinggi 20 hari, RSI 34-48 dan bar terakhir hijau. Beli pada sokongan, bukan semasa jatuh bebas.",
+        "legend_knife": "RSI bawah 25 dan harga jatuh tajam. Amaran risiko tinggi — bukan isyarat beli.",
+        "legend_ha": "Bar hijau pertama selepas siri merah: tanda awal perubahan arah, bukan jaminan trend.",
         "legend_ath": "Harga hampir atau sudah melepasi paras tertinggi sejarah atau 52 minggu.",
         "legend_syariah": "Tersenarai dalam senarai sekuriti patuh Syariah Suruhanjaya Sekuriti Malaysia.",
         "empty_match_t": "Tiada kaunter menepati tapisan ini.",
@@ -1457,7 +1463,7 @@ const I18N = {
         "lbl_none": "—",
         "preset_momentum": "⚡ Momentum naik (EMA 7/21)",
         "preset_golden": "⚡ Golden cross (EMA 20/50)",
-        "preset_dip": "🟢 Harga jatuh (RSI bawah 35)",
+        "preset_dip": "🟢 Buy on dip (pullback + RSI 34-48)",
         "preset_sihat": "🛡️ Trend sihat (atas EMA 50 dan 200)",
         "preset_puncak": "🚀 Hampir puncak 52 minggu",
         "preset_dividen": "💰 Dividen 4% ke atas",
@@ -1467,7 +1473,11 @@ const I18N = {
         "crit_all": "Menunjukkan semua kaunter dalam pasaran ini.",
         "crit_momentum": "EMA 7 sudah melepasi EMA 21, tanda momentum jangka pendek mula naik.",
         "crit_golden": "EMA 20 melepasi EMA 50, isyarat trend sederhana yang biasa dipantau pelabur.",
-        "crit_dip": "RSI di bawah 35, harga sudah jatuh banyak dan mungkin mula menarik. Tetapi ia juga boleh terus jatuh.",
+        "crit_dip": "Harga sudah turun 3% atau lebih daripada tinggi 20 hari, RSI antara 34 dan 48, trend asas masih utuh (MA50 tidak jauh di bawah MA200) dan bar terakhir sudah hijau. Beli pada sokongan, bukan semasa jatuh bebas.",
+        "preset_knife": "🔪 Tangkapan pisau (RSI < 25)",
+        "crit_knife": "RSI bawah 25 dengan harga jatuh 5% atau lebih dalam sehari, atau jauh di bawah MA200. Ini AMARAN risiko tinggi — harga mungkin terus jatuh. Jika beli, saiz kecil dan tunggu konfirmasi bar hijau.",
+        "preset_ha": "🕯️ Heikin Ashi (bar hijau pertama)",
+        "crit_ha": "Heikin Ashi menukar daripada merah ke hijau pada bar terakhir (konfirmasi 2 bar). Isyarat permulaan perubahan arah, bukan jaminan trend.",
         "crit_sihat": "Harga di atas EMA 50, dan EMA 50 di atas EMA 200. Susunan trend menaik yang lebih stabil.",
         "crit_puncak": "Harga berada dalam 10% daripada paras tertinggi 52 minggu.",
         "crit_dividen": "Kadar dividen 4% setahun atau lebih tinggi.",
@@ -1597,6 +1607,9 @@ const I18N = {
         "legend_gc": "EMA 20 above EMA 50, a sign the medium-term trend is turning up.",
         "legend_sup": "Price above EMA 50 and EMA 50 above EMA 200. This arrangement is usually steadier.",
         "legend_rsi": "RSI under 35 means the price is oversold; above 65 means overbought.",
+        "legend_dip": "Price 3% or more below its 20-day high, RSI 34-48 and a green last bar. Buy at support, not during a free fall.",
+        "legend_knife": "RSI below 25 with a steep drop. A high-risk warning — not a buy signal.",
+        "legend_ha": "The first green bar after a run of red: an early sign of a direction change, not a trend guarantee.",
         "legend_ath": "Price is near or has passed its all-time or 52-week high.",
         "legend_syariah": "Listed in the Securities Commission Malaysia Shariah-compliant securities list.",
         "empty_match_t": "No counter matches this filter.",
@@ -1801,7 +1814,7 @@ const I18N = {
         "lbl_none": "—",
         "preset_momentum": "⚡ Uptrend momentum (EMA 7/21)",
         "preset_golden": "⚡ Golden cross (EMA 20/50)",
-        "preset_dip": "🟢 Pulled back (RSI under 35)",
+        "preset_dip": "🟢 Buy on dip (pullback + RSI 34-48)",
         "preset_sihat": "🛡️ Healthy trend (above EMA 50 & 200)",
         "preset_puncak": "🚀 Near 52-week high",
         "preset_dividen": "💰 Dividend 4% or more",
@@ -1811,7 +1824,11 @@ const I18N = {
         "crit_all": "Shows every counter in this market.",
         "crit_momentum": "EMA 7 has crossed above EMA 21, a sign that short-term momentum is turning up.",
         "crit_golden": "EMA 20 crossed above EMA 50, a medium-term trend signal traders often watch.",
-        "crit_dip": "RSI is under 35, so the price has fallen a lot and may be getting interesting. It can also keep falling.",
+        "crit_dip": "Price is 3% or more below its 20-day high, RSI is between 34 and 48, the base trend is intact (MA50 not far below MA200) and the last bar closed green. Buy at support, not during a free fall.",
+        "preset_knife": "🔪 Falling knife (RSI < 25)",
+        "crit_knife": "RSI below 25 with the price down 5% or more in a day, or far below MA200. This is a HIGH-RISK warning — the price may keep falling. If buying, keep the size small and wait for a green confirmation bar.",
+        "preset_ha": "🕯️ Heikin Ashi (first green bar)",
+        "crit_ha": "Heikin Ashi flips from red to green on the latest bar (2-bar confirmation). An early sign of a direction change, not a guarantee of a trend.",
         "crit_sihat": "Price is above EMA 50 and EMA 50 is above EMA 200. A steadier uptrend arrangement.",
         "crit_puncak": "Price is within 10% of its 52-week high.",
         "crit_dividen": "Dividend yield of 4% a year or more.",
@@ -1960,6 +1977,14 @@ function adaptStock(s) {
     volume: s.volume || '-', avgVolume: s.avgVolume || '-', volumeRatio: num(s.volumeRatio),
     volumeRaw: parseVolNum(s.volume),
     sampleDate: s.sampleDate || '-', patterns: patterns, signal: s.signal || 'NEUTRAL',
+    /* bank teknik 2026-11: bendera daripada fetch_live_data.py (mesti dipetakan,
+       jika tidak preset knife/ha tidak akan pernah padan) */
+    tech: s.tech || 'neutral', techScore: num(s.techScore) || 0,
+    haBull: !!s.haBull, haFlip: !!s.haFlip,
+    goldenCross: !!s.goldenCross,
+    goldenBarsAgo: (typeof s.goldenBarsAgo === 'number') ? s.goldenBarsAgo : null,
+    dipBuy: !!s.dipBuy, knifeRisk: !!s.knifeRisk, breakoutBuy: !!s.breakoutBuy,
+    high20: num(s.high20), pctHigh20: num(s.pctHigh20),
     closeStale: !!s.closeStale,
     ema7_21: (typeof s.ema7_21 === 'boolean') ? s.ema7_21 : macdUp,
     ema20_50: (typeof s.ema20_50 === 'boolean') ? s.ema20_50 : (ma20 !== null && ma50 !== null && ma20 > ma50),
@@ -2310,10 +2335,16 @@ const PRESETS = {
   bullish:  s => s.bullish === true,
   /* Enjin Global Mega-Breakout & Volume Surge (id: global_breakout_momentum_scanner):
      volum melonjak DAN (harga naik >= 1.5% ATAU EMA 7 baru melepasi EMA 21) */
-  breakout: s => !!(s.breakout && s.breakout.volSpike && (s.breakout.momentum || s.breakout.emaCross)),
+  breakout: s => !!(s.breakoutBuy === true || (s.breakout && s.breakout.volSpike && (s.breakout.momentum || s.breakout.emaCross))),
   momentum: s => s.ema7_21 === true,
   golden:   s => s.ema20_50 === true,
-  dip:      s => (s.rsi !== null && s.rsi < 35),
+  /* Buy on Dip: pullback 3%+ dari tinggi 20 hari, RSI 34-48, trend utuh, bar hijau.
+     Data lama (tiada bendera dipBuy) guna takrifan asal RSI < 35. */
+  dip:      s => (s.dipBuy === true || (s.dipBuy === undefined && s.rsi !== null && s.rsi < 35)),
+  /* Tangkapan pisau: RSI < 25 dan jatuh tajam — amaran risiko, bukan ajakan beli */
+  knife:    s => s.knifeRisk === true,
+  /* Heikin Ashi: bar pertama hijau selepas siri merah (konfirmasi 2 bar) */
+  ha:       s => s.haFlip === true,
   sihat:    s => s.emaSupport === true,
   puncak:   s => (s.pctHigh52 !== null && s.pctHigh52 >= -10),
   dividen:  s => (s.div !== null && s.div >= 4),
@@ -2328,7 +2359,7 @@ const PRESETS = {
 const PRESET_CATEGORY = {
   all: 'all',
   momentum: 'teknikal', golden: 'teknikal', bullish: 'teknikal', breakout: 'teknikal',
-  dip: 'teknikal', sihat: 'teknikal', puncak: 'teknikal', volum: 'teknikal',
+  dip: 'teknikal', knife: 'teknikal', ha: 'teknikal', sihat: 'teknikal', puncak: 'teknikal', volum: 'teknikal',
   dividen: 'fundamental', nilai: 'fundamental',
   hybrid: 'syariah'
 };
@@ -2418,6 +2449,16 @@ function renderSectorOptions() {
 function isWatched(sym) { return watchlist.indexOf(sym) !== -1; }
 /* Enjin Global Mega-Breakout: volum melonjak + (momentum harga atau EMA 7/21 baru silang) */
 function isBreakout(s) { return !!(s && s.breakout && s.breakout.volSpike && (s.breakout.momentum || s.breakout.emaCross)); }
+/* Bank teknik 2026-11: warna tag isyarat mengikut teknik yang tercetus */
+const TECH_TAG_CLASS = { knife: 'warn', breakout: 'gold', golden: 'gold', dip: 'ok', ha: 'violet', dividend: 'teal', momentum: 'info', neutral: 'info' };
+const TECH_CRIT_KEY = { knife: 'crit_knife', breakout: 'crit_breakout', golden: 'crit_golden', dip: 'crit_dip', ha: 'crit_ha' };
+function signalTag(s) {
+  const tech = s.tech || 'neutral';
+  const cls = 'pl-tag pl-tag--' + (TECH_TAG_CLASS[tech] || 'info');
+  const key = TECH_CRIT_KEY[tech];
+  const title = key ? t(key) : '';
+  return '<span class="' + cls + '"' + (title ? ' title="' + esc(title) + '"' : '') + '>' + esc(s.signal || '—') + '</span>';
+}
 function toggleWatch(sym, silent) {
   const i = watchlist.indexOf(sym);
   if (i === -1) { watchlist.push(sym); if (!silent) toast(t('toast_watch_add', { sym: sym }), 'ok'); }
@@ -2592,7 +2633,7 @@ function renderTable(rows) {
       '<td><div class="pl-sub">' + esc(t('lbl_pe')) + ' <span class="pl-strong pl-mono">' + fmtNum(s.pe, 2) + '</span></div>' +
         '<div class="pl-sub">' + esc(t('lbl_div')) + ' <span class="pl-pos pl-mono">' + (s.div !== null ? s.div.toFixed(2) + '%' : t('lbl_none')) + '</span></div>' +
         '<div class="pl-sub pl-mono">' + fmtCompact(s.marketCap, s) + '</div></td>' +
-      '<td><div class="flex flex-wrap items-center gap-1"><span class="pl-tag pl-tag--info">' + esc(s.signal) + '</span>' + illiquidBadge(s) + '</div></td>' +
+      '<td><div class="flex flex-wrap items-center gap-1">' + signalTag(s) + illiquidBadge(s) + '</div></td>' +
       '<td><div class="flex flex-wrap gap-1 justify-end" style="max-width:150px">' + actionBtns(s) + '</div></td>' +
       '</tr>';
   }).join('');
@@ -3354,11 +3395,16 @@ function initDuitNowQr() {
     };
     s.breakoutState = state;
 
+    /* Isyarat lapisan langsung: JANGAN timpa label bank teknik dengan peraturan
+       kasar (RSI<35 / momentum). Hanya naik taraf apabila data langsung jelas. */
     var sig = null;
-    if (volSpike && (emaCross || momentum)) sig = '🚀 Volum Spike & Breakout';
-    else if (s.rsi !== null && s.rsi < 35) sig = '🟢 Buy On Dip (Oversold)';
-    else if (emaCross) sig = '⚡ EMA 7/21 Crossover';
-    else if (momentum) sig = '📈 Momentum naik';
+    if (s.rsi !== null && s.rsi < 25 && s.change !== null && s.change <= -5) {
+      sig = '🔪 Tangkapan Pisau'; s.tech = 'knife';
+    } else if (volSpike && s.pctHigh52 !== null && s.pctHigh52 >= -1) {
+      sig = '🚀 Buy on Breakout'; s.tech = 'breakout';
+    } else if (emaCross) {
+      sig = '⚡ EMA 7/21 Crossover'; s.tech = 'momentum';
+    }
     s.signal = sig || (s.session && s.session.signal) || s.signal;
 
     if (s.price !== null && s.ma20 !== null && s.ema50 !== null && s.ema200 !== null) {

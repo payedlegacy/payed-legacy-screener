@@ -216,6 +216,117 @@ def candle_patterns(o, h, l, c, po, pc):
     return pats
 
 
+def heikin_ashi(o, h, l, c):
+    """Heikin Ashi: ha_close=(O+H+L+C)/4, ha_open=(ha_open_before+ha_close_before)/2."""
+    n = len(c)
+    if n == 0:
+        return [], [], [], []
+    ha_c = [(o[i] + h[i] + l[i] + c[i]) / 4.0 for i in range(n)]
+    ha_o = [0.0] * n
+    ha_o[0] = (o[0] + c[0]) / 2.0
+    for i in range(1, n):
+        ha_o[i] = (ha_o[i - 1] + ha_c[i - 1]) / 2.0
+    ha_h = [max(h[i], ha_o[i], ha_c[i]) for i in range(n)]
+    ha_l = [min(l[i], ha_o[i], ha_c[i]) for i in range(n)]
+    return ha_o, ha_h, ha_l, ha_c
+
+
+def compute_techniques(o, h, l, c, v, price, change, rsi_val, ma50, ma200,
+                       hi52, div_yield, vol_spike, momentum, ema_cross):
+    """Bank teknik dagangan (5 strategi) dengan syarat jelas + konfirmasi 2 bar.
+
+    Keutamaan: risiko dahulu (tangkapan pisau), kemudian Buy on Breakout /
+    Golden Cross yang perlu konfirmasi, kemudian Buy on Dip dan Heikin Ashi.
+    Semua nilai dikira daripada sejarah harga sebenar (tiada tekaan).
+    """
+    out = {
+        "tech": "neutral", "signal": "NEUTRAL",
+        "haBull": False, "haFlip": False,
+        "goldenCross": False, "goldenBarsAgo": None,
+        "dipBuy": False, "knifeRisk": False, "breakoutBuy": False,
+        "high20": None, "pctHigh20": None, "techScore": 0,
+    }
+    if not c or price is None or price <= 0:
+        return out
+
+    avg_vol = sma(v, 20) or 0
+    vol_ratio = (v[-1] / avg_vol) if avg_vol else 0.0
+    high20 = max(h[-20:]) if len(h) >= 20 else max(h)
+    out["high20"] = round(high20, 4) if high20 else None
+    out["pctHigh20"] = round((price / high20 - 1.0) * 100.0, 2) if high20 else None
+
+    # --- Heikin Ashi: flip = bar sebelum bearish, bar kini bullish (konfirmasi 2 bar)
+    ha_o, ha_h, ha_l, ha_c = heikin_ashi(o, h, l, c)
+    if len(ha_c) >= 3:
+        bull_now = ha_c[-1] > ha_o[-1]
+        bull_prev = ha_c[-2] > ha_o[-2]
+        out["haBull"] = bool(bull_now)
+        out["haFlip"] = bool(bull_now and not bull_prev)
+
+    # --- Golden cross EMA 20/50 yang berlaku dalam 3 bar terakhir
+    e20s, e50s = ema_series(c, 20), ema_series(c, 50)
+    m = min(len(e20s), len(e50s))
+    for k in range(0, 4):
+        i = m - 1 - k
+        if i >= 1 and e20s[i] > e50s[i] and e20s[i - 1] <= e50s[i - 1]:
+            out["goldenCross"] = True
+            out["goldenBarsAgo"] = k
+            break
+
+    # trend asas belum rosak (MA50 tidak jauh di bawah MA200)
+    uptrend = bool(ma50 and ma200 and ma50 >= ma200 * 0.97)
+
+    # --- Buy on Dip: pullback 3%+ dari tinggi 20 hari dalam trend utuh,
+    #     RSI 34-48, dan bar terakhir sudah hijau (harga berhenti jatuh)
+    out["dipBuy"] = bool(rsi_val is not None and 34 <= rsi_val <= 48 and uptrend
+                         and high20 and price <= high20 * 0.97 and c[-1] >= o[-1])
+
+    # --- Tangkapan pisau: terlebih jual ekstrem + jatuh tajam / jauh bawah MA200
+    out["knifeRisk"] = bool(rsi_val is not None and rsi_val < 25
+                            and (change <= -5.0 or (ma200 and price < ma200 * 0.85)))
+
+    # --- Buy on Breakout: volum melonjak + harga di/atas paras tinggi 20 hari + candle hijau
+    out["breakoutBuy"] = bool(vol_spike and high20 and price >= high20 * 0.995
+                              and c[-1] >= o[-1])
+
+    score = 0
+    if out["breakoutBuy"]:
+        score += 35
+    if out["goldenCross"]:
+        score += 25 if out["goldenBarsAgo"] == 0 else 15
+    if out["dipBuy"]:
+        score += 20
+    if out["haFlip"]:
+        score += 15
+    if vol_spike:
+        score += 5
+    out["techScore"] = min(score, 100)
+
+    if out["knifeRisk"]:
+        out["tech"], out["signal"] = "knife", "\U0001F52A Tangkapan Pisau"
+    elif out["breakoutBuy"]:
+        out["tech"], out["signal"] = "breakout", "\U0001F680 Buy on Breakout"
+    elif out["goldenCross"]:
+        out["tech"], out["signal"] = "golden", "\u2728 Golden Cross"
+    elif out["dipBuy"]:
+        out["tech"], out["signal"] = "dip", "\U0001F7E2 Buy on Dip"
+    elif out["haFlip"]:
+        out["tech"], out["signal"] = "ha", "\U0001F56F Heikin Ashi Bullish"
+    elif div_yield and div_yield >= 5.0:
+        out["tech"], out["signal"] = "dividend", "\U0001F4B0 RAJA DIVIDEN"
+    elif vol_spike and momentum:
+        out["tech"], out["signal"] = "breakout", "\U0001F680 Volum Spike & Breakout"
+    elif ema_cross:
+        out["tech"], out["signal"] = "momentum", "\u26A1 EMA 7/21 Crossover"
+    elif hi52 and price >= hi52 * 0.98 and vol_ratio >= 1.2:
+        out["tech"], out["signal"] = "breakout", "\U0001F680 Breakout 52 Minggu"
+    elif div_yield and div_yield >= 3.0:
+        out["tech"], out["signal"] = "dividend", "\U0001F4B0 RAJA DIVIDEN"
+    elif momentum:
+        out["tech"], out["signal"] = "momentum", "\U0001F4C8 Trend Pemulihan"
+    return out
+
+
 def fmt_volume(v):
     try:
         v = float(v)
@@ -515,28 +626,12 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
             else:
                 tv_symbol = f"NASDAQ:{_sym}"
 
-            # ---- isyarat hybrid (kunci dikekalkan utk preset screener) ----
-            signal = "NEUTRAL"
+            # ---- bank teknik dagangan (5 strategi + konfirmasi 2 bar) ----
             state = macd_vals.get("macdState", "")
-            if vol_spike and (ema_cross or momentum):
-                signal = "🚀 Volum Spike & Breakout"
-            elif rsi_val is not None and rsi_val < 35:
-                signal = "🟢 Buy On Dip (Oversold)"
-            elif ema_cross:
-                signal = "⚡ EMA 7/21 Crossover"
-            elif state == "GOLDEN CROSS" or (trend in ("BULLISH KUAT", "BULLISH")
-                                            and state == "BULLISH" and price >= hi52 * 0.97):
-                signal = "✨ GOLDEN CROSS"
-            elif change >= 2.0 and vol_ratio >= 1.5:
-                signal = "🚀 BREAKOUT"
-            elif div_yield >= 5.0:
-                signal = "💰 RAJA DIVIDEN"
-            elif price >= hi52 * 0.98 and vol_ratio >= 1.2:
-                signal = "🚀 BREAKOUT"
-            elif div_yield >= 3.0:
-                signal = "💰 RAJA DIVIDEN"
-            elif momentum:
-                signal = "📈 Trend Pemulihan"
+            tech = compute_techniques(o, h, l, c, v, price, change, rsi_val,
+                                      ma50, ma200, hi52, div_yield,
+                                      vol_spike, momentum, ema_cross)
+            signal = tech["signal"]
 
             data = {
                 "symbol": cfg.get("symbol") or ticker.split(".")[0],
@@ -591,6 +686,18 @@ def fetch_symbol(cfg: dict, retries: int = 3) -> dict:
                 "marketCap": safe_num(info.get("marketCap"), 2),
                 # isyarat & kemas kini
                 "signal": signal,
+                # bank teknik: bendera untuk preset & penapis laman
+                "tech": tech["tech"],
+                "techScore": tech["techScore"],
+                "haBull": tech["haBull"],
+                "haFlip": tech["haFlip"],
+                "goldenCross": tech["goldenCross"],
+                "goldenBarsAgo": tech["goldenBarsAgo"],
+                "dipBuy": tech["dipBuy"],
+                "knifeRisk": tech["knifeRisk"],
+                "breakoutBuy": tech["breakoutBuy"],
+                "high20": tech["high20"],
+                "pctHigh20": tech["pctHigh20"],
                 # ---- Global Mega-Breakout & Volume Surge (global_breakout_momentum_scanner) ----
                 "scannerId": "global_breakout_momentum_scanner",
                 "tvSymbol": tv_symbol,
